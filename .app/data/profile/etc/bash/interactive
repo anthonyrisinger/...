@@ -39,7 +39,7 @@ if [[ -n ${TERM} && ${TERM} != dumb ]]; then
         fi
     fi
     
-    SCREEN_COLORS="`tput colors`"
+    SCREEN_COLORS=$(tput colors)
     if [ -z "$SCREEN_COLORS" ] ; then
         case "$TERM" in
             screen-*color-bce)
@@ -55,7 +55,7 @@ if [[ -n ${TERM} && ${TERM} != dumb ]]; then
                 export TERM=xterm-256color
                 ;;
         esac
-        SCREEN_COLORS=`tput colors`
+        SCREEN_COLORS=$(tput colors)
     fi
     
     if [ -z "$SCREEN_COLORS" ] ; then
@@ -73,7 +73,7 @@ if [[ -n ${TERM} && ${TERM} != dumb ]]; then
                 export TERM=screen
                 ;;
         esac
-        SCREEN_COLORS=`tput colors`
+        SCREEN_COLORS=$(tput colors)
     fi
 
     for x in ~/.ssh/auto.*.pub; do
