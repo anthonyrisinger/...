@@ -76,9 +76,9 @@ if [[ -n ${TERM} && ${TERM} != dumb ]]; then
         SCREEN_COLORS=$(tput colors)
     fi
 
-    for x in ~/.ssh/auto.*.pub; do
-        ssh-add "${x}"
-    done
+    keys=(~/.ssh/auto.*)
+    keys=(${keys[@]//*.pub})
+    [[ ${#keys[@]} -gt 0 ]] && ssh-add "${keys[@]}"
 fi
 
 # If any regex matches, we are on a workstation
