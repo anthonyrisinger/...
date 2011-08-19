@@ -1,9 +1,14 @@
 #!/bin/bash
 
-    export EDITOR="vim"
-    export BROWSER="firefox"
+export EDITOR="vim"
+export BROWSER="firefox"
 
-if [[ -n ${TERM} ]]; then
+if ! ssh-add -l > /dev/null 2>&1; then
+    ssh-agent | head -n2 > ~/.app/data/profile/run/ssh-agent.env
+    . ~/.app/data/profile/run/ssh-agent.env
+fi
+
+if [[ -n ${TERM} && ${TERM} != dumb ]]; then
     if [[ ${TERM} == xterm ]] ; then
         if [ -z "$COLORTERM" ] ; then
             if [ -z "$XTERM_VERSION" ] ; then
@@ -70,12 +75,10 @@ if [[ -n ${TERM} ]]; then
         esac
         SCREEN_COLORS=`tput colors`
     fi
-fi
 
-if ! ssh-add -l > /dev/null 2>&1; then
-    ssh-agent | head -n2 > ~/.app/data/profile/run/ssh-agent.env
-    . ~/.app/data/profile/run/ssh-agent.env
-    ssh-add ~/.ssh/auto.*.pub
+    for x in ~/.ssh/auto.*.pub; do
+        ssh-add "${x}"
+    done
 fi
 
 # If any regex matches, we are on a workstation
