@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export _self+=" .sta.xtfx.net"
+export __self+=" .sta.xtfx.net"
 export PATH="${HOME}/bin:$PATH"
 
-[[ $- == *i* ]] && . ~/.app/data/profile/etc/bash/interactive
+[[ $- == *i* ]] &&
+    [[ -f ~/.app/data/profile/etc/bash/interactive ]] &&
+    . ~/.app/data/profile/etc/bash/interactive
