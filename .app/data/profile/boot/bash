@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export _self+=" .sta.xtfx.net"
+
+export EDITOR="vim"
+export PATH="~/bin:$PATH"
+
+if ! [[ -S ${SSH_AUTH_SOCK} ]]; then
+    . ~/.app/data/profile/run/ssh-agent.env > /dev/null 2>&1
+fi
+
+[[ $- == *i* ]] && . ~/.app/data/profile/etc/bash/interactive

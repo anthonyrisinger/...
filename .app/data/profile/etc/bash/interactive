@@ -1,0 +1,211 @@
+#!/bin/bash
+
+if [ "$TERM" = "xterm" ] ; then
+    if [ -z "$COLORTERM" ] ; then
+        if [ -z "$XTERM_VERSION" ] ; then
+            echo "Warning: Terminal wrongly calling itself 'xterm'."
+        else
+            case "$XTERM_VERSION" in
+            "XTerm(256)") TERM="xterm-256color" ;;
+            "XTerm(88)") TERM="xterm-88color" ;;
+            "XTerm") ;;
+            *)
+                echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
+                ;;
+            esac
+        fi
+    else
+        case "$COLORTERM" in
+            gnome-terminal)
+                # Those crafty Gnome folks require you to check COLORTERM,
+                # but don't allow you to just *favor* the setting over TERM.
+                # Instead you need to compare it and perform some guesses
+                # based upon the value. This is, perhaps, too simplistic.
+                TERM="gnome-256color"
+                ;;
+            *)
+                echo "Warning: Unrecognized COLORTERM: $COLORTERM"
+                ;;
+        esac
+    fi
+fi
+
+SCREEN_COLORS="`tput colors`"
+if [ -z "$SCREEN_COLORS" ] ; then
+    case "$TERM" in
+        screen-*color-bce)
+            echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
+            export TERM=screen-bce
+            ;;
+        *-88color)
+            echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
+            export TERM=xterm-88color
+            ;;
+        *-256color)
+            echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
+            export TERM=xterm-256color
+            ;;
+    esac
+    SCREEN_COLORS=`tput colors`
+fi
+
+if [ -z "$SCREEN_COLORS" ] ; then
+    case "$TERM" in
+        gnome*|xterm*|konsole*|aterm|[Ee]term)
+            echo "Unknown terminal $TERM. Falling back to 'xterm'."
+            export TERM=xterm
+            ;;
+        rxvt*)
+            echo "Unknown terminal $TERM. Falling back to 'rxvt'."
+            export TERM=rxvt
+            ;;
+        screen*)
+            echo "Unknown terminal $TERM. Falling back to 'screen'."
+            export TERM=screen
+            ;;
+    esac
+    SCREEN_COLORS=`tput colors`
+fi
+
+if ! ssh-add -l > /dev/null 2>&1; then
+    ssh-agent | head -n2 > ~/.app/data/profile/run/ssh-agent.env
+    . ~/.app/data/profile/run/ssh-agent.env
+    ssh-add ~/.ssh/auto.*.pub
+fi
+
+# If any regex matches, we are on a workstation
+export _self+=" .sta.3vera.com"
+
+# Make an array of the above
+read -a __self -r <<<"${_self}"
+
+# PS1 special sequences
+#  0   reset/default
+#  1   bold
+#  5   blink
+#  30  fg black
+#  31  fg red
+#  32  fg green
+#  33  fg brown
+#  34  fg blue
+#  35  fg purple
+#  36  fg cyan
+#  37  fg gray
+#  40  bg black
+#  41  bg red
+#  42  bg green
+#  43  bg brown
+#  44  bg blue
+#  45  bg purple
+#  46  bg cyan
+#  47  bg gray
+#  \u  username
+#  \h  hostname
+#  \$  terminal
+#  \W  pwd /
+#  \w  pwd ~
+
+_esc () { printf '\[\033[0%sm\]' "$(printf ';%s' "${@}")"; }
+
+_ps1 () { (
+
+    _self_re () { printf '%s$^$' "$(printf '%s|' "${__self[@]}")"; }
+
+    alias e=_esc
+    su=false us=false
+    q='2>/dev/null'
+
+    [[ ${EUID} == 0 ]] && su=true
+    [[ ${HOSTNAME} =~ $(_self_re) ]] && us=true
+
+    case "${su},${us}" in
+        true,true) dom_c=(1 31);;
+        true,false) dom_c=(30 41);;
+        false,true) dom_c=(32);;
+        *) dom_c=(30 42);;
+    esac
+
+    dom="$(e ${dom_c[@]})@\h"
+    $su && usr="${dom}" ||
+           usr="$(e 32)\u${dom}"
+    hsh="$(e 37)#$(e 0) "
+
+    echo "$(e 0)$(e 33)\
+  ┌ $(e 1 32)\$(date +%l:%M%P) ${usr} $(e 0)$(e 33)
+  └ $(e 1 34)\w$(e 0)
+  $(e 0)$(e 33)\$(__git_ps1 '$(e 36)(%s)$(e 0) ' ${q})${hsh}"
+
+) }
+
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
+shopt -s checkwinsize
+
+# Enable history appending instead of overwriting.
+shopt -s histappend
+
+# Change the window title of X terminals
+case ${TERM} in
+	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		;;
+	screen)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		;;
+esac
+
+use_color=false
+
+# Set colorful PS1 only on colorful terminals.
+# dircolors --print-database uses its own built-in database
+# instead of using /etc/DIR_COLORS.  Try to use the external file
+# first to take advantage of user additions.  Use internal bash
+# globbing instead of external grep binary.
+safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
+match_lhs=""
+[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+[[ -z ${match_lhs}    ]] \
+	&& type -P dircolors >/dev/null \
+	&& match_lhs=$(dircolors --print-database)
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+if ${use_color} ; then
+	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+	if type -P dircolors >/dev/null ; then
+		if [[ -f ~/.dir_colors ]] ; then
+			eval $(dircolors -b ~/.dir_colors)
+		elif [[ -f /etc/DIR_COLORS ]] ; then
+			eval $(dircolors -b /etc/DIR_COLORS)
+		fi
+	fi
+    PS1=$(_ps1)
+	alias ls='ls --color=auto'
+	alias grep='grep --colour=auto'
+else
+	if [[ ${EUID} == 0 ]] ; then
+		# show root@ when we don't have colors
+		PS1='\u@\h \W \$ '
+	else
+		PS1='\u@\h \w \$ '
+	fi
+fi
+
+export HISTSIZE=25000
+export HISTIGNORE="&:[bf]g: *:exit"
+
+# Try to keep environment pollution down, EPA loves us.
+unset use_color safe_term match_lhs
+
+[[ -r ~/.bash_aliases ]] &&
+    . ~/.bash_aliases
+
+[[ -z ${BASH_COMPLETION} ]] &&
+    [[ -r /etc/bash_completion ]] &&
+        . /etc/bash_completion
+
+alias tmux='tmux -2'
+
+# vim:set syntax=sh:
