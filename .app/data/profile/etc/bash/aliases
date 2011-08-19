@@ -1,0 +1,6 @@
+#!/bin/bash
+
+l () { ls -l "${@}"; }
+s () { ssh -C "${@}"; }
+
+complete -F _ssh s

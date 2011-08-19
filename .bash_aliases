@@ -1,0 +1,1 @@
+.app/data/profile/etc/bash/aliases
