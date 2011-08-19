@@ -1,3 +1,7 @@
 #!/bin/sh
 
+shopt -s nullglob
+
+. ~/.app/run/profile-ssh-agent.env > /dev/null 2>&1
+
 [ -f ~/.app/data/profile/etc/bash/interactive ] && . ~/.app/data/profile/etc/bash/interactive
