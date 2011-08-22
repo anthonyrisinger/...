@@ -222,6 +222,4 @@ unset use_color safe_term match_lhs
     [[ -r /etc/bash_completion ]] &&
         . /etc/bash_completion
 
-alias tmux='tmux -2'
-
 # vim:set syntax=sh:
