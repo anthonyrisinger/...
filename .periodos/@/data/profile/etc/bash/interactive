@@ -3,12 +3,21 @@
 export EDITOR="vim"
 export BROWSER="firefox"
 
-if ! ssh-add -l > /dev/null 2>&1; then
+if [[ x${SSH_AUTH_SOCK}x${SSH_AUTH_SOCK} == "xx" ]]; then
     ssh-agent | head -n2 > ~/.periodos/@/run/profile-ssh-agent.env
-    . ~/.periodos/@/run/profile-ssh-agent.env
+else
+    cat <<EOF > ~/.periodos/@/run/profile-ssh-agent.env
+SSH_AUTH_SOCK=${SSH_AUTH_SOCK}; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=${SSH_AGENT_PID}; export SSH_AGENT_PID;
+EOF
 fi
 
-if [[ -n ${TERM} && ${TERM} != dumb ]]; then
+. ~/.periodos/@/run/profile-ssh-agent.env
+
+if [[ ${TERM} && ${TERM} == dumb ]]; then
+    # BAIL!!!
+    exit 0
+else
     if [[ ${TERM} == xterm ]] ; then
         if [ -z "$COLORTERM" ] ; then
             if [ -z "$XTERM_VERSION" ] ; then
@@ -76,9 +85,8 @@ if [[ -n ${TERM} && ${TERM} != dumb ]]; then
         SCREEN_COLORS=$(tput colors)
     fi
 
-    keys=(~/.ssh/auto.*)
-    keys=(${keys[@]//*.pub})
-    [[ ${#keys[@]} -gt 0 ]] && ssh-add "${keys[@]}"
+    ssh-add $(comm -13 <(ssh-add -l | cut -d\  -f3 |sort) <(ls -1 .ssh/auto.* | grep -v '.pub$'))
+
 fi
 
 # If any regex matches, we are on a workstation
