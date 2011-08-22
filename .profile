@@ -1,1 +1,1 @@
-.app/boot/profile
+.periodos/@/boot/profile
