@@ -1,18 +1,24 @@
 #!/bin/bash
 
+
 export EDITOR="vim"
 export BROWSER="firefox"
 
 
-if [[ x${SSH_AUTH_SOCK}x${SSH_AGENT_PID} == "xx" ]]; then
-    eval $(ssh-agent) > /dev/null
+if ! ssh-add -l > /dev/null 2>&1; then
+    unset SSH_AUTH_SOCK SSH_AGENT_PID
+    . ~/.periodos/@/run/profile-ssh-agent.env > /dev/null 2>&1
+    if ((${?} == 0)) && ! ssh-add -l > /dev/null 2>&1; then
+        eval $(ssh-agent) > /dev/null
+    fi
 fi
 
-    cat <<: > ~/.periodos/@/run/profile-ssh-agent.env
+
+cat <<: > ~/.periodos/@/run/profile-ssh-agent.env
 SSH_AUTH_SOCK=${SSH_AUTH_SOCK}; export SSH_AUTH_SOCK;
 SSH_AGENT_PID=${SSH_AGENT_PID}; export SSH_AGENT_PID;
 :
-. ~/.periodos/@/run/profile-ssh-agent.env
+
 
 if [[ ${TERM} && ${TERM} == dumb ]]; then
     # BAIL!!!
