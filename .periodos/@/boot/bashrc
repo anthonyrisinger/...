@@ -1,7 +1,7 @@
 #!/bin/bash
 
-. ~/.app/run/profile-ssh-agent.env > /dev/null 2>&1
+. ~/.periodos/@/run/profile-ssh-agent.env > /dev/null 2>&1
 
 [[ $- == *i* ]] &&
-    [[ -f ~/.app/data/profile/etc/bash/interactive ]] &&
-    . ~/.app/data/profile/etc/bash/interactive
+    [[ -f ~/.periodos/@/data/profile/etc/bash/interactive ]] &&
+    . ~/.periodos/@/data/profile/etc/bash/interactive

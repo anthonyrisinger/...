@@ -4,5 +4,5 @@ export __self+=" .sta.xtfx.net"
 export PATH="${HOME}/bin:$PATH"
 
 [[ $- == *i* ]] &&
-    [[ -f ~/.app/data/profile/etc/bash/interactive ]] &&
-    . ~/.app/data/profile/etc/bash/interactive
+    [[ -f ~/.periodos/@/data/profile/etc/bash/interactive ]] &&
+    . ~/.periodos/@/data/profile/etc/bash/interactive
