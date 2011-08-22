@@ -3,13 +3,14 @@
 export EDITOR="vim"
 export BROWSER="firefox"
 
+
 if [[ x${SSH_AUTH_SOCK}x${SSH_AUTH_SOCK} == "xx" ]]; then
     ssh-agent | head -n2 > ~/.periodos/@/run/profile-ssh-agent.env
 else
-    cat <<EOF > ~/.periodos/@/run/profile-ssh-agent.env
+    cat <<'' > ~/.periodos/@/run/profile-ssh-agent.env
 SSH_AUTH_SOCK=${SSH_AUTH_SOCK}; export SSH_AUTH_SOCK;
 SSH_AGENT_PID=${SSH_AGENT_PID}; export SSH_AGENT_PID;
-EOF
+
 fi
 
 . ~/.periodos/@/run/profile-ssh-agent.env
