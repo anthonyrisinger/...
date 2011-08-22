@@ -5,7 +5,7 @@ export BROWSER="firefox"
 
 
 if [[ x${SSH_AUTH_SOCK}x${SSH_AGENT_PID} == "xx" ]]; then
-    ssh-agent | head -n2 > ~/.periodos/@/run/profile-ssh-agent.env
+    eval $(ssh-agent) > /dev/null
 fi
 
     cat <<: > ~/.periodos/@/run/profile-ssh-agent.env
