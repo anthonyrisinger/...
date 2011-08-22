@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ -f ~/.periodos/@/data/profile/boot/"${SHELL##*/}" ] && . ~/.periodos/@/data/profile/boot/"${SHELL##*/}"

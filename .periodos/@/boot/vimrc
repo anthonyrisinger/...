@@ -1,4 +1,4 @@
-set runtimepath=~/.app/data/profile/etc/vim,$VIMRUNTIME
+set runtimepath=~/.periodos/@/data/profile/etc/vim,$VIMRUNTIME
 
 " Make Vim behave better
 set nocompatible
@@ -94,7 +94,7 @@ set noswapfile
 
 "Persistent undo
 try
-    set undodir=~/.app/data/profile/etc/vim/undodir
+    set undodir=~/.periodos/@/data/profile/etc/vim/undodir
     set undofile
 catch
 endtry

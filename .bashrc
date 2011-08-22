@@ -1,1 +1,1 @@
-.app/boot/bashrc
+.periodos/@/boot/bashrc

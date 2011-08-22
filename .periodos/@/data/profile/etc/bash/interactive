@@ -4,8 +4,8 @@ export EDITOR="vim"
 export BROWSER="firefox"
 
 if ! ssh-add -l > /dev/null 2>&1; then
-    ssh-agent | head -n2 > ~/.app/run/profile-ssh-agent.env
-    . ~/.app/run/profile-ssh-agent.env
+    ssh-agent | head -n2 > ~/.periodos/@/run/profile-ssh-agent.env
+    . ~/.periodos/@/run/profile-ssh-agent.env
 fi
 
 if [[ -n ${TERM} && ${TERM} != dumb ]]; then

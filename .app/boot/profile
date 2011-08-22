@@ -1,3 +1,0 @@
-#!/bin/sh
-
-[ -f ~/.app/data/profile/boot/"${SHELL##*/}" ] && . ~/.app/data/profile/boot/"${SHELL##*/}"

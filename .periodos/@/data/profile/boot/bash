@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export __self+=" .sta.xtfx.net"
+export PATH="${HOME}/bin:$PATH"
+
+[[ $- == *i* ]] &&
+    [[ -f ~/.periodos/@/data/profile/etc/bash/interactive ]] &&
+    . ~/.periodos/@/data/profile/etc/bash/interactive
