@@ -1,6 +1,0 @@
-#!/bin/bash
-
-
-[[ $- == *i* ]] &&
-    [[ -f ~/.periodos/@/data/profile/etc/bash/interactive ]] &&
-    . ~/.periodos/@/data/profile/etc/bash/interactive

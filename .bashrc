@@ -1,1 +1,1 @@
-.periodos/@/boot/bashrc
+.../self/boot/bashrc

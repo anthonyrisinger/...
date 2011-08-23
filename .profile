@@ -1,1 +1,1 @@
-.periodos/@/boot/profile
+.../self/boot/profile

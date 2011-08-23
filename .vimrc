@@ -1,1 +1,1 @@
-.periodos/@/boot/vimrc
+.../self/boot/vimrc
