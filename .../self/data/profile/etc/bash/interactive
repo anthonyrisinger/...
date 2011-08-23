@@ -215,14 +215,18 @@ else
 	fi
 fi
 
-export HISTSIZE=25000
-export HISTIGNORE="&:[bf]g: *:exit"
 
-# Try to keep environment pollution down, EPA loves us.
-unset use_color safe_term match_lhs
 
-[[ -r ~/.bash_aliases ]] &&
-    . ~/.bash_aliases
+HISTCONTROL=ignoreboth:erasedups
+HISTFILE=~/.../self/var/cache/bash/history
+HISTFILESIZE=50000
+HISTIGNORE='[bf]g:exit'
+HISTSIZE=50000
+HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
+
+
+. ~/.../self/data/profile/etc/bash/aliases
+
 
 [[ -z ${BASH_COMPLETION} ]] &&
     [[ -r /etc/bash_completion ]] &&
