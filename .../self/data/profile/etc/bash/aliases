@@ -1,10 +1,9 @@
 #!/bin/bash
 
-l () { ls -l "${@}"; }
-s () { ssh -C "${@}"; }
-
-la () { ls -la "${@}"; }
-w3rk () { ssh -C -carcfour -p22065 w3rk; }
+alias l='ls -l'
+alias ll='ls -la'
+alias w3rk='ssh -C -carcfour -p22065 w3rk'
+alias 3knock='(for x in 2178 5621 5620; do ncat -w1 207.67.118.240 $x; sleep 0.5; done;)'
 
 s.hypervisor () { _ssh_mdns root ${FUNCNAME}; }
 #s.gateway () { _ssh_mdns anthony ${FUNCNAME}; }
@@ -14,6 +13,5 @@ s.s101 () { _ssh_mdns emily ${FUNCNAME}; }
 s.git () { _ssh_mdns git ${FUNCNAME}; }
 f.git () { _ssh_fs git ${FUNCNAME}; }
 
-3knock () { for x in 2178 5621 5620; do ncat -w1 207.67.118.240 $x; sleep 0.5; done; }
-
+s () { ssh -C "${@}"; }
 complete -F _ssh s
