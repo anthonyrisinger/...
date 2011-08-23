@@ -1,7 +1,5 @@
-/*
-!/.git*
-!/...
+*
+!/.../
 /.../*
 !/.../self/
-/.../self/run
-/.../self/data/profile/etc/vim/.netrwhist
+!.git*
