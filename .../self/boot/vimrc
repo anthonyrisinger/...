@@ -1,3 +1,5 @@
+let g:netrw_home = '~/.../self/var/cache/vim'
+
 set runtimepath=~/.../self/data/profile/etc/vim,$VIMRUNTIME
 
 " Make Vim behave better
