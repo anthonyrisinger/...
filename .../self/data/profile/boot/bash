@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export __self+=" .sta.xtfx.net"
+export _self+=" .sta.xtfx.net"
 export PATH="${HOME}/bin:$PATH"
 
 [[ $- == *i* ]] &&
