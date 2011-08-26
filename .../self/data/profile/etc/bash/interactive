@@ -1,105 +1,90 @@
 #!/bin/bash
 
 
+[[ ${TERM} && ${TERM} == dumb ]] && exit 0
+
+
 export EDITOR="vim"
 export BROWSER="firefox"
 
 
+_tmp_SSH_AUTH_SOCK="${SSH_AUTH_SOCK}"; _tmp_SSH_AGENT_PID="${SSH_AGENT_PID}"
+export SSH_AUTH_SOCK="${ELLIPSIS}"run/ssh/agent.* SSH_AGENT_PID="${SSH_AUTH_SOCK##*.}"
+
+
 if ! ssh-add -l > /dev/null 2>&1; then
+    rm -f "${ELLIPSIS}"run/ssh/agent.*
     unset SSH_AUTH_SOCK SSH_AGENT_PID
-    . ~/.../self/run/profile-ssh-agent.env > /dev/null 2>&1
-    if ((${?} == 0)) && ! ssh-add -l > /dev/null 2>&1; then
-        eval $(ssh-agent) > /dev/null
-    fi
+    export SSH_AUTH_SOCK="${_tmp_SSH_AUTH_SOCK}" SSH_AGENT_PID="${_tmp_SSH_AGENT_PID}"
+    ssh-add -l > /dev/null 2>&1 ||
+        eval $(ssh-agent -s) > /dev/null
+    ln -s "${SSH_AUTH_SOCK}" "${ELLIPSIS}"run/ssh/agent.${SSH_AGENT_PID}
 fi
 
 
-cat <<: > ~/.../self/run/profile-ssh-agent.env
-SSH_AUTH_SOCK=${SSH_AUTH_SOCK}; export SSH_AUTH_SOCK;
-SSH_AGENT_PID=${SSH_AGENT_PID}; export SSH_AGENT_PID;
-:
-
-
-if [[ ${TERM} && ${TERM} == dumb ]]; then
-    # BAIL!!!
-    exit 0
-else
-    if [[ ${TERM} == xterm ]] ; then
-        if [ -z "$COLORTERM" ] ; then
-            if [ -z "$XTERM_VERSION" ] ; then
-                echo "Warning: Terminal wrongly calling itself 'xterm'."
-            else
-                case "$XTERM_VERSION" in
-                "XTerm(256)") TERM="xterm-256color" ;;
-                "XTerm(88)") TERM="xterm-88color" ;;
-                "XTerm") ;;
-                *)
-                    echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
-                    ;;
-                esac
-            fi
+if [[ ${TERM} == xterm ]] ; then
+    if [[ -z ${COLORTERM} ]] ; then
+        if [[ -z ${XTERM_VERSION} ]] ; then
+            echo "warn: terminal wrongly calling itself 'xterm'"
         else
-            case "$COLORTERM" in
-                gnome-terminal)
-                    # Those crafty Gnome folks require you to check COLORTERM,
-                    # but don't allow you to just *favor* the setting over TERM.
-                    # Instead you need to compare it and perform some guesses
-                    # based upon the value. This is, perhaps, too simplistic.
-                    TERM="gnome-256color"
-                    ;;
-                *)
-                    echo "Warning: Unrecognized COLORTERM: $COLORTERM"
-                    ;;
+            case "${XTERM_VERSION}" in
+            "XTerm(256)") TERM="xterm-256color" ;;
+            "XTerm(88)") TERM="xterm-88color" ;;
+            "XTerm") ;;
+            *) echo "warn: unrecognized XTERM_VERSION: ${XTERM_VERSION}" ;;
             esac
         fi
-    fi
-    
-    SCREEN_COLORS=$(tput colors)
-    if [ -z "$SCREEN_COLORS" ] ; then
-        case "$TERM" in
-            screen-*color-bce)
-                echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
-                export TERM=screen-bce
-                ;;
-            *-88color)
-                echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
-                export TERM=xterm-88color
-                ;;
-            *-256color)
-                echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
-                export TERM=xterm-256color
-                ;;
+    else
+        case "${COLORTERM}" in
+            gnome-terminal) TERM="gnome-256color" ;;
+            *) echo "warn: unrecognized COLORTERM: ${COLORTERM}" ;;
         esac
-        SCREEN_COLORS=$(tput colors)
     fi
-    
-    if [ -z "$SCREEN_COLORS" ] ; then
-        case "$TERM" in
-            gnome*|xterm*|konsole*|aterm|[Ee]term)
-                echo "Unknown terminal $TERM. Falling back to 'xterm'."
-                export TERM=xterm
-                ;;
-            rxvt*)
-                echo "Unknown terminal $TERM. Falling back to 'rxvt'."
-                export TERM=rxvt
-                ;;
-            screen*)
-                echo "Unknown terminal $TERM. Falling back to 'screen'."
-                export TERM=screen
-                ;;
-        esac
-        SCREEN_COLORS=$(tput colors)
-    fi
-
-    ssh-add $(comm -13 <(ssh-add -l | cut -d\  -f3 |sort) <(ls -1 .ssh/auto.* | grep -v '.pub$'))
-
 fi
 
+SCREEN_COLORS=$(tput colors)
+if [[ -z ${SCREEN_COLORS} ]] ; then
+    case "${TERM}" in
+        screen-*color-bce)
+            echo "warn: unknown terminal ${TERM}, falling back to 'screen-bce'"
+            export TERM=screen-bce
+            ;;
+        *-88color)
+            echo "warn: unknown terminal ${TERM}, falling back to 'xterm-88color'"
+            export TERM=xterm-88color
+            ;;
+        *-256color)
+            echo "warn: unknown terminal ${TERM}, falling back to 'xterm-256color'"
+            export TERM=xterm-256color
+            ;;
+    esac
+    SCREEN_COLORS=$(tput colors)
+fi
+
+if [[ -z "$SCREEN_COLORS" ]] ; then
+    case "${TERM}" in
+        gnome*|xterm*|konsole*|aterm|[Ee]term)
+            echo "warn: unknown terminal ${TERM}, falling back to 'xterm'"
+            export TERM=xterm
+            ;;
+        rxvt*)
+            echo "warn: unknown terminal ${TERM}, falling back to 'rxvt'"
+            export TERM=rxvt
+            ;;
+        screen*)
+            echo "warn: unknown terminal ${TERM}, falling back to 'screen'"
+            export TERM=screen
+            ;;
+    esac
+    SCREEN_COLORS=$(tput colors)
+fi
+
+
 # If any regex matches, we are on a workstation
-export _self+=" .sta.3vera.com"
+export ELLIPSIS_HOSTS+=" .sta.3vera.com"
 
 # Make an array of the above
-read -a __self -r <<<"${_self}"
+read -a __self -r <<<"${ELLIPSIS_HOSTS}"
 
 # PS1 special sequences
 #  0   reset/default
@@ -218,14 +203,14 @@ fi
 
 
 HISTCONTROL=ignoreboth:erasedups
-HISTFILE=~/.../self/var/cache/bash/history
+HISTFILE=${ELLIPSIS}var/cache/bash/history
 HISTFILESIZE=50000
 HISTIGNORE='[bf]g:exit'
 HISTSIZE=50000
 HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 
 
-. ~/.../self/data/profile/etc/bash/aliases
+. ${ELLIPSIS}data/profile/etc/bash/aliases
 
 
 [[ -z ${BASH_COMPLETION} ]] &&
