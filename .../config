@@ -11,3 +11,5 @@
 	merge = refs/heads/ellipsis
 [receive]
 	denyCurrentBranch = ignore
+[http]
+	sslVerify = false
