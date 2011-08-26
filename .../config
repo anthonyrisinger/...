@@ -9,3 +9,5 @@
 [branch "ellipsis"]
 	remote = origin
 	merge = refs/heads/ellipsis
+[receive]
+	denyCurrentBranch = ignore
