@@ -4,7 +4,6 @@
 !/.../
 /.../srv/*
 !/.../srv/config
-!/.../srv/HEAD
 !/.../srv/info/
 !/.../srv/objects
 !/.../srv/refs
