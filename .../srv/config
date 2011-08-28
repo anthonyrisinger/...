@@ -1,0 +1,13 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+    worktree = worktree
+[branch "srv"]
+	remote = origin
+	merge = refs/heads/srv
+[receive]
+	denyCurrentBranch = ignore
+[http]
+	sslVerify = false

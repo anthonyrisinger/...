@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+    worktree = .
+[remote "origin"]
+	url = https://github.com/xtfxme/ellipsis.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "config"]
+	remote = origin
+	merge = refs/heads/config
+[receive]
+	denyCurrentBranch = ignore
+[http]
+	sslVerify = false
