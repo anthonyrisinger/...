@@ -29,6 +29,5 @@ triknock () {
 }
 
 s () { command ssh "${@}"; }
-s.gateway () { s anthony@10.10.10.1; }
 
 complete -F _ssh s
