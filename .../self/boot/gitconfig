@@ -3,3 +3,12 @@
 	email = anthony@xtfx.me
 [color]
 	ui = auto
+[format]
+	signoff = true
+[sendemail]
+	smtpserver = smtp.gmail.com
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = anthony@xtfx.me
+	chainreplyto = false
+	confirm = auto
