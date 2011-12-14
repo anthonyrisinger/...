@@ -12,6 +12,7 @@ _tmp_SSH_AUTH_SOCK="${SSH_AUTH_SOCK}"; _tmp_SSH_AGENT_PID="${SSH_AGENT_PID}"
 export SSH_AUTH_SOCK="${ELLIPSIS}"run/ssh/agent.* SSH_AGENT_PID="${SSH_AUTH_SOCK##*.}"
 
 
+<<'COMMENT'
 if ! ssh-add -l > /dev/null 2>&1; then
     rm -f "${ELLIPSIS}"run/ssh/agent.*
     unset SSH_AUTH_SOCK SSH_AGENT_PID
@@ -20,7 +21,7 @@ if ! ssh-add -l > /dev/null 2>&1; then
         eval $(ssh-agent) > /dev/null
     ln -s "${SSH_AUTH_SOCK}" "${ELLIPSIS}"run/ssh/agent.${SSH_AGENT_PID}
 fi
-
+COMMENT
 
 if [[ ${TERM} == xterm ]] ; then
     if [[ -z ${COLORTERM} ]] ; then
