@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+[[ -r /etc/bash.bashrc ]] &&
+    . /etc/bash.bashrc
 [[ ${TERM} && ${TERM} == dumb ]] && exit 0
 
 
@@ -211,11 +213,8 @@ HISTSIZE=50000
 HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 
 
-. ${ELLIPSIS}data/profile/etc/bash/aliases
+[[ -r ${ELLIPSIS}data/profile/etc/bash/aliases ]] &&
+    . ${ELLIPSIS}data/profile/etc/bash/aliases
 
-
-[[ -z ${BASH_COMPLETION} ]] &&
-    [[ -r /etc/bash_completion ]] &&
-        . /etc/bash_completion
 
 # vim:set syntax=sh:
