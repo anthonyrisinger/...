@@ -4,9 +4,8 @@
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = https://github.com/xtfxme/ellipsis.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
 	url = https://github.com/xtfxme/...
+	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "ellipsis"]
 	remote = origin
 	merge = refs/heads/ellipsis
