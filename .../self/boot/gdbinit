@@ -1,0 +1,9 @@
+set history filename ~/.../self/var/cache/gdb/history
+set history save on
+set height 0
+set print addr on
+set print array on
+set print pretty on
+set print union on
+set print object on
+set breakpoint pending on
