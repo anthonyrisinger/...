@@ -13,5 +13,3 @@
 	denyCurrentBranch = ignore
 [http]
 	sslVerify = false
-[credential "https://github.com"]
-	username = xtfxme

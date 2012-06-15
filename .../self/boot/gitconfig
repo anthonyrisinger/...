@@ -12,3 +12,5 @@
 	smtpuser = anthony@xtfx.me
 	chainreplyto = false
 	confirm = auto
+[credential "https://github.com"]
+	username = xtfxme
