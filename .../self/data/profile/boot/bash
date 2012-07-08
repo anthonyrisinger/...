@@ -1,17 +1,28 @@
 #!/bin/bash
 
+
 declare -x PATH="${HOME}/bin:$PATH" \
            ELLIPSIS=~/.../self/ \
            ELLIPSIS_HOSTS+=" .sta.xtfx.net"
 
-declare -x TMPDIR=/tmp/${USER}-tmp-$(head -c 8 < /etc/machine-id)
 
-! [[ -d ${TMPDIR} ]] &&
-    mkdir --mode=0700 ${TMPDIR} &&
-    mkdir ${TMPDIR}/{dl,misc}
-! [[ -d ~/tmp ]] &&
-    ln -s ${TMPDIR} ~/tmp
+if [[ $- == *i* ]]; then
+    declare -x TMPDIR=/tmp/${USER}-tmp-$(head -c 8 < /etc/machine-id)
 
-[[ $- == *i* ]] &&
+    ! [[ -d ${TMPDIR} ]] &&
+        mkdir --mode=0700 ${TMPDIR} &&
+        mkdir ${TMPDIR}/{dl,misc}
+    ! [[ -d ~/tmp ]] &&
+        ln -s ${TMPDIR} ~/tmp
+
+    [[ -f ~/.../config && ${UID} == ${EUID} ]] &&
+        ( declare -x GIT_DIR=${HOME}/...
+          ref0=$(git rev-parse HEAD)
+          git pull
+          ref1=$(git rev-parse HEAD)
+          [[ ${ref0} != ${ref1} ]] ) &&
+        exec ${BASH}
+
     [[ -f ${ELLIPSIS}data/profile/etc/bash/interactive ]] &&
     . ${ELLIPSIS}data/profile/etc/bash/interactive
+fi

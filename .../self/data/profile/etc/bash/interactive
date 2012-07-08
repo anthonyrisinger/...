@@ -7,14 +7,6 @@
 [[ ${TERM} && ${TERM} == dumb ]] &&
     exit 0
 
-[[ -f ~/.../config && ${UID} == ${EUID} ]] &&
-    ( declare -x GIT_DIR=${HOME}/...
-      ref0=$(git rev-parse HEAD)
-      git pull
-      ref1=$(git rev-parse HEAD)
-      [[ ${ref0} != ${ref1} ]] ) &&
-    exec ${BASH}
-
 
 export EDITOR="vim"
 export BROWSER="firefox"
