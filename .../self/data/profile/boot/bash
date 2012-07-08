@@ -7,7 +7,7 @@ declare -x PATH="${HOME}/bin:$PATH" \
 
 
 if [[ $- == *i* ]]; then
-    declare -x TMPDIR=/tmp/${USER}-tmp-$(head -c 8 < /etc/machine-id)
+    declare -x TMPDIR=/tmp/$(head -c 8 < /etc/machine-id)-tmp-${USER}
 
     ! [[ -d ${TMPDIR} ]] &&
         mkdir --mode=0700 ${TMPDIR} &&
