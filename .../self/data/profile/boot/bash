@@ -8,9 +8,9 @@ declare -x TMPDIR=/tmp/${USER}-tmp-$(head -c 8 < /etc/machine-id)
 
 ! [[ -d ${TMPDIR} ]] &&
     mkdir --mode=0700 ${TMPDIR} &&
-    mkdir ${TMPDIR}/{dl,misc} &&
-    ! [[ -d ~/tmp ]] &&
-        ln -s ${TMPDIR} ~/tmp
+    mkdir ${TMPDIR}/{dl,misc}
+! [[ -d ~/tmp ]] &&
+    ln -s ${TMPDIR} ~/tmp
 
 [[ $- == *i* ]] &&
     [[ -f ${ELLIPSIS}data/profile/etc/bash/interactive ]] &&
