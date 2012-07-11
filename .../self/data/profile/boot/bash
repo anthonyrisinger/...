@@ -12,7 +12,7 @@ if [[ $- == *i* ]]; then
     declare -x _TMPDIR=/run/user/${USER}/tmp/
 
     ! [[ -d ${_TMPDIR} ]] &&
-        mkdir --mode=0700 ${_TMPDIR} &&
+        mkdir --parents --mode=0700 ${_TMPDIR} &&
         mkdir ${_TMPDIR}/{dl,misc}
     ! [[ $(readlink -f ${TMPDIR})/ == ${_TMPDIR} ]] &&
         rm -f ${TMPDIR%/} &&
