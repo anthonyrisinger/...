@@ -8,8 +8,11 @@
     exit 0
 
 
-export EDITOR="vim"
-export BROWSER="firefox"
+declare -x EDITOR='vim' \
+           BROWSER='firefox' \
+           WORKON_HOME=~/.local/share/venv/
+mkdir -p ${WORKON_HOME}
+. $(type -p virtualenvwrapper.sh || echo /dev/null)
 
 
 <<'COMMENT'
