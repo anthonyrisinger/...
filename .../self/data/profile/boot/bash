@@ -7,16 +7,19 @@ declare -x PATH="${HOME}/bin:$PATH" \
 
 
 if [[ $- == *i* ]]; then
-    declare -x TMPDIR=/tmp/$(head -c 8 < /etc/machine-id)-tmp-${USER}
+    declare -x HOME=${HOME%%/}/
+    declare -x TMPDIR=${HOME}tmp/
+    declare -x _TMPDIR=/run/user/${USER}/tmp/
 
-    ! [[ -d ${TMPDIR} ]] &&
-        mkdir --mode=0700 ${TMPDIR} &&
-        mkdir ${TMPDIR}/{dl,misc}
-    ! [[ -d ~/tmp ]] &&
-        ln -s ${TMPDIR} ~/tmp
+    ! [[ -d ${_TMPDIR} ]] &&
+        mkdir --mode=0700 ${_TMPDIR} &&
+        mkdir ${_TMPDIR}/{dl,misc}
+    ! [[ $(readlink -f ${TMPDIR})/ == ${_TMPDIR} ]] &&
+        rm -f ${TMPDIR%/} &&
+        ln -s ${_TMPDIR} ${TMPDIR%/}
 
     [[ -f ~/.../config && ${UID} == ${EUID} ]] &&
-        ( declare -x GIT_DIR=${HOME}/...
+        ( declare -x GIT_DIR=${HOME}...
           ref0=$(git rev-parse HEAD)
           git pull
           ref1=$(git rev-parse HEAD)
