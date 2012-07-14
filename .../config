@@ -13,7 +13,7 @@
 	logallrefupdates = true
 [remote "origin"]
 	url = self://...
-	fetch = +refs/heads/*:refs/remotes/origin/*
+	fetch = refs/heads/*:refs/remotes/origin/*
 [branch "ellipsis"]
 	remote = origin
 	merge = refs/heads/ellipsis
