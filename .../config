@@ -1,7 +1,11 @@
+# [...] ellipsis
+
 [include]
 	path = config-local
 [url "https://github.com/xtfxme/"]
 	insteadOf = self://
+
+# git directives
 [core]
 	repositoryformatversion = 0
 	filemode = true
