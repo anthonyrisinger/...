@@ -1,10 +1,14 @@
+[include]
+	path = config-local
+[url "https://github.com/xtfxme/"]
+	insteadOf = self://
 [core]
 	repositoryformatversion = 0
 	filemode = true
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = https://github.com/xtfxme/...
+	url = self://...
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "ellipsis"]
 	remote = origin

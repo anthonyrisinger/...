@@ -1,0 +1,4 @@
+[url "/etc/00000000000000000000000000000000/"]
+	insteadOf = self://
+[url "https://github.com/xtfxme/"]
+	pushInsteadOf = self://
