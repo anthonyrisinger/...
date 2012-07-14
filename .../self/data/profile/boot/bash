@@ -9,7 +9,7 @@ declare -x PATH="${HOME}/bin:$PATH" \
 if [[ $- == *i* ]]; then
     declare -x HOME=${HOME%%/}/
     declare -x TMPDIR=${HOME}tmp/
-    declare -x _TMPDIR=/run/user/${USER}/tmp/
+    declare -x _TMPDIR=/tmp/user-${USER}/tmp/
 
     ! [[ -d ${_TMPDIR} ]] &&
         (umask 0077; mkdir --parents ${_TMPDIR}) &&
