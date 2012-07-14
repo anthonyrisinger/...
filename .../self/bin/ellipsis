@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+[[ -z ${GIT_DIR} ]] &&
+    exit 1
+
+
+IFS=$'\n'
+shopt -s extglob nullglob
+
+
+f=$(readlink -f ${BASH_SOURCE[0]})
+d=$(cd $(dirname ${f}) && pwd)/
+out () { cat; } 2>/dev/null
+err () { cat; } 1>&2
+
+
+_config_local() {
+    orig=${1:-${GIT_DIR}/config-local.example}
+    dest=${orig%.example}
+    [[ ! -e ${dest} ]] ||
+        return 1
+    uuid=$({ cat /etc/machine-id ||
+                 cat /var/lib/dbus/machine-id ||
+                 dbus-uuidgen --get; } 2>/dev/null )
+    [[ ${#uuid} == 32 && -z ${uuid//[[:xdigit:]]} ]] &&
+        sed -r s,'0{32}',${uuid}, ${orig} >> ${dest} ||
+        return 1
+}
+
+
+case ${verb:=${1:-####}} in
+    'init') _config_local; ret=${?} ;;
+    '####') err 'ellipsis: missing verb'; ret=1 ;;
+    *) err 'ellipsis: unknown verb'; ret=1 ;;
+esac
+
+
+exit ${ret}

@@ -17,3 +17,7 @@
 	denyCurrentBranch = ignore
 [http]
 	sslVerify = false
+
+# ellipsis defines
+[alias "ellipsis"]
+	init = !${GIT_DIR}/self/bin/ellipsis init
