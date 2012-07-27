@@ -15,6 +15,7 @@ mkdir -p ${WORKON_HOME}
 . $(type -p virtualenvwrapper.sh || echo /dev/null)
 
 
+export VIRTUALENV_DISTRIBUTE=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=${WORKON_HOME}
