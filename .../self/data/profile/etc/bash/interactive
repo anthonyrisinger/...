@@ -7,8 +7,8 @@
 [[ ${TERM} && ${TERM} == dumb ]] &&
     exit 0
 
-
-declare -x EDITOR='vim' \
+declare -x PROMPT_DIRTRIM=3 \
+           EDITOR='vim' \
            BROWSER='firefox' \
            WORKON_HOME=~/.local/share/venv/
 mkdir -p ${WORKON_HOME}
@@ -161,7 +161,7 @@ _ps1 () { (
     hsh="$(e 37)#$(e 0) "
 
     echo "$(e 0)$(e 33)\
-  ┌ $(e 1 32)\$(date +%l:%M%P) ${usr} $(e 0)$(e 33)
+  ┌ $(e 1 32)\D{%l:%M%P} ${usr} $(e 0)$(e 33)
   └ $(e 1 34)\w$(e 0)
   $(e 0)$(e 33)\$(__git_ps1 '$(e 36)(%s)$(e 0) ' ${q})${hsh}"
 
