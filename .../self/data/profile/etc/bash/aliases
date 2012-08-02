@@ -1,7 +1,7 @@
 #!/bin/bash
 
-alias l='ls -lh'
-alias ll='ls -lha'
+alias l='ls -Flh'
+alias ll='ls -Flha'
 alias w3rk='s w3rk'
 alias 3knock='triknock'
 
