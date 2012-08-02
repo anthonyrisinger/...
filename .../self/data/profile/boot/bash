@@ -7,19 +7,18 @@ declare -x PATH="${HOME}/bin:$PATH" \
 
 
 if [[ $- == *i* ]]; then
-    declare -x HOME=${HOME%%/}/
-    declare -x TMPDIR=${HOME}tmp/
-    declare -x _TMPDIR=/tmp/user-${USER}/tmp/
+    declare -x TMPDIR=${HOME}/tmp
+    declare -x _TMPDIR=/tmp/user-${USER}/tmp
 
     ! [[ -d ${_TMPDIR} ]] &&
         (umask 0077; mkdir --parents ${_TMPDIR}) &&
         mkdir ${_TMPDIR}/{dl,misc}
-    ! [[ $(readlink -f ${TMPDIR})/ == ${_TMPDIR} ]] &&
-        rm -f ${TMPDIR%/} &&
-        ln -s ${_TMPDIR} ${TMPDIR%/}
+    ! [[ $(readlink -f ${TMPDIR}) == ${_TMPDIR} ]] &&
+        rm -f ${TMPDIR} &&
+        ln -s ${_TMPDIR} ${TMPDIR}
 
     [[ -f ~/.../config && ${UID} == ${EUID} ]] &&
-        ( declare -x GIT_DIR=${HOME}...
+        ( declare -x GIT_DIR=${HOME}/...
           ref0=$(git rev-parse HEAD)
           git pull
           ref1=$(git rev-parse HEAD)
@@ -27,5 +26,5 @@ if [[ $- == *i* ]]; then
         exec ${BASH}
 
     [[ -f ${ELLIPSIS}data/profile/etc/bash/interactive ]] &&
-    . ${ELLIPSIS}data/profile/etc/bash/interactive
+        . ${ELLIPSIS}data/profile/etc/bash/interactive
 fi
