@@ -156,7 +156,8 @@ _ps1 () { (
         *) dom_c=32;;
     esac
 
-    usr="$(e 1 ${dom_c})\u$(e ${dom_c})@\h"
+    $su && usr="$(e 1 ${dom_c})@\h" ||
+           usr="$(e 1 ${dom_c})\u$(e ${dom_c})@\h"
     hsh="$(e 37)#$(e 0) "
 
     echo "$(e 0)$(e 33)\
