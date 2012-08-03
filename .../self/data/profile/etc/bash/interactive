@@ -150,21 +150,19 @@ _ps1 () { (
     [[ ${HOSTNAME} =~ $(_self_re) ]] && us=true
 
     case "${su},${us}" in
-        true,true) dom_c=(1 31);;
-        true,false) dom_c=(30 41);;
-        false,true) dom_c=(32);;
-        *) dom_c=(30 42);;
+        true,true) dom_c=31;;
+        true,false) dom_c=31;;
+        false,true) dom_c=32;;
+        *) dom_c=32;;
     esac
 
-    dom="$(e ${dom_c[@]})@\h"
-    $su && usr="${dom}" ||
-           usr="$(e 32)\u${dom}"
+    usr="$(e 1 ${dom_c})\u$(e ${dom_c})@\h"
     hsh="$(e 37)#$(e 0) "
 
     echo "$(e 0)$(e 33)\
-  ┌ $(e 1 32)\D{%l:%M%P} ${usr} $(e 0)$(e 33)
-  └ $(e 1 34)\w$(e 0)
-  $(e 0)$(e 33)\$(__git_ps1 '$(e 36)(%s)$(e 0) ' ${q})${hsh}"
+  ┌ $(e 32)\D{%l:%M%P} ${usr} $(e 0)$(e 33)
+  └ $(e 37)\w$(e 0)
+  \$(__git_ps1 '$(e 36)(%s)$(e 0) ' ${q})${hsh}"
 
 ) }
 
