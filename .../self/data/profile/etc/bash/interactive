@@ -45,6 +45,7 @@ if ! ssh-add -l > /dev/null 2>&1; then
 fi
 COMMENT
 
+
 if [[ ${TERM} == xterm ]] ; then
     if [[ -z ${COLORTERM} ]] ; then
         if [[ -z ${XTERM_VERSION} ]] ; then
@@ -222,7 +223,6 @@ else
 		PS1='\u@\h \w \$ '
 	fi
 fi
-
 
 
 HISTCONTROL=ignoreboth:erasedups

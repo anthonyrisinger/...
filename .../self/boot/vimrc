@@ -2,11 +2,13 @@ let g:netrw_home = '~/.../self/var/cache/vim'
 
 set runtimepath=~/.../self/data/profile/etc/vim,$VIMRUNTIME
 
+call pathogen#infect()
+
 " Make Vim behave better
 set nocompatible
 
 " Sets how many lines of history VIM has to remember
-set history=1000
+set history=10000
 
 " Enable filetype plugin
 filetype plugin on
@@ -73,9 +75,19 @@ syntax enable " Enable syntax highlighting
 set gfn=Monospace\ 10
 set shell=/bin/bash
 
-let g:zenburn_high_Contrast=1
-colorscheme zenburn
+"let g:zenburn_high_Contrast=1
+"colorscheme zenburn
+"
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+"let g:solarized_degrade=0
+"let g:solarized_bold=1
+"let g:solarized_underline=1
+"let g:solarized_italic=1
+"let g:solarized_contrast="normal"
+"let g:solarized_visibility="normal"
 set background=dark
+colorscheme solarized
 
 set encoding=utf8
 try
