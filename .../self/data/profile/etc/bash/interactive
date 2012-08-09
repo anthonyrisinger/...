@@ -7,6 +7,10 @@
 [[ ${TERM} && ${TERM} == dumb ]] &&
     exit 0
 
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
 declare -x PROMPT_DIRTRIM=3 \
            EDITOR='vim' \
            BROWSER='firefox' \

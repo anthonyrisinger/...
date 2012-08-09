@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-declare -x PATH="${HOME}/bin:$PATH" \
-           ELLIPSIS=~/.../self/ \
-           ELLIPSIS_HOSTS+=" .sta.xtfx.net"
+export PATH="${HOME}/bin:$PATH"
+export ELLIPSIS=~/.../self/
+export ELLIPSIS_HOSTS+=" .sta.xtfx.net"
 
 
 if [[ $- == *i* ]]; then
