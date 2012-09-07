@@ -158,8 +158,8 @@ _ps1 () { (
     alias b='c=setab _esc'
 
     declare u="$(f 7)\u$(e bold;f 0)│$(x; f 3)\h$(x;e bold;f 0)│"
-    declare s="$(e bold)"
-    declare h="$(f 7)#"
+    declare s="$(e bold) "
+    declare h="$(f 7)# "
     declare q='2>/dev/null'
 
     [[ ${HOSTNAME} =~ xtfx\.net$ ]] &&
@@ -174,7 +174,7 @@ _ps1 () { (
     echo -e "$(x)\
   ⎞ $(e bold; f 0)\D{%I:%M%P}$(x) ${u}$(x)${s}$(x)
   ⎨ \$(__git_ps1 '$(f 3)%s' ${q}) $(e bold; f 0)\w$(x)
-  ⎩ ${h}$(x) "
+  ⎩ ${h}$(x)"
 
 ) }
 
