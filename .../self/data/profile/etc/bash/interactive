@@ -157,25 +157,29 @@ _ps1 () { (
     alias f='c=setaf _esc'
     alias b='c=setab _esc'
 
-    declare d="$(x;e bold;f 0)│"
+    declare w="$(x;e bold;f 0)"
+    declare d="${w}│"
     declare u="$(x;f 7)\u${d}$(x;f 3)\h"
-    declare s="$(e bold) "
     declare h="$(f 7)# "
     declare q='2>/dev/null'
+    declare s=( )
 
     [[ ${HOSTNAME} =~ xtfx\.net$ ]] &&
-        s+="$(f 2)☻  "
+        s+=("$(f 2)★")
 
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
-        s+="$(f 4)⇅ "
+        s+=("$(f 4)⇅")
 
     [[ ${EUID} == 0 ]] &&
-        s+="$(f 1)☢ "
+        s+=("$(f 1)❢")
+
+    ((${#s})) &&
+        s=" $(e bold)${s[*]} "
 
     echo -e "$(x)\
-  ⎞ $(e bold; f 0)\D{%I:%M%P}$(x) ${u}$(x)${s}$(x)
-  ⎨ \$(__git_ps1 '$(f 3)%s' ${q}) $(e bold; f 0)\w$(x)
-  ⎩ ${h}$(x)"
+  ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}$(x)
+  ⎥  \$(__git_ps1 '$(f 3)%s' ${q}) ${w}\w$(x)
+  ⎥${w}▶ $(x)"
 
 ) }
 
