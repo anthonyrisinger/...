@@ -144,34 +144,37 @@ read -a __self -r <<<"${ELLIPSIS_HOSTS}"
 #  \W  pwd /
 #  \w  pwd ~
 
-_esc () { printf '\[\033[0%sm\]' "$(printf ';%s' "${@}")"; }
+_esc () {
+    while ((${#*})); do
+        printf '\[%s\]' "$(tput ${c} ${1})"; shift
+    done
+}
 
 _ps1 () { (
 
-    _self_re () { printf '%s$^$' "$(printf '%s|' "${__self[@]}")"; }
+    alias e='c= _esc'
+    alias x='c= _esc sgr0'
+    alias f='c=setaf _esc'
+    alias b='c=setab _esc'
 
-    alias e=_esc
-    su=false us=false
-    q='2>/dev/null'
+    declare u="$(f 7)\u$(e bold;f 0)│$(x; f 3)\h$(x;e bold;f 0)│"
+    declare s="$(e bold)"
+    declare h="$(f 7)#"
+    declare q='2>/dev/null'
 
-    [[ ${EUID} == 0 ]] && su=true
-    [[ ${HOSTNAME} =~ $(_self_re) ]] && us=true
+    [[ ${HOSTNAME} =~ xtfx\.net$ ]] &&
+        s+="$(f 2)☻  "
 
-    case "${su},${us}" in
-        true,true) dom_c=31;;
-        true,false) dom_c=31;;
-        false,true) dom_c=32;;
-        *) dom_c=32;;
-    esac
+    [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
+        s+="$(f 4)⇅ "
 
-    $su && usr="$(e 1 ${dom_c})@\h" ||
-           usr="$(e 1 ${dom_c})\u$(e ${dom_c})@\h"
-    hsh="$(e 37)#$(e 0) "
+    [[ ${EUID} == 0 ]] &&
+        s+="$(f 1)☢ "
 
-    echo "$(e 0)$(e 33)\
-  ┌ $(e 32)\D{%l:%M%P} ${usr} $(e 0)$(e 33)
-  └ $(e 37)\w$(e 0)
-  \$(__git_ps1 '$(e 34)(%s)$(e 0) ' ${q})${hsh}"
+    echo -e "$(x)\
+  ⎞ $(e bold; f 0)\D{%I:%M%P}$(x) ${u}$(x)${s}$(x)
+  ⎨ \$(__git_ps1 '$(f 3)%s' ${q}) $(e bold; f 0)\w$(x)
+  ⎩ ${h}$(x) "
 
 ) }
 
