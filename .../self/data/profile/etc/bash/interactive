@@ -157,7 +157,8 @@ _ps1 () { (
     alias f='c=setaf _esc'
     alias b='c=setab _esc'
 
-    declare u="$(f 7)\u$(e bold;f 0)│$(x; f 3)\h$(x;e bold;f 0)│"
+    declare d="$(x;e bold;f 0)│"
+    declare u="$(x;f 7)\u${d}$(x;f 3)\h"
     declare s="$(e bold) "
     declare h="$(f 7)# "
     declare q='2>/dev/null'
