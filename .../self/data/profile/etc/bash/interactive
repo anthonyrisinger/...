@@ -157,21 +157,20 @@ _ps1 () { (
     alias f='c=setaf _esc'
     alias b='c=setab _esc'
 
+    local c=$((${EUID}==0&&(c=1)||(c=7),c))
     declare w="$(x;e bold;f 0)"
     declare d="${w}│"
-    declare u="$(x;f 7)\u${d}$(x;f 3)\h"
+    declare u="$(x;f ${c})\u${d}$(x;f 3)\h"
     declare h="$(f 7)# "
     declare q='2>/dev/null'
     declare s=( )
 
     [[ ${HOSTNAME} =~ xtfx\.net$ ]] &&
-        s+=("$(f 2)★")
+        s+=("$(f 2)★") ||
+        s+=("$(f 1)❢")
 
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
         s+=("$(f 4)⇅")
-
-    [[ ${EUID} == 0 ]] &&
-        s+=("$(f 1)❢")
 
     ((${#s})) &&
         s=" $(e bold)${s[*]} "
