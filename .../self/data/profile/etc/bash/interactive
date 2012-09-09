@@ -152,22 +152,28 @@ _esc () {
 
 _ps1 () { (
 
-    alias e='c= _esc'
-    alias x='c= _esc sgr0'
-    alias f='c=setaf _esc'
-    alias b='c=setab _esc'
+    e () { c= _esc "${@}"; }
+    x () { c= _esc sgr0; }
+    f () { c=setaf _esc "${@}"; }
+    b () { c=setab _esc "${@}"; }
 
-    local c=$((${EUID}==0&&(c=1)||(c=7),c))
-    declare w="$(x;e bold;f 0)"
-    declare d="${w}│"
-    declare u="$(x;f ${c})\u${d}$(x;f 3)\h"
-    declare h="$(f 7)# "
-    declare q='2>/dev/null'
-    declare s=( )
+    local w="$(x;e bold;f 0)"
+    local d="${w}│"
+    local h="$(f 7)# "
+
+    if [[ ${EUID} == 0 ]]; then
+        local m="$(x;f 1)▶"
+        local u="$(x;f 3)\h"
+    else
+        local m="$(x;e bold;f 0)▶"
+        local u="$(x;f 7)\u${d}$(x;f 3)\h"
+    fi
+
+    local s=( )
 
     [[ ${HOSTNAME} =~ xtfx\.net$ ]] &&
         s+=("$(f 2)★") ||
-        s+=("$(f 1)❢")
+        s+=("$(f 1)⚑")
 
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
         s+=("$(f 4)⇅")
@@ -175,10 +181,12 @@ _ps1 () { (
     ((${#s})) &&
         s=" $(e bold)${s[*]} "
 
+    local q='2>/dev/null'
+
     echo -e "$(x)\
   ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}$(x)
   ⎥  \$(__git_ps1 '$(f 3)%s' ${q}) ${w}\w$(x)
-  ⎥${w}▶ $(x)"
+  ⎥${m} $(x)"
 
 ) }
 
