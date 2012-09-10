@@ -15,10 +15,10 @@ if [ -f /usr/share/git/git-prompt.sh ] && ! shopt -oq posix; then
     . /usr/share/git/git-prompt.sh
 fi
 
-declare -x PROMPT_DIRTRIM=3 \
-           EDITOR='vim' \
-           BROWSER='firefox' \
-           WORKON_HOME=~/.local/share/venv/
+export PROMPT_DIRTRIM=3
+export EDITOR='vim'
+export BROWSER='firefox'
+export WORKON_HOME=~/.local/share/venv/
 mkdir -p ${WORKON_HOME}
 . $(type -p virtualenvwrapper.sh || echo /dev/null)
 
