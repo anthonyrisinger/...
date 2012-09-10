@@ -23,6 +23,7 @@ mkdir -p ${WORKON_HOME}
 . $(type -p virtualenvwrapper.sh || echo /dev/null)
 
 
+export VIRTUAL_ENV_DISABLE_PROMPT=true
 export VIRTUALENV_DISTRIBUTE=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=true
@@ -157,6 +158,7 @@ _ps1 () { (
     f () { c=setaf _esc "${@}"; }
     b () { c=setab _esc "${@}"; }
 
+    local v="$(x)"'${VIRTUAL_ENV:+" (${VIRTUAL_ENV##*/})\n"}'
     local w="$(x;e bold;f 0)"
     local d="${w}│"
     local h="$(f 7)# "
@@ -183,7 +185,8 @@ _ps1 () { (
 
     local q='2>/dev/null'
 
-    echo -e "$(x)\
+    echo -e "\
+${v}\
   ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}$(x)
   ⎥  \$(__git_ps1 '$(f 3)%s ' ${q})${w}\w$(x)
   ⎥${m} $(x)"
