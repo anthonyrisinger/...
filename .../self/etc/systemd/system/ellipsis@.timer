@@ -1,0 +1,9 @@
+[Unit]
+Description=ellipsis (%I) ...
+
+[Timer]
+OnBootSec=15min
+OnUnitInactiveSec=8h
+
+[Install]
+WantedBy=multi-user.target
