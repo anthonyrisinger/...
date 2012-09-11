@@ -158,10 +158,9 @@ _ps1 () { (
     f () { c=setaf _esc "${@}"; }
     b () { c=setab _esc "${@}"; }
 
-    local v="$(x)"'${VIRTUAL_ENV:+" (${VIRTUAL_ENV##*/})\n"}'
     local w="$(x;e bold;f 0)"
+    local v="${w}"'${VIRTUAL_ENV:+"⌥ '$(x;f 5)'${VIRTUAL_ENV##*/}\n"}'${w}
     local d="${w}│"
-    local h="$(f 7)# "
 
     if [[ ${EUID} == 0 ]]; then
         local m="$(x;f 1)▶"
@@ -187,8 +186,8 @@ _ps1 () { (
 
     echo -e "\
 ${v}\
-  ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}$(x)
-  ⎥  \$(__git_ps1 '$(f 3)%s ' ${q})${w}\w$(x)
+  ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}${w}
+  ⎥  \$(__git_ps1 '$(x;f 3)%s ' ${q})${w}\w${w}
   ⎥${m} $(x)"
 
 ) }
