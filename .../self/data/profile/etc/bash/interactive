@@ -146,9 +146,9 @@ read -a __self -r <<<"${ELLIPSIS_HOSTS}"
 #  \w  pwd ~
 
 _esc () {
-    while ((${#*})); do
-        printf '\[%s\]' "$(tput ${c} ${1})"; shift
-    done
+    printf '\['
+    while ((${#*})); do tput ${c} ${1}; shift; done
+    printf '\]'
 }
 
 _ps1 () { (
@@ -186,9 +186,9 @@ _ps1 () { (
 
     echo -e "\
 ${v}\
-  ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}${w}
-  ⎥  \$(__git_ps1 '$(x;f 3)%s ' ${q})${w}\w${w}
-  ⎥${m} $(x)"
+${w}  ⎞ ${w}\D{%l:%M%P}$(x) ${u}${s}
+${w}  ⎥  \$(__git_ps1 '$(x;f 3)%s ' ${q})${w}\w
+${w}  ⎥${m} $(x)"
 
 ) }
 
