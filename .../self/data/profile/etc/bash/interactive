@@ -160,7 +160,7 @@ _ps1 () { (
 
     local w="$(x;e bold;f 0)"
     local v="${w}"'${VIRTUAL_ENV:+"⌥ '$(x;f 5)'${VIRTUAL_ENV##*/}\n"}'${w}
-    local d="${w}│"
+    local d="${w}|"
 
     if [[ ${EUID} == 0 ]]; then
         local m="$(x;f 1)▶"
