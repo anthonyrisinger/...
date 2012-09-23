@@ -1,42 +1,64 @@
 #!/bin/bash
 
 
-[[ -r /etc/bash.bashrc ]] &&
-    . /etc/bash.bashrc
+export PATH=~/bin:"${PATH}"
+export ELLIPSIS=~/.../self/
 
-[[ ${TERM} && ${TERM} == dumb ]] &&
-    exit 0
-
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-if [ -f /usr/share/git/git-prompt.sh ] && ! shopt -oq posix; then
-    . /usr/share/git/git-prompt.sh
-fi
-
-export PROMPT_DIRTRIM=3
 export EDITOR='vim'
-export BROWSER='firefox'
+export BROWSER='chromium'
+export PROMPT_DIRTRIM=3
+
 export WORKON_HOME=~/.local/share/venv/
-mkdir -p ${WORKON_HOME}
-. $(type -p virtualenvwrapper.sh || echo /dev/null)
-
-
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export VIRTUALENV_DISTRIBUTE=true
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=true
-export PIP_VIRTUALENV_BASE=${WORKON_HOME}
-# pip bash completion start
-_pip_completion()
-{
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-}
-complete -o default -F _pip_completion pip
-# pip bash completion end
+export PIP_VIRTUALENV_BASE="${WORKON_HOME}"
+
+export TMPDIR=~/tmp
+(   umask 0077
+    tmp=/tmp/user-${USER}/tmp
+    [[ ! -d ${tmp} ]] &&
+        mkdir -p ${tmp}/{dl,misc}
+    [[ ! $(readlink ~/tmp) == ${tmp} ]] &&
+        rm -f ~/tmp &&
+        ln -s ${tmp} ~/tmp
+    ) > /dev/null 2>&1
+
+
+[[ ${TERM} == dumb ]] &&
+    return 0
+
+
+_cache_comp=${ELLIPSIS}var/cache/bash/completions/
+_srcs=(
+    /usr/share/bash-completion/bash_completion
+    /etc/bash_completion
+    /usr/share/git/git-prompt.sh
+    $(type -p virtualenvwrapper.sh)
+    )
+
+mkdir -p "${WORKON_HOME}"
+mkdir -p "${_cache_comp}"
+
+#TODO: impl lazy proxy instead
+for x in $(compgen -c pip); do
+    if [[ ! -e ${_cache_comp}${x} ]]; then
+        (
+        unset PIP_REQUIRE_VIRTUALENV
+        _x=${x//[^[:word:]]}
+        echo "_${_x}_completion()"
+        ${x} completion --bash | sed -n '/^{/,/^}/p'
+        echo "complete -o default -F _${_x}_completion ${x}"
+        ) >> "${_cache_comp}${x}"
+    fi
+    _srcs+=(${_cache_comp}${x})
+done
+
+for x in "${_srcs[@]}"; do
+    [[ -r ${x} ]] &&
+        . ${x}
+done
 
 
 <<'COMMENT'
@@ -112,12 +134,6 @@ if [[ -z "$SCREEN_COLORS" ]] ; then
     SCREEN_COLORS=$(tput colors)
 fi
 
-
-# If any regex matches, we are on a workstation
-export ELLIPSIS_HOSTS+=" .sta.3vera.com"
-
-# Make an array of the above
-read -a __self -r <<<"${ELLIPSIS_HOSTS}"
 
 # PS1 special sequences
 #  0   reset/default
