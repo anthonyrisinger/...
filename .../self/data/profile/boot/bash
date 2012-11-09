@@ -10,7 +10,7 @@ export NSS_SSL_CBC_RANDOM_IV=0
 
 interactive=${-//[^i]}
 
-[[ -f ~/.../config && ${UID} == ${EUID} ]] && (
+[[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]] && (
     export GIT_DIR=~/...
     _0=$(git rev-parse HEAD) &&
         git pull --quiet &&
