@@ -1,5 +1,5 @@
 [Unit]
-Description=ellipsis (%I) ...
+Description=ellipsis.git (%m) ...
 
 [Timer]
 OnBootSec=15min
