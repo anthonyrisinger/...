@@ -188,7 +188,7 @@ _ps1 () { (
 
     local s=( )
 
-    [[ ${HOSTNAME} =~ xtfx\.net$ ]] &&
+    [[ ${HOSTNAME} =~ xtfx ]] &&
         s+=("$(f 2)★") ||
         s+=("$(f 1)⚑")
 
