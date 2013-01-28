@@ -1,8 +1,13 @@
 #!/bin/bash
 
 
-export PATH=~/bin:"${PATH}"
-export ELLIPSIS=~/.../self/
+export PATH USERPATH ELLIPSIS
+PATH="${USERPATH:="$(
+    IFS=; shopt -s nullglob
+    x=(~/[b]in/{*/,})
+    echo -n "${x[*]/%?/:}"
+    )${PATH}"}"
+: ${ELLIPSIS:=~/.../self/}
 
 export EDITOR='vim'
 export BROWSER='chromium'
