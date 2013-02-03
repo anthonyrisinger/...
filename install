@@ -1,0 +1,3 @@
+#!/bin/bash
+
+wget --quiet --no-check-certificate --output-document - https://github.com/xtfxme/.../archive/ellipsis.tar.gz | tar --extract --gzip --strip-components 1 --directory ~
