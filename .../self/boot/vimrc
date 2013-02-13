@@ -97,7 +97,9 @@ endtry
 
 set ffs=unix,dos,mac "Default file types
 
-set colorcolumn=80
+if exists("&colorcolumn")
+    set colorcolumn=80
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
