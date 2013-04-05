@@ -3,6 +3,7 @@
 alias l='ls -Flh'
 alias ll='ls -Flha'
 alias w3rk='s w3rk'
+alias diff='diff -u'
 alias 3knock='triknock'
 
 triknock () {
