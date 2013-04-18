@@ -17,7 +17,7 @@ export WORKON_HOME=~/.local/share/venv/
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export VIRTUALENV_DISTRIBUTE=true
 export PIP_RESPECT_VIRTUALENV=true
-export PIP_REQUIRE_VIRTUALENV=true
+export PIP_USER=true
 export PIP_VIRTUALENV_BASE="${WORKON_HOME}"
 
 export TMPDIR=~/tmp
