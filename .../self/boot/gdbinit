@@ -7,3 +7,4 @@ set print pretty on
 set print union on
 set print object on
 set breakpoint pending on
+set auto-load safe-path /
