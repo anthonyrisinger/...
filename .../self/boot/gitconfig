@@ -16,3 +16,7 @@
 	username = xtfxme
 [push]
 	default = current
+
+#...site locals
+[include]
+	path = .gitconfig.local
