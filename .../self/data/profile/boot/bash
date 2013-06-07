@@ -9,10 +9,6 @@ PATH="${USERPATH:="$(
     )${PATH}"}"
 : ${ELLIPSIS:=~/.../self/}
 
-# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=649456#27
-export NSS_SSL_CBC_RANDOM_IV=0
-
-
 interactive=${-//[^i]}
 
 [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]] && (
