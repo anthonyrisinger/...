@@ -9,6 +9,9 @@ PATH="${USERPATH:="$(
     )${PATH}"}"
 : ${ELLIPSIS:=~/.../self/}
 
+# because en_US.utf8 sorting is... dumb
+export LC_COLLATE=C
+
 export TERM="${TERM:-dumb}"
 export EDITOR='vim'
 export BROWSER='chromium'
