@@ -135,6 +135,7 @@ set si "Smart indet
 set wrap "Wrap lines
 
 autocmd BufEnter wscript :set noexpandtab filetype=python
+autocmd BufEnter *.djhtml :set filetype=htmldjango
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
