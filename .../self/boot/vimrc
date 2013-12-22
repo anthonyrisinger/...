@@ -195,7 +195,7 @@ autocmd BufReadPost *
      \ endif
 
 "Remeber open buffers on close
-set viminfo^=%
+set viminfo=%,'100,s1024,h
 
 """"""""""""""""""""""""""""""
 " => Statusline
