@@ -1,6 +1,8 @@
 set history filename ~/.../self/var/cache/gdb/history
 set history save on
+set listsize 40
 set height 0
+set width 0
 set print addr on
 set print array on
 set print pretty on
