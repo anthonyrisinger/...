@@ -1,0 +1,18 @@
+[extensions]
+hgext.mq =
+hgext.purge =
+hgext.patchbomb =
+
+[ui]
+username = C Anthony Risinger <c@anthonyrisinger.com>
+
+[email]
+from = C Anthony Risinger <anthony@xtfx.me>
+method = smtp
+
+[smtp]
+host = smtp.gmail.com
+port = 587
+username = anthony@xtfx.me
+#password = [gmail_password]
+tls = True
