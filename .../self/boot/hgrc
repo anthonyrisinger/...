@@ -1,4 +1,5 @@
 [extensions]
+hgext.color =
 hgext.mq =
 hgext.purge =
 hgext.patchbomb =
