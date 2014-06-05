@@ -3,5 +3,6 @@
 /.../*
 !/.../self/
 !/.../info/
+/.../info/refs
 !.git*
 /.gitconfig.local
