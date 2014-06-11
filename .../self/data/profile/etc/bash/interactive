@@ -20,8 +20,15 @@ export PROMPT_DIRTRIM=3
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export PIP_USER=true
 
+get_GIT_AUTHOR_EMAIL=$(
+    printf 'GIT_AUTHOR_EMAIL_list[%(%w>0&&%w<6&&%-H>9&&%-H<17)T]'
+    )
+GIT_AUTHOR_EMAIL_list=(
+    'c@anthonyrisinger.com'
+    'anthony.risinger@corvisa.com'
+    )
 export GIT_AUTHOR_NAME='C Anthony Risinger'
-export GIT_AUTHOR_EMAIL='c@anthonyrisinger.com'
+export GIT_AUTHOR_EMAIL="${!get_GIT_AUTHOR_EMAIL}"
 export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
 export GIT_COMMITTER_EMAIL="${GIT_AUTHOR_EMAIL}"
 
