@@ -17,12 +17,13 @@ export EDITOR='vim'
 export BROWSER='chromium'
 export PROMPT_DIRTRIM=3
 
-export WORKON_HOME=~/.local/share/venv/
 export VIRTUAL_ENV_DISABLE_PROMPT=true
-export VIRTUALENV_DISTRIBUTE=true
-export PIP_RESPECT_VIRTUALENV=true
 export PIP_USER=true
-export PIP_VIRTUALENV_BASE="${WORKON_HOME}"
+
+export GIT_AUTHOR_NAME='C Anthony Risinger'
+export GIT_AUTHOR_EMAIL='c@anthonyrisinger.com'
+export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
+export GIT_COMMITTER_EMAIL="${GIT_AUTHOR_EMAIL}"
 
 export TMPDIR=~/tmp
 (   umask 0077
@@ -41,13 +42,12 @@ export TMPDIR=~/tmp
 
 _cache_comp=${ELLIPSIS}var/cache/bash/completions/
 _srcs=(
-    /usr/share/bash-completion/bash_completion
-    /etc/bash_completion
-    /usr/share/git/git-prompt.sh
+    /[u]sr/share/bash-completion/bash_completion
+    /[e]tc/bash_completion
+    /[u]sr/share/git/git-prompt.sh
     $(type -p virtualenvwrapper.sh)
     )
 
-mkdir -p "${WORKON_HOME}"
 mkdir -p "${_cache_comp}"
 
 #TODO: impl lazy proxy instead
