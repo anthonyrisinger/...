@@ -9,6 +9,11 @@ PATH="${USERPATH:="$(
     )${PATH}"}"
 : ${ELLIPSIS:=~/.../self/}
 
+# I'm human, thanks
+if [[ $(date +%Z) == 'UTC' ]]; then
+    export TZ='America/Chicago'
+fi
+
 # because en_US.utf8 sorting is... dumb
 export LC_COLLATE=C
 
