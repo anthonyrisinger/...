@@ -215,6 +215,11 @@ case ${TERM} in
 		;;
 esac
 
+# flush HISTFILE constantly
+PROMPT_COMMAND+='
+history -a
+'
+
 # auto-update GIT_*_EMAIL
 PROMPT_COMMAND+='
 GIT_AUTHOR_EMAIL="${!get_GIT_AUTHOR_EMAIL}"
