@@ -270,7 +270,12 @@ if ${use_color} ; then
 		fi
 	fi
     PS1=$(_ps1)
-	alias ls='ls -F --color=auto'
+    ls --color=auto 2>/dev/null && _gnu_ls=true || _gnu_ls=false
+    if ${_gnu_ls}; then
+	    alias ls='ls -F --color=auto'
+    else
+	    alias ls='ls -F -G'
+    fi
 	alias grep='grep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
