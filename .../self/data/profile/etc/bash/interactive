@@ -25,7 +25,7 @@ export PROMPT_DIRTRIM=3
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 #export PIP_USER=true
 
-date --help 2>/dev/null && _gnu_date=true || _gnu_date=false
+date --help >/dev/null 2>&1 && _gnu_date=true || _gnu_date=false
 if ${_gnu_date}; then
     _gnu_date_opt='--date='
     _gnu_date_arg='"$([[ -n ${GIT_HATS_DATE} ]] && echo @${GIT_HATS_DATE} || echo now)"'
@@ -270,7 +270,7 @@ if ${use_color} ; then
 		fi
 	fi
     PS1=$(_ps1)
-    ls --color=auto 2>/dev/null && _gnu_ls=true || _gnu_ls=false
+    ls --color=auto >/dev/null 2>&1 && _gnu_ls=true || _gnu_ls=false
     if ${_gnu_ls}; then
 	    alias ls='ls -F --color=auto'
     else
