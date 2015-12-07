@@ -36,7 +36,7 @@ fi
 get_GIT_AUTHOR_EMAIL='GIT_AUTHOR_EMAIL_list[$(date '"${_gnu_date_opt}${_gnu_date_arg}"' +"%w>0&&%w<6&&%-H>8&&%-H<17")]'
 GIT_AUTHOR_EMAIL_list=(
     'c@anthonyrisinger.com'
-    'anthony.risinger@corvisa.com'
+    'anthonyrisinger@exosite.com'
     )
 export GIT_AUTHOR_NAME='C Anthony Risinger'
 export GIT_AUTHOR_EMAIL="${!get_GIT_AUTHOR_EMAIL}"
