@@ -22,6 +22,9 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
+" Exit insert mode
+imap jj <Esc>
+
 " Fast saving
 nmap <leader>w :w!<cr>
 
