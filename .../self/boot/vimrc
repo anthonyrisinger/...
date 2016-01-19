@@ -137,6 +137,7 @@ set ai "Auto indent
 set si "Smart indet
 set wrap "Wrap lines
 
+autocmd BufEnter *.go :set noexpandtab
 autocmd BufEnter wscript :set noexpandtab filetype=python
 autocmd BufEnter *.djhtml :set filetype=htmldjango
 
