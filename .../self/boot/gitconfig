@@ -13,7 +13,7 @@
 	chainreplyto = false
 	confirm = auto
 [credential "https://github.com"]
-	username = xtfxme
+	username = anthonyrisinger
 [push]
 	default = current
 
