@@ -2,7 +2,7 @@
 
 [include]
 	path = config-local
-[url "https://github.com/xtfxme/"]
+[url "https://github.com/anthonyrisinger/"]
 	insteadOf = self://
 
 # git directives
