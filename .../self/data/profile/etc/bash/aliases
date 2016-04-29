@@ -2,33 +2,5 @@
 
 alias l='ls -Flh'
 alias ll='ls -Flha'
-alias w3rk='s w3rk'
-alias diff='diff -u'
-alias 3knock='triknock'
 
-triknock () {
-    local x p nc ssl sec='U2FsdGVkX18gn7qvSIIbjtqWh/rHkPaoi7LqN5/l/bU='
-    ! ssl=$(type -p openssl) &&
-        'openssl required.' &&
-        return 1
-    for x in netcat ncat nc nc.openbsd; do
-        nc=$(type -p ${x}) && nc="${nc##*/}" && break
-    done
-    ! ((${#nc})) &&
-        echo 'netcat variant required.' &&
-        return 1
-    ! p=$(${ssl} enc -aes-256-cbc -a -d <<<${sec} 2>&-) &&
-        echo 'port unlock failed.' &&
-        return 1
-    for x in ${p}; do
-        echo '... knock!'
-        ${nc} -n -w1 207.67.118.240 ${x} <<<'' &>/dev/null
-    done
-    ${nc} -n -w1 207.67.118.108 22 <<<'' &>/dev/null &&
-        echo 'Hey pal, come on in!' ||
-        echo '*chirp chirp*'
-}
 
-s () { command ssh "${@}"; }
-
-complete -F _ssh s
