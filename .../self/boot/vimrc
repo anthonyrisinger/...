@@ -130,6 +130,16 @@ set smarttab
 set softtabstop=4
 set sw=4
 
+" Erlang
+autocmd BufEnter *.erl :set shiftwidth=4
+autocmd BufEnter *.erl :set tabstop=4
+autocmd BufEnter *.erl :set softtabstop=4
+autocmd BufEnter *.erl :set sw=4
+autocmd BufEnter *.hrl :set shiftwidth=4
+autocmd BufEnter *.hrl :set tabstop=4
+autocmd BufEnter *.hrl :set softtabstop=4
+autocmd BufEnter *.hrl :set sw=4
+
 set lbr
 set tw=500
 
