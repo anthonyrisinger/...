@@ -123,22 +123,11 @@ endtry
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab
-set shiftwidth=4
-set tabstop=4
-set smarttab
-set softtabstop=4
-set sw=4
+set tabstop=4 shiftwidth=4 softtabstop=0 expandtab smarttab
 
 " Erlang
-autocmd BufEnter *.erl :set shiftwidth=4
-autocmd BufEnter *.erl :set tabstop=4
-autocmd BufEnter *.erl :set softtabstop=4
-autocmd BufEnter *.erl :set sw=4
-autocmd BufEnter *.hrl :set shiftwidth=4
-autocmd BufEnter *.hrl :set tabstop=4
-autocmd BufEnter *.hrl :set softtabstop=4
-autocmd BufEnter *.hrl :set sw=4
+autocmd BufEnter *.erl :set tabstop=2 shiftwidth=2
+autocmd BufEnter *.hrl :set tabstop=2 shiftwidth=2
 
 set lbr
 set tw=500
