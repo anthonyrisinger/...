@@ -128,6 +128,7 @@ set tabstop=4 shiftwidth=4 softtabstop=0 expandtab smarttab
 " Erlang
 autocmd BufEnter *.erl :set tabstop=2 shiftwidth=2
 autocmd BufEnter *.hrl :set tabstop=2 shiftwidth=2
+autocmd BufEnter sys.config :set filetype=erlang
 
 set lbr
 set tw=500
