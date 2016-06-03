@@ -129,6 +129,7 @@ set tabstop=4 shiftwidth=4 softtabstop=0 expandtab smarttab
 autocmd BufEnter *.erl :set tabstop=2 shiftwidth=2
 autocmd BufEnter *.hrl :set tabstop=2 shiftwidth=2
 autocmd BufEnter sys.config :set tabstop=2 shiftwidth=2 filetype=erlang
+autocmd BufEnter rebar.config :set tabstop=2 shiftwidth=2 filetype=erlang
 
 set lbr
 set tw=500
