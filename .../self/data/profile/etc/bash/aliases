@@ -3,4 +3,9 @@
 alias l='ls -Flh'
 alias ll='ls -Flha'
 
-
+pruno () {
+    oc adm prune builds --orphans --keep-complete=1 --keep-failed=1 --keep-younger-than=1h --confirm
+    oc adm prune builds --orphans --keep-complete=0 --keep-failed=0 --keep-younger-than=72h --confirm
+    oc adm prune deployments --orphans --keep-complete=1 --keep-failed=1 --keep-younger-than=1h --confirm
+    oc adm prune deployments --orphans --keep-complete=0 --keep-failed=0 --keep-younger-than=72h --confirm
+}
