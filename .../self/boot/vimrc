@@ -123,7 +123,7 @@ endtry
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set tabstop=4 shiftwidth=4 softtabstop=0 expandtab smarttab
+set tabstop=2 shiftwidth=2 softtabstop=0 expandtab smarttab
 
 " Erlang
 autocmd BufEnter *.erl :set tabstop=2 shiftwidth=2
