@@ -2,6 +2,13 @@ let g:netrw_home = '~/.../self/var/cache/vim'
 
 set runtimepath=~/.../self/data/profile/etc/vim,$VIMRUNTIME
 
+" Specify a directory for plugins
+call plug#begin('~/.../self/data/profile/etc/vim/plugged')
+Plug 'altercation/vim-colors-solarized'
+Plug 'elixir-lang/vim-elixir'
+Plug 'mitsuhiko/vim-jinja'
+call plug#end()
+
 " Make Vim behave better
 set nocompatible
 
