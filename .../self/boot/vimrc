@@ -2,8 +2,6 @@ let g:netrw_home = '~/.../self/var/cache/vim'
 
 set runtimepath=~/.../self/data/profile/etc/vim,$VIMRUNTIME
 
-call pathogen#infect()
-
 " Make Vim behave better
 set nocompatible
 
