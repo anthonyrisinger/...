@@ -1,13 +1,20 @@
-let g:netrw_home = '~/.../self/var/cache/vim'
+let s:ellipsis = expand("~/.../self")
+let s:e_cache = s:ellipsis . "/var/cache/vim"
+let s:e_home = s:ellipsis . "/data/profile/etc/vim"
+let s:e_plugins = s:e_home . "/plugged"
 
-set runtimepath=~/.../self/data/profile/etc/vim,$VIMRUNTIME
+let &runtimepath = s:e_home . "," . $VIMRUNTIME
+let g:netrw_home = s:e_cache
 
 " Specify a directory for plugins
-call plug#begin('~/.../self/data/profile/etc/vim/plugged')
+call plug#begin(s:e_plugins)
 Plug 'altercation/vim-colors-solarized'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mitsuhiko/vim-jinja'
 call plug#end()
+if !isdirectory(s:e_plugins)
+  echo "Missing plugins! Please run :PlugInstall"
+endif
 
 " Make Vim behave better
 set nocompatible
@@ -83,19 +90,13 @@ syntax enable " Enable syntax highlighting
 set gfn=Monospace\ 10
 set shell=/bin/bash
 
-"let g:zenburn_high_Contrast=1
-"colorscheme zenburn
-"
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-"let g:solarized_degrade=0
-"let g:solarized_bold=1
-"let g:solarized_underline=1
-"let g:solarized_italic=1
-"let g:solarized_contrast="normal"
-"let g:solarized_visibility="normal"
-set background=dark
-colorscheme solarized
+try
+  let g:solarized_termcolors=256
+  let g:solarized_termtrans=1
+  set background=dark
+  colorscheme solarized
+catch
+endtry
 
 set encoding=utf8
 try
