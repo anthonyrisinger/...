@@ -2,6 +2,7 @@
 
 alias l='ls -Flh'
 alias ll='ls -Flha'
+alias treepy='tree -I "*.pyc|__pycache__|*.egg-info"'
 
 pruno () {
     oc adm prune builds --orphans --keep-complete=1 --keep-failed=1 --keep-younger-than=1h --confirm
