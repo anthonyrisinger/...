@@ -9,6 +9,7 @@ let g:netrw_home = s:e_cache
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
 Plug 'altercation/vim-colors-solarized'
+Plug 'hdima/python-syntax'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mitsuhiko/vim-jinja'
 call plug#end()
