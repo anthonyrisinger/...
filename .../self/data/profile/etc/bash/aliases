@@ -1,5 +1,6 @@
 #!/bin/bash
 
+alias diff='command diff --color -u'
 alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -I "*.pyc|__pycache__|*.egg-info"'
