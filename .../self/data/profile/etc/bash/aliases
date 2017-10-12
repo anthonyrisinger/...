@@ -3,7 +3,7 @@
 alias diff='command diff --color -u'
 alias l='ls -Flh'
 alias ll='ls -Flha'
-alias t='tree -I "*.pyc|__pycache__|*.egg-info"'
+alias t='tree -h -I "*.pyc|__pycache__|*.egg-info|node_modules"'
 
 pruno () {
     oc adm prune builds --orphans --keep-complete=1 --keep-failed=1 --keep-younger-than=1h --confirm
