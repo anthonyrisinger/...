@@ -44,8 +44,8 @@ COMMENT
 
 _cache_comp=${ELLIPSIS}var/cache/bash/completions/
 _srcs=(
-    /[u]sr/share/bash-completion/bash_completion
-    /[e]tc/bash_completion
+    /[u]sr{,/local}/share/bash-completion/bash_completion
+    {,/usr/local}/[e]tc/bash_completion
     ${ELLIPSIS}data/profile/etc/bash/completion.d/*
     /[u]sr/share/git/git-prompt.sh
     $(type -p virtualenvwrapper.sh)
