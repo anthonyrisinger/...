@@ -47,7 +47,7 @@ _srcs=(
     /[u]sr{,/local}/share/bash-completion/bash_completion
     {,/usr/local}/[e]tc/bash_completion
     ${ELLIPSIS}data/profile/etc/bash/completion.d/*
-    /[u]sr/share/git/git-prompt.sh
+    {,/Applications/Xcode.app/Contents/Developer}/[u]sr/share/git{,-core}/git-{prompt.sh,completion.bash}
     $(type -p virtualenvwrapper.sh)
     )
 
