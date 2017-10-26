@@ -1,3 +1,5 @@
+set mouse=a
+
 " map Home and End:
 :map <ESC>[H <Home>
 :map <ESC>[F <End>
