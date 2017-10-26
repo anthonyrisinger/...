@@ -9,9 +9,10 @@ set mouse=a
 :cmap <ESC>[H <Home>
 :cmap <ESC>[F <End>
 " map Option + Left (\033b) and Option + Right (\033f):
+:map <ESC>b b
 :map <ESC>f el
 :imap <ESC>b <C-o>b
-:imap <ESC>f <C-o>e
+:imap <ESC>f <C-o>e<C-o>l
 :cmap <ESC>f el
 
 let s:ellipsis = expand("~/.../self")
