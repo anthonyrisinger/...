@@ -11,7 +11,13 @@
 :map <ESC>f el
 :imap <ESC>b <C-o>b
 :imap <ESC>f <C-o>e<C-o>l
-:cmap <ESC>f el
+:cmap <ESC>b <S-Left>
+:cmap <ESC>f <S-Right>
+" map Option + Delete:
+:map <ESC><BS> db
+:map! <ESC><BS> <C-w>
+" map Command + Delete:
+:map <C-u> d^
 
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
