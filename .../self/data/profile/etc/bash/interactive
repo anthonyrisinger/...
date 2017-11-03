@@ -1,14 +1,6 @@
 #!/bin/bash
 
 
-export PATH USERPATH ELLIPSIS
-PATH="${USERPATH:="$(
-    IFS=; shopt -s nullglob
-    x=(~/[b]in/{*/,})
-    echo -n "${x[*]/%?/:}"
-    )${PATH}"}"
-: ${ELLIPSIS:=~/.../self/}
-
 # I'm human, thanks
 if [[ $(date +%Z) == 'UTC' ]]; then
     export TZ='America/Chicago'
