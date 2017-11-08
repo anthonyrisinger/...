@@ -16,6 +16,8 @@
 	username = anthonyrisinger
 [push]
 	default = current
+[alias]
+	gr = log --graph --oneline
 
 #...site locals
 [include]
