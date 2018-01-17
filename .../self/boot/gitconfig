@@ -9,7 +9,7 @@
 	smtpserver = smtp.gmail.com
 	smtpserverport = 587
 	smtpencryption = tls
-	smtpuser = anthony@xtfx.me
+	smtpuser = c@anthonyrisinger.com
 	chainreplyto = false
 	confirm = auto
 [credential "https://github.com"]
