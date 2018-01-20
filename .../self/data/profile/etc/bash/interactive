@@ -45,20 +45,6 @@ _srcs=(
 
 mkdir -p "${_cache_comp}"
 
-#TODO: impl lazy proxy instead
-for x in $(compgen -c pip); do
-    if [[ ! -e ${_cache_comp}${x} ]]; then
-        (
-        unset PIP_REQUIRE_VIRTUALENV
-        _x=${x//[^[:word:]]}
-        echo "_${_x}_completion()"
-        ${x} completion --bash | sed -n '/^{/,/^}/p'
-        echo "complete -o default -F _${_x}_completion ${x}"
-        ) >> "${_cache_comp}${x}"
-    fi
-    _srcs+=(${_cache_comp}${x})
-done
-
 for x in "${_srcs[@]}"; do
     [[ -r ${x} ]] &&
         . ${x}
