@@ -4,7 +4,7 @@
 export PATH USERPATH ELLIPSIS
 PATH="${USERPATH:="$(
     IFS=; shopt -s nullglob extglob
-    x=(~/{,.local/,Library/Python/[0-9].[0-9]/}[b]in/{,[0-9A-Za-z]*/})
+    x=(~/{,.local/,go/,Library/Python/[0-9].[0-9]/}[b]in/{,[0-9A-Za-z]*/})
     echo -n "${x[*]/%?/:}"
     )${PATH}"}"
 : ${ELLIPSIS:=~/.../self/}
