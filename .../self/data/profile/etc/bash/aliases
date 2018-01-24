@@ -3,7 +3,7 @@
 alias diff='command diff --color -u'
 alias l='ls -Flh'
 alias ll='ls -Flha'
-alias t='tree -h -I "*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git"'
+alias t='tree -h -I "*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
 alias tt='t -a'
 
 pruno () {
