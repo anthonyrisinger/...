@@ -34,6 +34,7 @@ Plug 'hdima/python-syntax'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mitsuhiko/vim-jinja'
 Plug 'vito-c/jq.vim'
+Plug 'cespare/vim-toml'
 call plug#end()
 if !isdirectory(s:e_plugins)
   echo "Missing plugins! Please run :PlugInstall"
