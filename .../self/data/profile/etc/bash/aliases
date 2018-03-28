@@ -5,3 +5,11 @@ alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
 alias tt='t -a'
+
+incognito () { cognito off; }
+cognito () {
+  case ${1:-on} in
+    (on)  [[ -z $HISTFILE ]] && HISTFILE="$HISTFILE__" && unset HISTFILE__;;
+    (off) [[ -z $HISTFILE__ ]] && HISTFILE__="$HISTFILE" && unset HISTFILE;;
+  esac
+}
