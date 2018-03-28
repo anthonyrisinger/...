@@ -5,10 +5,3 @@ alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
 alias tt='t -a'
-
-pruno () {
-    oc adm prune builds --orphans --keep-complete=1 --keep-failed=1 --keep-younger-than=1h --confirm
-    oc adm prune builds --orphans --keep-complete=0 --keep-failed=0 --keep-younger-than=72h --confirm
-    oc adm prune deployments --orphans --keep-complete=1 --keep-failed=1 --keep-younger-than=1h --confirm
-    oc adm prune deployments --orphans --keep-complete=0 --keep-failed=0 --keep-younger-than=72h --confirm
-}
