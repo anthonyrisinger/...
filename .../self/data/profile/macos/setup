@@ -1,0 +1,50 @@
+#!/bin/bash
+set -ex; IFS=$'\n'; shopt -s nullglob extglob
+
+####################
+HOSTNAME=ca-mbp
+TIMEZONE=America/Chicago
+TELEPHONE=507.993.1476
+
+####################
+USERNAME=$(id -un)
+USERGUID=$(dscl . -read /Users/$USERNAME GeneratedUID | cut -d' ' -f2)
+
+####################
+# System update.
+sudo softwareupdate --schedule on
+sudo softwareupdate --install --all --restart
+
+####################
+# FileVault.
+sudo fdesetup enable -usertoadd $USERNAME
+# Timezone.
+sudo systemsetup -settimezone $TIMEZONE
+# Hostname.
+sudo scutil --set ComputerName $HOSTNAME
+sudo scutil --set HostName $HOSTNAME
+sudo scutil --set LocalHostName $HOSTNAME
+sudo defaults write \
+  /Library/Preferences/SystemConfiguration/com.apple.smb.server \
+    NetBIOSName \
+      -string $HOSTNAME
+# Login text.
+sudo defaults write \
+  /Library/Preferences/com.apple.loginwindow \
+    LoginwindowText \
+      "If found please call $TELEPHONE"
+
+####################
+# Reduce UI animations.
+defaults write com.apple.universalaccess reduceMotion -bool true
+
+####################
+# Clickable path in Finder.
+defaults write com.apple.finder ShowPathbar -bool true
+
+####################
+# Do NOT rearrange Spaces layout.
+defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock autohide -bool true
+#defaults write com.apple.dock autohide-time-modifier -float 0.4
+#defaults write com.apple.dock autohide-delay -float 0.0
