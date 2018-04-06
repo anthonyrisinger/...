@@ -33,19 +33,14 @@ COMMENT
 [[ ${TERM} == dumb ]] &&
     return 0
 
-
-_cache_comp=${ELLIPSIS}var/cache/bash/completions/
-_srcs=(
-    /[u]sr{,/local}/share/bash-completion/bash_completion
-    {,/usr/local}/[e]tc/bash_completion
-    ${ELLIPSIS}data/profile/etc/bash/completion.d/*
-    {,/Applications/Xcode.app/Contents/Developer}/[u]sr/share/git{,-core}/git-{prompt.sh,completion.bash}
-    $(type -p virtualenvwrapper.sh)
-    )
-
-mkdir -p "${_cache_comp}"
-
-for x in "${_srcs[@]}"; do
+: ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
+for x in \
+  /usr{,/local}/share/bash-completion/bash_completion \
+  {,/usr/local}/etc/bash_completion \
+  ${ELLIPSIS}data/profile/etc/bash/completion.d/* \
+  {,$DEVELOPER_DIR}/usr/share/git{,-core}/git-{prompt.sh,completion.bash} \
+;
+do
     [[ -r ${x} ]] &&
         . ${x}
 done
