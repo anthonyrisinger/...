@@ -44,6 +44,10 @@ do
     [[ -r ${x} ]] &&
         . ${x}
 done
+# Rename _expand to _orig_expand.
+eval _orig"$(declare -f _expand)"
+# Never expand ~ during TAB completion.
+_expand () { [[ "$cur" == \~*/* ]] || _orig_expand; }
 
 
 <<'COMMENT'
