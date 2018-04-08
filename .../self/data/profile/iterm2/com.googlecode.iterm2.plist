@@ -900,6 +900,8 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>AFB0DBAF-CE86-47B6-AB0F-8E9413C42418</string>
+	<key>NoSyncNeverAskAboutSettingAlternateMouseScroll</key>
+	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
