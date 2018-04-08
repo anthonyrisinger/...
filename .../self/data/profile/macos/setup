@@ -37,6 +37,8 @@ sudo defaults write \
 ####################
 # Dark UI.
 defaults write -globalDomain AppleInterfaceStyle Dark
+# Speed up the trackpad.
+defaults write -globalDomain com.apple.trackpad.scaling -float 1.5
 # Do not close app windows first when app closes.
 defaults write -globalDomain NSQuitAlwaysKeepsWindows -bool true
 # Reduce UI animations.
