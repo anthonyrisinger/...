@@ -32,6 +32,17 @@ COMMENT
 [[ ${TERM} == dumb ]] &&
     return 0
 
+# Better shell scripting experience:
+#   - Word split on newline ONLY.
+#   - Patterns may use extended matching @(...) operators.
+#   - Disable pathname expansion for unquoted words.
+#   - Patterns may expand to zero words.
+# With respect to completion routines, the first two are closely managed (IFS)
+# or already enabled (extglob) so it seems safe to enable globally here. Skip
+# the last two because they sadly interfere with widespread shell conventions.
+IFS=$'\n'; shopt -s extglob
+#set -f; shopt -s nullglob
+
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \
   /usr{,/local}/share/bash-completion/bash_completion \
