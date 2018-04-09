@@ -11,17 +11,31 @@ PATH="${USERPATH:="$(
 
 interactive=${-//[^i]}
 
-[[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]] && (
-    export GIT_DIR=~/...
-    _0=$(git rev-parse HEAD) &&
-        git pull --quiet &&
-        _1=$(git rev-parse HEAD) &&
-        [[ ${_0} != ${_1} ]]; _e=${?}
-    [[ ${_e} -eq 0 && -n ${interactive} ]] &&
-        git diff --stat ${_0}
-    exit ${_e}
-    ) &&
-    exec ${BASH}
+if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
+  now=$(date +%s)
+  old=$(git rev-parse HEAD)
+  new=$(git rev-parse HEAD@{upstream})
+  last=$(date -r ~/.../FETCH_HEAD +%s 2> /dev/null || echo 0)
+  next=$((last + (60*60*12)))
+  if ((now > next)); then
+    git fetch --verbose --prune
+    new=$(git rev-parse HEAD@{upstream})
+  fi
+  if [[ $old != $new ]]; then
+    if [[ -n $interactive ]]; then
+      # If mismatched and shell is interactive, show diffstat.
+      git diff --stat $old..$new
+    fi
+    if git merge --quiet --ff-only $new; then
+      # Clean fast-forward or already up-to-date.
+      old=$(git rev-parse HEAD)
+      if [[ $old == $new ]]; then
+        # If HEAD moved we need to relaunch this login shell.
+        exec -l $BASH "${@}"
+      fi
+    fi
+  fi
+fi
 
 [[ -n ${interactive} && -f ${ELLIPSIS}data/profile/etc/bash/interactive ]] &&
     . ${ELLIPSIS}data/profile/etc/bash/interactive
