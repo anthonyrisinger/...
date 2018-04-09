@@ -7,8 +7,7 @@ alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.gi
 alias tt='t -a'
 
 # Git aliases.
-alias g='git'
-alias gg='git status'
+alias g='git status'
 alias gs='git show --stat'
 alias gss='git show'
 alias gd='git diff --stat'
