@@ -16,6 +16,7 @@ alias gdc='git diff --cached --stat'
 alias gdcc='git diff --cached'
 alias gl='git log --stat'
 alias gll='git log --patch'
+alias gg='git log --graph --oneline'
 
 incognito () { cognito off; }
 cognito () {

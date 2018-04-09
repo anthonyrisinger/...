@@ -16,12 +16,6 @@
 	username = anthonyrisinger
 [push]
 	default = current
-[alias]
-	gr = log --graph --oneline
-	st = status
-	s = status
-	dc = diff --cached
-	d = diff
 
 #...site locals
 [include]
