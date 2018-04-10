@@ -14,6 +14,7 @@ export PATH=$(
 interactive=${-//[^i]}
 
 if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
+  seen=false
   now=$(date +%s)
   old=$(git rev-parse HEAD)
   new=$(git rev-parse HEAD@{upstream})
@@ -25,8 +26,9 @@ if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
   fi
   if [[ $old != $new ]]; then
     if [[ -n $interactive ]]; then
-      # If mismatched and shell is interactive, show diffstat.
-      git diff --stat $old..$new
+      # If mismatched and shell is interactive, inform the user.
+      git status --branch --short
+      seen=true
     fi
     if git merge --quiet --ff-only $new; then
       # Clean fast-forward or already up-to-date.
@@ -36,6 +38,10 @@ if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
         exec -l $BASH "${@}"
       fi
     fi
+  fi
+  if ! $seen; then
+    # Skip --branch here so there's no output if no changes.
+    git status --short
   fi
 fi
 
