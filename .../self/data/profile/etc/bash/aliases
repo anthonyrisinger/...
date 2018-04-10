@@ -9,6 +9,8 @@ alias tx='tmux new-session -ADs ${PWD##*/}'
 
 # Git aliases.
 alias g='git status'
+alias gt='git status'
+alias gts='git status --short'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gdcs='git diff --cached --stat'
