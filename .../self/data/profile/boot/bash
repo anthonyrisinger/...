@@ -19,6 +19,16 @@ case $- in
   (*) interactive=false;;
 esac
 
+# Detect OSTYPE (darwin, linux, etc).
+if [[ -z $OSTYPE ]]; then
+  OSTYPE=$(uname -s | tr '[:upper:]' '[:lower:]')
+fi
+
+# Detect HOSTTYPE (x86, x86_64, etc).
+if [[ -z $HOSTTYPE ]]; then
+  HOSTTYPE=$(uname -m | tr '[:upper:]' '[:lower:]')
+fi
+
 if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
   seen=false
   now=$(date +%s)
