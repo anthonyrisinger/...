@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias diff='command diff --color -u'
+alias diff='git diff --no-index'
 alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
@@ -8,15 +8,17 @@ alias tt='t -a'
 
 # Git aliases.
 alias g='git status'
-alias gs='git show --stat'
-alias gss='git show'
-alias gd='git diff --stat'
-alias gdd='git diff'
-alias gdc='git diff --cached --stat'
-alias gdcc='git diff --cached'
-alias gl='git log --stat'
-alias gll='git log --patch'
-alias gg='git log --graph --oneline'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gdcs='git diff --cached --stat'
+alias gds='git diff --stat'
+alias gl='git log'
+alias glg='git log --graph'
+alias glgo='git log --graph --oneline'
+alias glp='git log --patch'
+alias gls='git log --stat'
+alias gs='git show'
+alias gss='git show --stat'
 
 incognito () { cognito off; }
 cognito () {
