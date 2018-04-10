@@ -35,7 +35,7 @@ if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
       git status --branch --short
       seen=true
     fi
-    if git merge --quiet --ff-only ${shas[1]}; then
+    if git merge --quiet --ff-only ${shas[1]} 2> /dev/null; then
       # Clean fast-forward or already up-to-date.
       shas[0]=$(git rev-parse HEAD)
       if [[ ${shas[0]} == ${shas[1]} ]]; then
