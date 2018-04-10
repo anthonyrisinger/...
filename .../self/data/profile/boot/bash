@@ -19,24 +19,23 @@ esac
 if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
   seen=false
   now=$(date +%s)
-  old=$(git rev-parse HEAD)
-  new=$(git rev-parse HEAD@{upstream})
+  shas=($(git rev-parse HEAD HEAD@{upstream}))
   last=$(date -r ~/.../FETCH_HEAD +%s 2> /dev/null || echo 0)
   next=$((last + (60*60*12)))
   if ((now > next)); then
     git fetch --verbose --prune
-    new=$(git rev-parse HEAD@{upstream})
+    shas[1]=$(git rev-parse HEAD@{upstream})
   fi
-  if [[ $old != $new ]]; then
+  if [[ ${shas[0]} != ${shas[1]} ]]; then
     if $interactive; then
       # If mismatched and shell is interactive, inform the user.
       git status --branch --short
       seen=true
     fi
-    if git merge --quiet --ff-only $new; then
+    if git merge --quiet --ff-only ${shas[1]}; then
       # Clean fast-forward or already up-to-date.
-      old=$(git rev-parse HEAD)
-      if [[ $old == $new ]]; then
+      shas[0]=$(git rev-parse HEAD)
+      if [[ ${shas[0]} == ${shas[1]} ]]; then
         # If HEAD moved we need to relaunch this login shell.
         exec -l $BASH "${@}"
       fi
