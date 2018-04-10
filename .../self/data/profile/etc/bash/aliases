@@ -5,6 +5,7 @@ alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
 alias tt='t -a'
+alias tx='tmux new-session -ADs ${PWD##*/}'
 
 # Git aliases.
 alias g='git status'
