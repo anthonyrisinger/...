@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export ELLIPSIS=${ELLIPSIS:-~/.../self/}
+export HOME=~
 export PATH=$(
   IFS=
   shopt -s nullglob
