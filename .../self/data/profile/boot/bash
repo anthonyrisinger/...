@@ -11,7 +11,10 @@ export PATH=$(
   echo "${PATHS[*]/%?/:}$PATH"
 )
 
-interactive=${-//[^i]}
+case $- in
+  (*i*) interactive=true;;
+  (*) interactive=false;;
+esac
 
 if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
   seen=false
@@ -25,7 +28,7 @@ if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
     new=$(git rev-parse HEAD@{upstream})
   fi
   if [[ $old != $new ]]; then
-    if [[ -n $interactive ]]; then
+    if $interactive; then
       # If mismatched and shell is interactive, inform the user.
       git status --branch --short
       seen=true
@@ -39,7 +42,7 @@ if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
       fi
     fi
   fi
-  if ! $seen; then
+  if $interactive && ! $seen; then
     # Skip --branch here so there's no output if no changes.
     git status --short
   fi
