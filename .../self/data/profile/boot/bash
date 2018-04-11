@@ -91,14 +91,17 @@ fi
       # Either upstream is older than HEAD or the fast-forward worked!
       # Record new HEAD rev now that worktree is also in order.
       shas[0]=$(git rev-parse HEAD)
+      # If HEAD moved we need to re-exec ASAP.
+      if [[ ${shas[0]} == ${shas[1]} ]]; then
+        echo '## Upstream is merged (reloading).'
+        exit 99
+      else
+        echo '## Upstream is merged.'
+      fi
     else
       # If merge failed, let's retry in an hour.
       TZ=UTC touch -m -t 197001010000.00 ${_ELLIPSIS}FETCH_HEAD
       echo '## Unable to update cleanly (see above).'
-    fi
-    # If HEAD moved we need to re-exec ASAP.
-    if [[ ${shas[0]} == ${shas[1]} ]]; then
-      exit 99
     fi
   fi
 
