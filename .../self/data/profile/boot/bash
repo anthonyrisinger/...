@@ -18,7 +18,7 @@ ELLIPSIS_DEBUG="$((${ELLIPSIS_DEBUG/[TYty]/1}))"
 # Look in common places for more candidates.
 if [[ -z $ELLIPSIS_PATH ]]; then
   ELLIPSIS_PATH=$(
-    IFS=; shopt -s nullglob; ((ELLIPSIS_DEBUG)) && set -x
+    IFS=; shopt -s nullglob
     matches=(
       ${ELLIPSIS}[b]in/
       $HOME/{,.local/,go/,Library/Python/[0-9].[0-9]/}[b]in/{,[0-9A-Za-z]*/}
@@ -54,8 +54,6 @@ fi
   # Clean stderr unless debug.
   if ! ((ELLIPSIS_DEBUG)); then
     exec 2>/dev/null
-  else
-    set -x
   fi
 
   # Shadow `git`.
