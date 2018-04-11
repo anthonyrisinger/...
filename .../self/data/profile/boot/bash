@@ -92,7 +92,7 @@ fi
   # Fetch latest from upstream.
   if ((now > next)); then
     # Inform user of network activity and record new upstream rev.
-    echo '## Syncing with upstream.'
+    say 'Syncing upstream.'
     git fetch --verbose --prune 2>&1
     shas[1]=$(git rev-parse HEAD@{upstream})
   fi
@@ -108,15 +108,17 @@ fi
       shas[0]=$(git rev-parse HEAD)
       # If HEAD moved we need to re-exec ASAP.
       if [[ ${shas[0]} == ${shas[1]} ]]; then
-        echo '## Upstream is merged (reloading).'
+        at=INFO say 'Upstream merged (reloading).'
         exit 99
       else
-        echo '## Upstream is merged.'
+        at=INFO say 'Upstream merged.'
       fi
     else
       # If merge failed, let's retry in an hour.
       TZ=UTC touch -m -t 197001010000.00 ${_ELLIPSIS}FETCH_HEAD
-      echo '## Unable to update cleanly (see above).'
+      at=WARN say \
+        'Upstream not merged (cd ~; git merge %s).' \
+          $(git rev-parse --symbolic-full-name --abbrev-ref HEAD@{upstream})
     fi
   fi
 
