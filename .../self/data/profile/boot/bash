@@ -1,23 +1,34 @@
 #!/bin/bash
 
-# These are longer auto-exported in recent versions.
+# Not auto-exported by shells or POSIX.
 export HOME PATH SHELL TERM HOSTNAME HOSTTYPE MACHTYPE OSTYPE
-export ELLIPSIS=${ELLIPSIS:-~/.../self/}
-export HOME=~
-export PATH=$(
-  IFS=
-  shopt -s nullglob
-  PATHS=(
-    ${ELLIPSIS}[b]in/
-    ~/{,.local/,go/,Library/Python/[0-9].[0-9]/}[b]in/{,[0-9A-Za-z]*/}
-  )
-  echo "${PATHS[*]/%?/:}$PATH"
-)
 
-case $- in
-  (*i*) interactive=true;;
-  (*) interactive=false;;
-esac
+# Used in downstream configuration files.
+export _ELLIPSIS ELLIPSIS ELLIPSIS_PATH ELLIPSIS_DEBUG
+
+# Let the shell work it out.
+HOME=~
+
+# Allow overrides, eg. `_ELLIPSIS=a bash`.
+: "${_ELLIPSIS:=$HOME/.../}"
+: "${ELLIPSIS:=${_ELLIPSIS}self/}"
+# Case-insensitive: 0-9 t/rue f/alse y/es n/o
+ELLIPSIS_DEBUG="${ELLIPSIS_DEBUG:0:1}"
+ELLIPSIS_DEBUG="$((${ELLIPSIS_DEBUG/[TYty]/1}))"
+# Look in common places for more candidates.
+if [[ -z $ELLIPSIS_PATH ]]; then
+  ELLIPSIS_PATH=$(
+    IFS=; shopt -s nullglob; ((ELLIPSIS_DEBUG)) && set -x
+    matches=(
+      ${ELLIPSIS}[b]in/
+      $HOME/{,.local/,go/,Library/Python/[0-9].[0-9]/}[b]in/{,[0-9A-Za-z]*/}
+    )
+    echo "${matches[*]/%?/:}$PATH"
+  )
+fi
+
+# ELLIPSIS_PATH is only computed once.
+PATH="$ELLIPSIS_PATH"
 
 # Detect OSTYPE (darwin, linux, etc).
 if [[ -z $OSTYPE ]]; then
@@ -29,36 +40,80 @@ if [[ -z $HOSTTYPE ]]; then
   HOSTTYPE=$(uname -m | tr '[:upper:]' '[:lower:]')
 fi
 
-if [[ -x $(type -p git) && -f ~/.../config && -z ${UID/#${EUID}} ]]; then
-  seen=false
+# Subshell to avoid side effects. Return code determines next step.
+(if [[ -x $(type -p git) && -f ${_ELLIPSIS}config && -z ${UID/#$EUID} ]]; then
+
+  # Better working conditions.
+  IFS=$'\n'; set -f; shopt -s extglob
+
+  # Clean stdout unless interactive.
+  if ! [[ $- =~ .*i.* ]]; then
+    exec >/dev/null
+  fi
+
+  # Clean stderr unless debug.
+  if ! ((ELLIPSIS_DEBUG)); then
+    exec 2>/dev/null
+  else
+    set -x
+  fi
+
+  # Shadow `git`.
+  export GIT_DIR=$_ELLIPSIS
+  export GIT_WORK_TREE=$HOME
+  _git_status_calls=0
+  git () {
+    # Show status exactly once.
+    [[ $1 == status ]] && ((_git_status_calls++)) && return
+    # Otherwise forward to git binary.
+    command git "${@}"
+  }
+
   now=$(date +%s)
   shas=($(git rev-parse HEAD HEAD@{upstream}))
-  last=$(date -r ~/.../FETCH_HEAD +%s 2> /dev/null || echo 0)
+  last=$(($(date -r ${_ELLIPSIS}FETCH_HEAD +%s)))
   next=$((last + (60*60*12)))
+
+  # Fetch latest from upstream.
   if ((now > next)); then
-    git fetch --verbose --prune
+    # Inform user of network activity and record new upstream rev.
+    git fetch --verbose --prune 2>&1
     shas[1]=$(git rev-parse HEAD@{upstream})
   fi
-  if [[ ${shas[0]} != ${shas[1]} ]]; then
-    if $interactive; then
-      # If mismatched and shell is interactive, inform the user.
-      git status --branch --short
-      seen=true
-    fi
-    if git merge --quiet --ff-only ${shas[1]} 2> /dev/null; then
-      # Clean fast-forward or already up-to-date.
-      shas[0]=$(git rev-parse HEAD)
-      if [[ ${shas[0]} == ${shas[1]} ]]; then
-        # If HEAD moved we need to relaunch this login shell.
-        exec -l $BASH "${@}"
-      fi
-    fi
-  fi
-  if $interactive && ! $seen; then
-    # Skip --branch here so there's no output if no changes.
-    git status --short
-  fi
-fi
 
-[[ -n ${interactive} && -f ${ELLIPSIS}data/profile/etc/bash/interactive ]] &&
+  # Bring worktree up-to-date.
+  if [[ ${shas[0]} != ${shas[1]} ]]; then
+    # Inform user of the branch-to-merge.
+    git status --branch --short
+    # Attempt to [safely] bring worktree into compliance.
+    if git merge --quiet --ff-only ${shas[1]}; then
+      # Either upstream is older than HEAD or the fast-forward worked!
+      # Record new HEAD rev now that worktree is also in order.
+      shas[0]=$(git rev-parse HEAD)
+    else
+      # If merge failed, let's retry in an hour.
+      TZ=UTC touch -m -t 197001010000.00 ${_ELLIPSIS}FETCH_HEAD
+      echo '## Unable to update cleanly (see above).'
+    fi
+    # If HEAD moved we need to re-exec ASAP.
+    if [[ ${shas[0]} == ${shas[1]} ]]; then
+      exit 99
+    fi
+  fi
+
+  # Omit --branch here so a clean worktree produces no output.
+  git status --short
+
+fi)
+
+# Use shellopts and subshell exit code to determine what's next.
+case $-,$? in
+  (*,99)
+    # Code updated. Re-exec!
+    exec -l $BASH "${@}"
+    ;;
+  (*i*,*)
+    # Interactive.
     . ${ELLIPSIS}data/profile/etc/bash/interactive
+    ;;
+esac
