@@ -22,6 +22,15 @@ alias glp='git log --patch'
 alias gls='git log --stat'
 alias gs='git show'
 alias gss='git show --stat'
+alias ga='git add'
+alias gaa='git add --all'
+alias gap='git add --patch'
+alias gc='git commit'
+alias gcm='git commit --message'
+alias gca='git commit --amend'
+alias gcam='git commit --amend --message'
+alias gcah='git commit --amend --reuse-message HEAD'
+alias gp='git push'
 
 incognito () { cognito off; }
 cognito () {
