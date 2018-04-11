@@ -56,6 +56,23 @@ fi
     exec 2>/dev/null
   fi
 
+  # Logging utils.
+  OFF='\033[0m'
+  INFO='\033[32m'
+  WARN='\033[33m'
+  ERROR='\033[31m'
+  FATAL='\033[31m'
+  DEBUG='\033[1m'
+  info () { at=INFO _log "$@"; }
+  warn () { at=WARN _log "$@"; }
+  error () { at=ERROR _log "$@"; }
+  fatal () { at=FATAL _log "$@"; exit 1; }
+  debug () { ((!ELLIPSIS_DEBUG)) || at=DEBUG _log "$@"; }
+  say () { at=${at:-OFF} _say "$@"; }
+  log () { at=${at:-DEBUG} _log "$@"; }
+  _say () { printf "## ${!at}$1$OFF\n" "${@:2}"; }
+  _log () { printf "${!at}%-5s%$OFF $(date +%FT%T%z) $1\n" "${@:2}"; }
+
   # Shadow `git`.
   export GIT_DIR=$_ELLIPSIS
   export GIT_WORK_TREE=$HOME
