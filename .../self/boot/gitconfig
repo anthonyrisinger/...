@@ -22,3 +22,5 @@
 	path = .gitconfig.local
 [diff]
 	noprefix = true
+[stash]
+	showPatch = true
