@@ -1,6 +1,5 @@
 #!/bin/bash
 
-alias diff='git diff --no-index'
 alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
@@ -8,34 +7,35 @@ alias tt='t -a'
 alias tx='tmux new-session -ADs ${PWD##*/}'
 
 # Git aliases.
-alias g='git status'
-alias gt='git status'
-alias gts='git status --short'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gdcs='git diff --cached --stat'
-alias gds='git diff --stat'
-alias gl='git log'
-alias glg='git log --graph'
-alias glgo='git log --graph --oneline'
-alias glp='git log --patch'
-alias gls='git log --stat'
-alias gs='git show'
-alias gss='git show --stat'
-alias ga='git add'
-alias gaa='git add --all'
-alias gap='git add --patch'
-alias gc='git commit'
-alias gcm='git commit --message'
-alias gch='git commit --amend'
-alias gchn='git commit --amend --no-edit'
-alias gchm='git commit --amend --message'
-alias gca='git commit --all'
-alias gcam='git commit --all --message'
-alias gcah='git commit --all --amend'
-alias gcahn='git commit --all --amend --no-edit'
-alias gcahm='git commit --all --amend --message'
-alias gp='git push'
+diffopts='--diff-algorithm=histogram --word-diff=color'
+alias diff="git diff --no-index $diffopts"
+alias ga="git add"
+alias gaa="git add --all"
+alias gap="git add --patch"
+alias gc="git commit"
+alias gca="git commit --all"
+alias gcah="git commit --all --amend"
+alias gcahm="git commit --all --amend --message"
+alias gcahn="git commit --all --amend --no-edit"
+alias gcam="git commit --all --message"
+alias gch="git commit --amend"
+alias gchm="git commit --amend --message"
+alias gchn="git commit --amend --no-edit"
+alias gcm="git commit --message"
+alias gd="git diff $diffopts"
+alias gdc="git diff --cached $diffopts"
+alias gdcs="git diff --cached --stat"
+alias gds="git diff --stat"
+alias gl="git log $diffopts"
+alias glg="git log --graph $diffopts"
+alias glgo="git log --graph --oneline $diffopts"
+alias glp="git log --patch $diffopts"
+alias gls="git log --stat"
+alias gp="git push"
+alias gs="git show $diffopts"
+alias gss="git show --stat"
+alias gt="git status"
+alias gts="git status --short"
 
 incognito () { cognito off; }
 cognito () {
