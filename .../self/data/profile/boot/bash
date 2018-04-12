@@ -74,8 +74,14 @@ fi
   debug () { ((!ELLIPSIS_DEBUG)) || at=DEBUG _log "$@"; }
   say () { at=${at:-DEBUG} _say "$@"; }
   log () { at=${at:-DEBUG} _log "$@"; }
-  _say () { printf "## ${!at}$1$OFF\n" "${@:2}"; }
-  _log () { printf "${!at}%-5s $GRAY$(date +%FT%T%z)$OFF $1\n" $at "${@:2}"; }
+  _say () {
+    local format=$1; shift
+    printf "## ${!at}$format$OFF\n" "$@"
+  }
+  _log () {
+    local format=$1; shift
+    printf "${!at}%-5s $GRAY$(date +%FT%T%z)$OFF $format\n" $at "$@"
+  }
 
   # Shadow `git`.
   export GIT_DIR=$_ELLIPSIS
