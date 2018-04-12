@@ -71,7 +71,7 @@ fi
   say () { at=${at:-OFF} _say "$@"; }
   log () { at=${at:-DEBUG} _log "$@"; }
   _say () { printf "## ${!at}$1$OFF\n" "${@:2}"; }
-  _log () { printf "${!at}%-5s%$OFF $(date +%FT%T%z) $1\n" "${@:2}"; }
+  _log () { printf "${!at}%-5s$OFF $(date +%FT%T%z) $1\n" $at "${@:2}"; }
 
   # Shadow `git`.
   export GIT_DIR=$_ELLIPSIS
