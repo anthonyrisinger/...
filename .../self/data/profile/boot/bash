@@ -57,12 +57,16 @@ fi
   fi
 
   # Logging utils.
-  OFF='\033[0m'
-  INFO='\033[32m'
-  WARN='\033[33m'
-  ERROR='\033[31m'
-  FATAL='\033[31m'
-  DEBUG='\033[1m'
+  OFF='\e[0m'
+  GRAY='\e[30m'
+  RED='\e[31m'
+  GREEN='\e[32m'
+  YELLOW='\e[33m'
+  INFO=$GREEN
+  WARN=$YELLOW
+  ERROR=$RED
+  FATAL=$RED
+  DEBUG=$GRAY
   info () { at=INFO _log "$@"; }
   warn () { at=WARN _log "$@"; }
   error () { at=ERROR _log "$@"; }
