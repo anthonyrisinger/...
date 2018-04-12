@@ -945,6 +945,10 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>~/.../self/data/profile/iterm2</string>
+	<key>PromptOnQuit</key>
+	<false/>
+	<key>QuitWhenAllWindowsClosed</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
