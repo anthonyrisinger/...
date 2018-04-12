@@ -85,29 +85,29 @@ fi
   }
 
   now=$(date +%s)
-  shas=($(git rev-parse HEAD HEAD@{upstream}))
   last=$(($(date -r ${_ELLIPSIS}FETCH_HEAD +%s)))
   next=$((last + (60*60*12)))
+  read us them <<<$(git rev-parse HEAD HEAD@{upstream})
 
   # Fetch latest from upstream.
   if ((now > next)); then
     # Inform user of network activity and record new upstream rev.
     say 'Syncing upstream.'
     git fetch --verbose --prune 2>&1
-    shas[1]=$(git rev-parse HEAD@{upstream})
+    them=$(git rev-parse HEAD@{upstream})
   fi
 
   # Bring worktree up-to-date.
-  if [[ ${shas[0]} != ${shas[1]} ]]; then
+  if [[ $us != $them ]]; then
     # Inform user of the branch-to-merge.
     git status --branch --short
     # Attempt to [safely] bring worktree into compliance.
-    if git merge --quiet --ff-only ${shas[1]}; then
+    if git merge --quiet --ff-only $them; then
       # Either upstream is older than HEAD or the fast-forward worked!
       # Record new HEAD rev now that worktree is also in order.
-      shas[0]=$(git rev-parse HEAD)
+      us=$(git rev-parse HEAD)
       # If HEAD moved we need to re-exec ASAP.
-      if [[ ${shas[0]} == ${shas[1]} ]]; then
+      if [[ $us == $them ]]; then
         at=INFO say 'Upstream merged (reloading).'
         exit 99
       else
