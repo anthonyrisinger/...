@@ -72,7 +72,7 @@ fi
   error () { at=ERROR _log "$@"; }
   fatal () { at=FATAL _log "$@"; exit 1; }
   debug () { ((!ELLIPSIS_DEBUG)) || at=DEBUG _log "$@"; }
-  say () { at=${at:-OFF} _say "$@"; }
+  say () { at=${at:-DEBUG} _say "$@"; }
   log () { at=${at:-DEBUG} _log "$@"; }
   _say () { printf "## ${!at}$1$OFF\n" "${@:2}"; }
   _log () { printf "${!at}%-5s $GRAY$(date +%FT%T%z)$OFF $1\n" $at "${@:2}"; }
