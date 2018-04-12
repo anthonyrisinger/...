@@ -97,7 +97,7 @@ fi
   now=$(date +%s)
   last=$(($(date -r ${_ELLIPSIS}FETCH_HEAD +%s)))
   next=$((last + (60*60*12)))
-  read us them <<<$(git rev-parse HEAD HEAD@{upstream})
+  read -d '' us them <<<"$(git rev-parse HEAD HEAD@{upstream})"
 
   # Fetch latest from upstream.
   if ((now > next)); then
