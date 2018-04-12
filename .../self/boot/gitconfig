@@ -20,3 +20,5 @@
 #...site locals
 [include]
 	path = .gitconfig.local
+[diff]
+	noprefix = true
