@@ -108,7 +108,7 @@ fi
   fi
 
   # Bring worktree up-to-date.
-  if [[ $us != $them ]]; then
+  if [[ $us != $them ]] && ! git merge-base --is-ancestor $them $us; then
     # Inform user of the branch-to-merge.
     git status --branch --short
     # Attempt to [safely] bring worktree into compliance.
