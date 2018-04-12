@@ -508,6 +508,13 @@
 					<key>Text</key>
 					<string>9</string>
 				</dict>
+				<key>0x61-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x1</string>
+				</dict>
 				<key>0x64-0x100000</key>
 				<dict>
 					<key>Action</key>
