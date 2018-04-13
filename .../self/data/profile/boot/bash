@@ -137,13 +137,15 @@ fi
 
 fi)
 
-# Use shellopts and subshell exit code to determine what's next.
-case $-,$? in
-  (*,99)
+case $? in
+  (99)
     # Code updated. Re-exec!
     exec -l $BASH "${@}"
     ;;
-  (*i*,*)
+esac
+
+case $- in
+  (*i*)
     # Interactive.
     . ${ELLIPSIS}data/profile/etc/bash/interactive
     ;;
