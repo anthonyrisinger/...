@@ -31,3 +31,5 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[core]
+	pager = "LESSOPEN=\"||-$(type -p diff-so-fancy)\" && export LESSOPEN || unset LESSOPEN; exec less"
