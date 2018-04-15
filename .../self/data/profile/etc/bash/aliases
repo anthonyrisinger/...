@@ -6,8 +6,27 @@ alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.gi
 alias tt='t -a'
 alias tx='tmux new-session -ADs ${PWD##*/}'
 
+# Used by aliases.
+DIFF_WORD=color
+DIFF_ALGO=histogram
+
+# Allow user to switch on/off.
+noworddiff () { worddiff no; }
+worddiff () {
+  case ${1:-y} in
+    (y*)
+      [[ -z ${DIFF_WORD/none} ]] &&
+        DIFF_WORD="$DIFF_WORD__" &&
+        unset DIFF_WORD__;;
+    (n*)
+      [[ -z $DIFF_WORD__ ]] &&
+        DIFF_WORD__="$DIFF_WORD" &&
+        DIFF_WORD=none;;
+  esac
+}
+
 # Git aliases.
-diffopts='--diff-algorithm=histogram --word-diff=color'
+diffopts='--diff-algorithm=$DIFF_ALGO --word-diff=$DIFF_WORD'
 alias diff="git diff --no-index $diffopts"
 alias ga="git add"
 alias gaa="git add --all"
