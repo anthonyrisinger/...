@@ -4,7 +4,15 @@ alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
 alias tt='t -a'
-alias tx='tmux new-session -ADs "${PWD##*/}" "$(printf "tmux set-environment PWD %q; PWD=%q exec -l bash" "$PWD" "$PWD")"'
+
+# Tmux wrappers.
+tn () { tmux new-session -ADs "$@"; }
+tx () { tn $(tpro) "$@"; }
+tu () ( cd ~ && tn "$USER" "$@"; )
+ts () ( cd ~/self && tn self "$@"; )
+tw () ( cd ~/work && tn work "$@"; )
+tmux () { TMUX_PWD="$PWD" command tmux "$@"; }
+tpro () { basename "$(git rev-parse --show-toplevel 2>/dev/null || pwd -L)"; }
 
 # Git aliases.
 diffopts='--diff-algorithm=histogram'
