@@ -17,9 +17,13 @@
 [push]
 	default = current
 
-#...site locals
-[include]
-	path = .gitconfig.local
+[includeIf "gitdir:~/devel/"]
+	path = ~/.../self/data/profile/git/devel/config
+[includeIf "gitdir:~/self/"]
+	path = ~/.../self/data/profile/git/self/config
+[includeIf "gitdir:~/work/"]
+	path = ~/.../self/data/profile/git/work/config
+
 [diff]
 	noprefix = true
 [stash]
