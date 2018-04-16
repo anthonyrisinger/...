@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Not auto-exported by shells or POSIX.
-export HOME PATH SHELL TERM HOSTNAME HOSTTYPE MACHTYPE OSTYPE
+export PWD HOME PATH SHELL TERM HOSTNAME HOSTTYPE MACHTYPE OSTYPE
 
 # Used in downstream configuration files.
 export _ELLIPSIS ELLIPSIS ELLIPSIS_PATH ELLIPSIS_DEBUG
