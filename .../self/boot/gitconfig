@@ -17,11 +17,7 @@
 [push]
 	default = current
 
-[includeIf "gitdir:~/devel/"]
-	path = ~/.../self/data/profile/git/devel/config
-[includeIf "gitdir:~/self/"]
-	path = ~/.../self/data/profile/git/self/config
-[includeIf "gitdir:~/work/"]
+[includeIf "gitdir:~/devel/work/"]
 	path = ~/.../self/data/profile/git/work/config
 
 [diff]
