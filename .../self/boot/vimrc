@@ -171,6 +171,7 @@ set wrap "Wrap lines
 autocmd BufEnter *.go :set noexpandtab
 autocmd BufEnter wscript :set noexpandtab filetype=python
 autocmd BufEnter *.djhtml :set filetype=htmldjango
+autocmd BufEnter */git*config :set filetype=gitconfig
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
