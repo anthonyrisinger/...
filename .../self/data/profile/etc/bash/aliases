@@ -6,13 +6,10 @@ alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.gi
 alias tt='t -a'
 
 # Tmux wrappers.
-tn () { tmux new-session -ADs "$@"; }
-tx () { tn $(tpro) "$@"; }
-tu () ( cd ~ && tn "$USER" "$@"; )
-ts () ( cd ~/self && tn self "$@"; )
-tw () ( cd ~/work && tn work "$@"; )
-tmux () { TMUX_PWD="$PWD" command tmux "$@"; }
-tpro () { basename "$(git rev-parse --show-toplevel 2>/dev/null || pwd -L)"; }
+alias th='td .'
+alias ty='td ~'
+alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
+td () ( cd "${1:-.}" && exec tmux new-session -ADs "$PWD" \; "${@:2}" )
 
 # Git aliases.
 diffopts='--diff-algorithm=histogram'
