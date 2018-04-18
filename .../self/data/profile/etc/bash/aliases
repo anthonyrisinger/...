@@ -14,9 +14,8 @@ td () ( cd "${1:-.}" && exec tmux new-session -ADs "$PWD" \; "${@:2}" )
 # Git aliases.
 diffopts='--diff-algorithm=histogram'
 alias diff="git diff --no-index $diffopts"
-alias qa="git add"
+alias qa="git add --patch"
 alias qaa="git add --all"
-alias qap="git add --patch"
 alias qc="git commit"
 alias qca="git commit --amend"
 alias qcam="git commit --amend --message"
