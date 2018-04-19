@@ -12,17 +12,19 @@ alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
 td () ( cd "${1:-.}" && exec tmux new-session -ADs "$PWD" \; "${@:2}" )
 
 # Git aliases.
-diffopts='--diff-algorithm=histogram'
-alias diff="git diff --no-index $diffopts"
+alias diff="git diff --no-index"
 # Higher-speed keystrokes.
 alias q="git status"
 alias qa="git add --patch"
 alias qaa="git add --all"
-alias qs="git show $diffopts"
+alias qs="git show"
 alias qsq="git show --stat"
-alias qw="git diff $diffopts"
+alias qss="git log --patch"
+alias qsso="git log --graph --oneline"
+alias qssq="git log --stat"
+alias qw="git diff"
 alias qwq="git diff --stat"
-alias qww="git diff --cached $diffopts"
+alias qww="git diff --cached"
 alias qwwq="git diff --cached --stat"
 # Lower-speed keystrokes.
 alias qc="git commit"
@@ -35,11 +37,6 @@ alias qccam="git commit --all --amend --message"
 alias qccan="git commit --all --amend --no-edit"
 alias qccm="git commit --all --message"
 alias qcm="git commit --message"
-alias ql="git log $diffopts"
-alias qlg="git log --graph $diffopts"
-alias qlgo="git log --graph --oneline $diffopts"
-alias qlp="git log --patch $diffopts"
-alias qls="git log --stat"
 alias qp!="git push --force"
 alias qp="git push"
 
