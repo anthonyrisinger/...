@@ -14,8 +14,17 @@ td () ( cd "${1:-.}" && exec tmux new-session -ADs "$PWD" \; "${@:2}" )
 # Git aliases.
 diffopts='--diff-algorithm=histogram'
 alias diff="git diff --no-index $diffopts"
+# Higher-speed keystrokes.
+alias q="git status"
 alias qa="git add --patch"
 alias qaa="git add --all"
+alias qs="git show $diffopts"
+alias qsq="git show --stat"
+alias qw="git diff $diffopts"
+alias qwq="git diff --stat"
+alias qww="git diff --cached $diffopts"
+alias qwwq="git diff --cached --stat"
+# Lower-speed keystrokes.
 alias qc="git commit"
 alias qca="git commit --amend"
 alias qcam="git commit --amend --message"
@@ -26,21 +35,13 @@ alias qccam="git commit --all --amend --message"
 alias qccan="git commit --all --amend --no-edit"
 alias qccm="git commit --all --message"
 alias qcm="git commit --message"
-alias qd="git diff $diffopts"
-alias qdd="git diff --cached $diffopts"
-alias qdds="git diff --cached --stat"
-alias qds="git diff --stat"
 alias ql="git log $diffopts"
 alias qlg="git log --graph $diffopts"
 alias qlgo="git log --graph --oneline $diffopts"
 alias qlp="git log --patch $diffopts"
 alias qls="git log --stat"
-alias qp="git push"
 alias qp!="git push --force"
-alias qs="git show $diffopts"
-alias qss="git show --stat"
-alias qw="git status"
-alias qws="git status --short"
+alias qp="git push"
 
 incognito () { cognito off; }
 cognito () {
