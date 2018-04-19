@@ -1,9 +1,11 @@
 #!/bin/bash
 
+# Liked or used often.
 alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
 alias tt='t -a'
+alias v='. *.venv/bin/activate'
 
 # Tmux wrappers.
 alias th='td .'
