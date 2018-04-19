@@ -144,7 +144,7 @@ _ps1 () { (
     b () { c=setab _esc "${@}"; }
 
     local w="$(x;e bold;f 0)"
-    local v="${w}"'${VIRTUAL_ENV:+"⌥ '$(x;f 5)'${VIRTUAL_ENV##*/}\n"}'${w}
+    local v="${w}"'${VIRTUAL_ENV:+"⌥ '$(x;f 5)'${VIRTUAL_ENV//@(*\/|.venv)}\n"}'${w}
     local d="${w}|"
 
     if [[ ${EUID} == 0 ]]; then
