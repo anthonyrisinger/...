@@ -159,6 +159,6 @@ esac
 case $- in
   (*i*)
     # Interactive.
-    . ${ELLIPSIS}data/profile/etc/bash/interactive
+    . ${ELLIPSIS}data/profile/bash/interactive
     ;;
 esac

@@ -48,7 +48,7 @@ shopt -s extglob
 for x in \
   /usr{,/local}/share/bash-completion/bash_completion \
   {,/usr/local}/etc/bash_completion \
-  ${ELLIPSIS}data/profile/etc/bash/completion.d/* \
+  ${ELLIPSIS}data/profile/bash/completion.d/* \
   {,$DEVELOPER_DIR}/usr/share/git{,-core}/git-{prompt.sh,completion.bash} \
 ;
 do
@@ -260,8 +260,8 @@ HISTSIZE=10000000
 HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 
 
-[[ -r ${ELLIPSIS}data/profile/etc/bash/aliases ]] &&
-    . ${ELLIPSIS}data/profile/etc/bash/aliases
+[[ -r ${ELLIPSIS}data/profile/bash/aliases ]] &&
+    . ${ELLIPSIS}data/profile/bash/aliases
 
 
 # vim:set syntax=sh:

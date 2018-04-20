@@ -21,7 +21,7 @@
 
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
-let s:e_home = s:ellipsis . "/data/profile/etc/vim"
+let s:e_home = s:ellipsis . "/data/profile/vim"
 let s:e_plugins = s:e_home . "/plugged"
 
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
@@ -144,7 +144,7 @@ set noswapfile
 
 "Persistent undo
 try
-    set undodir=~/.../self/data/profile/etc/vim/undodir
+    set undodir=~/.../self/data/profile/vim/undodir
     set undofile
 catch
 endtry
