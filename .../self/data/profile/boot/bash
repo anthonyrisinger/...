@@ -40,8 +40,8 @@ if [[ -z $HOSTTYPE ]]; then
 fi
 
 # Determine if user expects active venv.
-if [[ -n $VIRTUAL_ENV && -f $VIRTUAL_ENV/bin/activate ]]; then
-  . $VIRTUAL_ENV/bin/activate
+if [[ -n $VIRTUAL_ENV ]]; then
+  . "$VIRTUAL_ENV/bin/activate" || unset VIRTUAL_ENV
 fi
 
 # Subshell to avoid side effects. Return code determines next step.
