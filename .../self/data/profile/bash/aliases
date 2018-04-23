@@ -7,6 +7,12 @@ alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.gi
 alias tt='t -a'
 alias v='. *.venv/bin/activate'
 
+# Grep wrappers.
+alias egrep='grep --extended-regexp'
+alias igrep='egrep --ignore-case'
+alias rgrep='egrep --recursive'
+alias rigrep='igrep --recursive'
+
 # Tmux wrappers.
 alias th='td .'
 alias ty='td ~'
