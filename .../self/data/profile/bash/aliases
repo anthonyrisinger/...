@@ -29,6 +29,11 @@ td () (
       "${@:2}"
 )
 
+# Venv + Tmux wrappers.
+alias vh='VIRTUAL_ENV="glob:*.venv" th'
+alias vg='VIRTUAL_ENV="glob:*.venv" tg'
+alias vd='VIRTUAL_ENV="glob:*.venv" td'
+
 # Git aliases.
 alias diff="git diff --no-index"
 # Higher-speed keystrokes.
