@@ -11,7 +11,7 @@ alias v='. *.venv/bin/activate'
 alias th='td .'
 alias ty='td ~'
 alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
-td () ( cd "${1:-.}" && exec tmux new-session -ADs "$PWD" \; "${@:2}" )
+td () (cd "${1:-.}" && exec tmux wait -L session\; new -ADs "$PWD"\; "${@:2}")
 
 # Git aliases.
 alias diff="git diff --no-index"

@@ -6,19 +6,6 @@ export PWD HOME PATH SHELL TERM HOSTNAME HOSTTYPE MACHTYPE OSTYPE
 # Used in downstream configuration files.
 export _ELLIPSIS ELLIPSIS ELLIPSIS_PATH ELLIPSIS_DEBUG
 
-# Prefer logical PWD.
-if [[ -n $TMUX && -z $PWDL ]]; then
-  # Export PWDL (session name) on first run.
-  export PWDL=$(tmux display -pF '#S')
-  # Update PWD if PWDL is qualified and same inode.
-  if [[ ${PWDL:0:1} == / && $PWDL -ef $PWD ]]; then
-    PWD="$PWDL"
-  fi
-  # Start future shells with correct PWD/L.
-  tmux set-environment PWDL "$PWD"
-  tmux set-environment PWD "$PWD"
-fi
-
 # Let the shell work it out.
 HOME=~
 
