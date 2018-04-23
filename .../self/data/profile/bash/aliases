@@ -20,7 +20,7 @@ alias ty='td ~'
 alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
 td () (
   set -e
-  shopt -s nullglob extglob
+  shopt -s extglob
   cd "${1:-.}"
   if [[ ${VIRTUAL_ENV:0:6} == glob:? ]]; then
     case "${VIRTUAL_ENV:5:1}" in
@@ -28,7 +28,7 @@ td () (
       (?) VIRTUAL_ENV=$(echo "$PWD"/${VIRTUAL_ENV:5}/);;
     esac
     # Either find the venv or fail the subshell.
-    . "$VIRTUAL_ENV/bin/activate"
+    . "${VIRTUAL_ENV}bin/activate"
   fi
   exec tmux \
     wait -L session\; \
