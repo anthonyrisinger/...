@@ -39,6 +39,11 @@ if [[ -z $HOSTTYPE ]]; then
   HOSTTYPE=$(uname -m | tr '[:upper:]' '[:lower:]')
 fi
 
+# Determine if user expects active venv.
+if [[ -n $VIRTUAL_ENV && -f $VIRTUAL_ENV/bin/activate ]]; then
+  . $VIRTUAL_ENV/bin/activate
+fi
+
 # Subshell to avoid side effects. Return code determines next step.
 (if [[ -x $(type -p git) && -f ${_ELLIPSIS}config && -z ${UID/#$EUID} ]]; then
 
