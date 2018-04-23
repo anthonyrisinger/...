@@ -11,7 +11,23 @@ alias v='. *.venv/bin/activate'
 alias th='td .'
 alias ty='td ~'
 alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
-td () (cd "${1:-.}" && exec tmux wait -L session\; new -ADs "$PWD"\; "${@:2}")
+td () (
+  set -e
+  shopt -s nullglob extglob
+  cd "${1:-.}"
+  if [[ ${VIRTUAL_ENV:0:6} == glob:? ]]; then
+    case "${VIRTUAL_ENV:5:1}" in
+      (/) VIRTUAL_ENV=$(echo ${VIRTUAL_ENV:5}/);;
+      (?) VIRTUAL_ENV=$(echo "$PWD"/${VIRTUAL_ENV:5}/);;
+    esac
+    # Either find the venv or fail the subshell.
+    . "$VIRTUAL_ENV/bin/activate"
+  fi
+  exec tmux \
+    wait -L session\; \
+    new -ADs "$PWD"\; \
+      "${@:2}"
+)
 
 # Git aliases.
 alias diff="git diff --no-index"
