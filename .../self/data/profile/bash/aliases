@@ -12,6 +12,7 @@ alias egrep='grep --extended-regexp'
 alias igrep='egrep --ignore-case'
 alias rgrep='egrep --recursive'
 alias rigrep='igrep --recursive'
+alias grep='grep --colour=auto --devices=skip --binary-files=without-match --exclude-dir={".*[.]venv",__pycache__,"*.egg-info",node_modules,vendor,.git,go} --exclude=".*[.]pyc"'
 
 # Tmux wrappers.
 alias th='td .'
