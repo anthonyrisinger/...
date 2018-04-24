@@ -522,7 +522,7 @@
 					<key>Action</key>
 					<integer>11</integer>
 					<key>Text</key>
-					<string>0x15 0x4</string>
+					<string>0x0b 0x15 0x4</string>
 				</dict>
 				<key>0x6c-0x100000</key>
 				<dict>
