@@ -14,7 +14,14 @@ export EDITOR='vim'
 export PROMPT_DIRTRIM=3
 
 export VIRTUAL_ENV_DISABLE_PROMPT=true
-#export PIP_USER=true
+
+# Embed an identity I control in all commits authored by me.
+case ${GIT_COMMITTER_NAME:=$(git config --global user.name)} in
+  ('') unset GIT_COMMITTER_NAME;;
+esac
+case ${GIT_COMMITTER_EMAIL:=$(git config --global user.email)} in
+  ('') unset GIT_COMMITTER_EMAIL;;
+esac
 
 <<'COMMENT'
 export TMPDIR=~/tmp
