@@ -1,2 +1,6 @@
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
+"\e[1;3A": upcase-word
+"\e[1;3B": downcase-word
+"\e[1;9A": upcase-word
+"\e[1;9B": downcase-word
