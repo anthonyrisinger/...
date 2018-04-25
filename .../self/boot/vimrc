@@ -6,7 +6,7 @@
 :imap <ESC>[F <C-o><End>
 :cmap <ESC>[H <Home>
 :cmap <ESC>[F <End>
-" map Option + Left (\033b) and Option + Right (\033f):
+" map Option + Left (\eb) and Option + Right (\ef):
 :map <ESC>b b
 :map <ESC>f el
 :imap <ESC>b <C-o>b
