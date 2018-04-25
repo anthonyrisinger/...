@@ -9,6 +9,12 @@
 " map Option + Left (\eb) and Option + Right (\ef):
 :map <ESC>b b
 :map <ESC>f el
+" map Option + Up (\e[1;9A) and Option + Down (\e[1;9B):
+:map <ESC>[1;9A gUiw
+:map <ESC>[1;9B guiw
+" Same thing under alternate screen:
+:map <ESC>[1;3A gUiw
+:map <ESC>[1;3B guiw
 :imap <ESC>b <C-o>b
 :imap <ESC>f <C-o>e<C-o>l
 :cmap <ESC>b <S-Left>
