@@ -9,6 +9,9 @@
 - Sync tmux <-> tmux/vim clipboards?
 
 # Vim
+- Handle upcase-word in all modes (Option-Up)
+- Handle downcase-word in all modes (Option-Down)
+- Handle twiddle-word in all modes instead? (Option-Up...Up...Up)
 - Reverse history search in command mode
 - Normalize word seps in command-mode (include _ and -)
 - Normalize word boundary stickiness when switching left/right
