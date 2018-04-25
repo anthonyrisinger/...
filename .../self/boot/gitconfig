@@ -33,4 +33,5 @@
 	new = green bold
 	whitespace = red reverse
 [core]
+	sshCommand = "ssh -i ~/.ssh/$(git config user.email)"
 	pager = "LESSOPEN=\"||-$(type -p diff-so-fancy)\" && export LESSOPEN || unset LESSOPEN; exec less"
