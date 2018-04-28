@@ -8,10 +8,10 @@ alias tt='t -a'
 alias v='. *.venv/bin/activate'
 
 # Grep wrappers.
-alias egrep='grep --extended-regexp'
-alias igrep='egrep --ignore-case'
-alias rgrep='egrep --recursive'
-alias rigrep='igrep --recursive'
+alias ge='grep --extended-regexp'
+alias gi='ge --ignore-case'
+alias gr='ge --recursive'
+alias gri='gi --recursive'
 alias grep='grep --colour=auto --devices=skip --binary-files=without-match --exclude-dir={".*[.]venv",__pycache__,"*.egg-info",node_modules,vendor,.git,go} --exclude=".*[.]pyc"'
 
 # Tmux wrappers.
