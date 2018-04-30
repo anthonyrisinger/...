@@ -3,7 +3,7 @@
 # Liked or used often.
 alias l='ls -Flh'
 alias ll='ls -Flha'
-alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go"'
+alias t='tree -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go|.pytest_cache|htmlcov"'
 alias tt='t -a'
 alias v='. *.venv/bin/activate'
 
@@ -12,7 +12,7 @@ alias ge='grep --extended-regexp'
 alias gi='ge --ignore-case'
 alias gr='ge --recursive'
 alias gri='gi --recursive'
-alias grep='grep --colour=auto --devices=skip --binary-files=without-match --exclude-dir={".*[.]venv",__pycache__,"*.egg-info",node_modules,vendor,.git,go,.pytest_cache} --exclude=".*[.]pyc"'
+alias grep='grep --colour=auto --devices=skip --binary-files=without-match --exclude-dir={".*[.]venv",__pycache__,"*.egg-info",node_modules,vendor,.git,go,.pytest_cache,htmlcov} --exclude=".*[.]pyc"'
 
 # Tmux wrappers.
 alias th='td .'
