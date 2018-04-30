@@ -1,0 +1,6 @@
+# MacOS doing its thing.
+.DS_Store
+.localized
+
+# Where the virtualenv roam.
+/*.venv/
