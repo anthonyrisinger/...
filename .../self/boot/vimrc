@@ -1,32 +1,23 @@
-" noremap Home and End:
-:noremap <ESC>[H <Home>
-:noremap <ESC>[F <End>
-" 'o' in <C-o> means do not exit from the insert mode.
-:inoremap <ESC>[H <C-o><Home>
-:inoremap <ESC>[F <C-o><End>
-:cnoremap <ESC>[H <Home>
-:cnoremap <ESC>[F <End>
-" noremap Option + Left (\eb) and Option + Right (\ef):
-:noremap <ESC>b <S-Left>
-:noremap <ESC>f <S-Right>
-:inoremap <ESC>b <C-o><S-Left>
-:inoremap <ESC>f <C-o><S-Right>
-:cnoremap <ESC>b <S-Left>
-:cnoremap <ESC>f <S-Right>
-" Neovim
-:noremap <M-b> <S-Left>
-:noremap <M-f> <S-Right>
-:inoremap <M-b> <C-o><S-Left>
-:inoremap <M-f> <C-o><S-Right>
-:cnoremap <M-b> <S-Left>
-:cnoremap <M-f> <S-Right>
-" noremap Option + Delete:
-:noremap <ESC><BS> db
-:noremap! <ESC><BS> <C-w>
-" Neovim
-:noremap <M-BS> db
+" Recursive maps to normalize Option + Left/Right/Delete and other keycodes.
+" These friendly names are referenced by future bindings.
+map  <Esc><BS> <M-BS>
+map! <Esc><BS> <M-BS>
+map  <Esc>[H <Home>
+map! <Esc>[H <Home>
+map  <Esc>[F <End>
+map! <Esc>[F <End>
+map  <Esc>b <M-b>
+map! <Esc>b <M-b>
+map  <Esc>f <M-f>
+map! <Esc>f <M-f>
+" Option + Left/Right/Delete.
+:noremap  <M-BS> db
 :noremap! <M-BS> <C-w>
-" noremap Command + Delete:
+:noremap  <M-b> <S-Left>
+:noremap! <M-b> <S-Left>
+:noremap  <M-f> <S-Right>
+:noremap! <M-f> <S-Right>
+" Command + Delete:
 :noremap <C-u> d^
 " noremap Option + Up (\e[1;9A) and Option + Down (\e[1;9B):
 :noremap <ESC>[1;9A gUiw
