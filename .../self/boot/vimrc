@@ -7,17 +7,17 @@
 :cnoremap <ESC>[H <Home>
 :cnoremap <ESC>[F <End>
 " noremap Option + Left (\eb) and Option + Right (\ef):
-:noremap <ESC>b b
-:noremap <ESC>f el
-:inoremap <ESC>b <C-o>b
-:inoremap <ESC>f <C-o>e<C-o>l
+:noremap <ESC>b <S-Left>
+:noremap <ESC>f <S-Right>
+:inoremap <ESC>b <C-o><S-Left>
+:inoremap <ESC>f <C-o><S-Right>
 :cnoremap <ESC>b <S-Left>
 :cnoremap <ESC>f <S-Right>
 " Neovim
-:noremap <M-b> b
-:noremap <M-f> el
-:inoremap <M-b> <C-o>b
-:inoremap <M-f> <C-o>e<C-o>l
+:noremap <M-b> <S-Left>
+:noremap <M-f> <S-Right>
+:inoremap <M-b> <C-o><S-Left>
+:inoremap <M-f> <C-o><S-Right>
 :cnoremap <M-b> <S-Left>
 :cnoremap <M-f> <S-Right>
 " noremap Option + Delete:
