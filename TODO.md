@@ -14,5 +14,4 @@
 - Handle twiddle-word in all modes instead? (Option-Up...Up...Up)
 - Reverse history search in command mode
 - Normalize word seps in command-mode (include _ and -)
-- Normalize word boundary stickiness when switching left/right
 - Sync vim <-> vim/tmux clipboards?
