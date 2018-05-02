@@ -13,9 +13,19 @@
 :inoremap <ESC>f <C-o>e<C-o>l
 :cnoremap <ESC>b <S-Left>
 :cnoremap <ESC>f <S-Right>
+" Neovim
+:noremap <M-b> b
+:noremap <M-f> el
+:inoremap <M-b> <C-o>b
+:inoremap <M-f> <C-o>e<C-o>l
+:cnoremap <M-b> <S-Left>
+:cnoremap <M-f> <S-Right>
 " noremap Option + Delete:
 :noremap <ESC><BS> db
 :noremap! <ESC><BS> <C-w>
+" Neovim
+:noremap <M-BS> db
+:noremap! <M-BS> <C-w>
 " noremap Command + Delete:
 :noremap <C-u> d^
 " noremap Option + Up (\e[1;9A) and Option + Down (\e[1;9B):
