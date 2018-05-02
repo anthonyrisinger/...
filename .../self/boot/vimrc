@@ -1,29 +1,29 @@
-" map Home and End:
-:map <ESC>[H <Home>
-:map <ESC>[F <End>
+" noremap Home and End:
+:noremap <ESC>[H <Home>
+:noremap <ESC>[F <End>
 " 'o' in <C-o> means do not exit from the insert mode.
-:imap <ESC>[H <C-o><Home>
-:imap <ESC>[F <C-o><End>
-:cmap <ESC>[H <Home>
-:cmap <ESC>[F <End>
-" map Option + Left (\eb) and Option + Right (\ef):
-:map <ESC>b b
-:map <ESC>f el
-" map Option + Up (\e[1;9A) and Option + Down (\e[1;9B):
-:map <ESC>[1;9A gUiw
-:map <ESC>[1;9B guiw
+:inoremap <ESC>[H <C-o><Home>
+:inoremap <ESC>[F <C-o><End>
+:cnoremap <ESC>[H <Home>
+:cnoremap <ESC>[F <End>
+" noremap Option + Left (\eb) and Option + Right (\ef):
+:noremap <ESC>b b
+:noremap <ESC>f el
+:inoremap <ESC>b <C-o>b
+:inoremap <ESC>f <C-o>e<C-o>l
+:cnoremap <ESC>b <S-Left>
+:cnoremap <ESC>f <S-Right>
+" noremap Option + Delete:
+:noremap <ESC><BS> db
+:noremap! <ESC><BS> <C-w>
+" noremap Command + Delete:
+:noremap <C-u> d^
+" noremap Option + Up (\e[1;9A) and Option + Down (\e[1;9B):
+:noremap <ESC>[1;9A gUiw
+:noremap <ESC>[1;9B guiw
 " Same thing under alternate screen:
-:map <ESC>[1;3A gUiw
-:map <ESC>[1;3B guiw
-:imap <ESC>b <C-o>b
-:imap <ESC>f <C-o>e<C-o>l
-:cmap <ESC>b <S-Left>
-:cmap <ESC>f <S-Right>
-" map Option + Delete:
-:map <ESC><BS> db
-:map! <ESC><BS> <C-w>
-" map Command + Delete:
-:map <C-u> d^
+:noremap <ESC>[1;3A gUiw
+:noremap <ESC>[1;3B guiw
 
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
