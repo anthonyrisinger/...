@@ -552,7 +552,7 @@
 					<key>Action</key>
 					<integer>11</integer>
 					<key>Text</key>
-					<string>0x1b 0x7f</string>
+					<string>0x17</string>
 				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
