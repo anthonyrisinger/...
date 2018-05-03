@@ -2,6 +2,8 @@
 " These friendly names are referenced by future bindings.
 map  <Esc><BS> <M-BS>
 map! <Esc><BS> <M-BS>
+map  <Char-23> <M-BS>
+map! <Char-23> <M-BS>
 map  <Esc>[H <Home>
 map! <Esc>[H <Home>
 map  <Esc>[F <End>
