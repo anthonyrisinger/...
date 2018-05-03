@@ -13,20 +13,20 @@ map! <Esc>b <M-b>
 map  <Esc>f <M-f>
 map! <Esc>f <M-f>
 " Option + Left/Right/Delete.
-:noremap  <M-BS> db
-:noremap! <M-BS> <C-w>
-:noremap  <M-b> <S-Left>
-:noremap! <M-b> <S-Left>
-:noremap  <M-f> <S-Right>
-:noremap! <M-f> <S-Right>
+noremap  <M-BS> db
+noremap! <M-BS> <C-w>
+noremap  <M-b> <S-Left>
+noremap! <M-b> <S-Left>
+noremap  <M-f> <S-Right>
+noremap! <M-f> <S-Right>
 " Command + Delete:
-:noremap <C-u> d^
+noremap <C-u> d^
 " noremap Option + Up (\e[1;9A) and Option + Down (\e[1;9B):
-:noremap <ESC>[1;9A gUiw
-:noremap <ESC>[1;9B guiw
+noremap <ESC>[1;9A gUiw
+noremap <ESC>[1;9B guiw
 " Same thing under alternate screen:
-:noremap <ESC>[1;3A gUiw
-:noremap <ESC>[1;3B guiw
+noremap <ESC>[1;3A gUiw
+noremap <ESC>[1;3B guiw
 
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
