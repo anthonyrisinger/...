@@ -1,3 +1,12 @@
+" Initialization.
+set nocompatible
+set encoding=utf-8
+set timeoutlen=200
+set ttimeoutlen=0
+filetype on
+filetype plugin on
+filetype indent on
+
 " Recursive maps to normalize Option + Left/Right/Delete and other keycodes.
 " These friendly names are referenced by future bindings.
 map  <Esc><BS> <M-BS>
@@ -54,10 +63,6 @@ endif
 " Sets how many lines of history VIM has to remember
 set history=10000
 
-" Enable filetype plugin
-filetype plugin on
-filetype indent on
-
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -108,8 +113,6 @@ set mat=2           " How many tenths of a second to blink
 set noerrorbells    " No sound on errors
 set novisualbell
 set t_vb=
-set timeoutlen=200
-set ttimeoutlen=0
 
 set nonu              " I *did* love me some line numbers
 
