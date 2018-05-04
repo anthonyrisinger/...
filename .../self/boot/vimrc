@@ -137,7 +137,7 @@ endtry
 set ffs=unix,dos,mac "Default file types
 
 if exists("&colorcolumn")
-    set colorcolumn=80
+    set colorcolumn=88
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -168,7 +168,7 @@ autocmd BufEnter sys.config :set tabstop=2 shiftwidth=2 filetype=erlang
 autocmd BufEnter rebar.config :set tabstop=2 shiftwidth=2 filetype=erlang
 
 set lbr
-set tw=500
+set textwidth=88
 
 set ai "Auto indent
 set si "Smart indet
