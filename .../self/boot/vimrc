@@ -191,56 +191,9 @@ autocmd BufEnter *.djhtml :set filetype=htmldjango
 autocmd BufEnter */git*config :set filetype=gitconfig
 autocmd BufEnter */tmux*conf :set filetype=tmux
 
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" NOTICE: Really useful!
-
-"  In visual mode when you press * or # to search for the current selection
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
-
-
-
-" Some useful keys for vimgrep
-"map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-"map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-
-" Bash like keys for the command line
-cnoremap <C-A>		<Home>
-cnoremap <C-E>		<End>
-cnoremap <C-K>		<C-U>
-
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Map space to / (search) and c-space to ? (backgwards search)
-map <space> /
-map <c-space> ?
-map <silent> <leader><cr> :noh<cr>
-
-" Close the current buffer
-"map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-"map <leader>ba :1,300 bd!<cr>
-
-" Tab configuration
-"map <leader>tn :tabnew! %<cr>
-"map <leader>te :tabedit 
-"map <leader>tc :tabclose<cr>
-"map <leader>tm :tabmove 
-
-" When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>
 
 " Return to last edit position (You want this!) *N*
 autocmd BufReadPost *
@@ -254,6 +207,7 @@ set viminfo=%,'100,s1024,h
 """"""""""""""""""""""""""""""
 " => Statusline
 """"""""""""""""""""""""""""""
+
 " Always hide the statusline
 set laststatus=2
 
@@ -273,62 +227,31 @@ autocmd BufWrite *.jsx :call DeleteTrailingWS()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
 
 """"""""""""""""""""""""""""""
 " => Python section
 """"""""""""""""""""""""""""""
+
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
 au BufNewFile,BufRead *.jinja setf htmljinja
 au BufNewFile,BufRead *.mako set ft=mako
 
-au FileType python inoremap <buffer> $r return 
-au FileType python inoremap <buffer> $i import 
-au FileType python inoremap <buffer> $p print 
-au FileType python inoremap <buffer> $f #--- PH ----------------------------------------------<esc>FP2xi
-au FileType python map <buffer> <leader>1 /class 
-au FileType python map <buffer> <leader>2 /def 
-au FileType python map <buffer> <leader>C ?class 
-au FileType python map <buffer> <leader>D ?def 
 au! FileType python setl nosmartindent
 
 """"""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""
+
 au FileType javascript setl fen
 au FileType javascript setl nocindent
-
-au FileType javascript imap <c-t> AJS.log();<esc>hi
-au FileType javascript imap <c-a> alert();<esc>hi
-
-au FileType javascript inoremap <buffer> $r return 
-au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
-
-
-""""""""""""""""""""""""""""""
-" => Vim grep
-""""""""""""""""""""""""""""""
-let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated .git'
-set grepprg=/bin/grep\ -nH
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 map <leader>pp :setlocal paste!<cr>
-
-map <leader>bb :cd ..<cr>
-
