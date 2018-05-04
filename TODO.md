@@ -1,3 +1,6 @@
+# Shell
+- Move to ZSH
+
 # Git
 - Mergetool
 
@@ -9,6 +12,13 @@
 - Sync tmux <-> tmux/vim clipboards?
 
 # Vim
+- Completion
+- FZF
+- Grepper
+- Goto by FZF pathname search
+- Goto by Grepper content search
+- Goto by definition
+- Run tests
 - Handle upcase-word in all modes (Option-Up)
 - Handle downcase-word in all modes (Option-Down)
 - Handle twiddle-word in all modes instead? (Option-Up...Up...Up)
