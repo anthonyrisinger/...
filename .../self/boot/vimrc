@@ -1,5 +1,6 @@
 " Initialization.
 set nocompatible
+lang en_US.UTF-8
 set encoding=utf-8
 set timeoutlen=200
 set ttimeoutlen=0
