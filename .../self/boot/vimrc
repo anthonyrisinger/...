@@ -48,7 +48,6 @@ let s:e_plugins = s:e_home . "/plugged"
 
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
 let netrw_home = s:e_cache
-let vimrc_path = expand('%:p')
 
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
@@ -62,7 +61,7 @@ Plug 'cespare/vim-toml'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
-  autocmd VimEnter * PlugInstall --sync | execute 'source' g:vimrc_path
+  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
 
 " Sets how many lines of history VIM has to remember
