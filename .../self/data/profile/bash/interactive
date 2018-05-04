@@ -12,8 +12,6 @@ export LC_COLLATE=C
 export TERM="${TERM:-dumb}"
 export EDITOR='vim'
 export PROMPT_DIRTRIM=3
-type -P nvim >/dev/null &&
-  EDITOR=nvim
 
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 
