@@ -130,19 +130,21 @@ syntax enable " Enable syntax highlighting
 set gfn=Monospace\ 10
 set shell=/bin/bash
 
-try
-  let g:solarized_termcolors=256
-  let g:solarized_termtrans=1
-  set background=dark
-  colorscheme solarized
-catch
-endtry
-
-set encoding=utf8
-try
-    lang en_US
-catch
-endtry
+set background=dark
+if has('nvim')
+  if has('termguicolors')
+    set termguicolors
+  endif
+  let neosolarized_contrast = 'high'
+  let neosolarized_visibility = 'high'
+  silent! colorscheme NeoSolarized
+else
+  "set t_Co=256
+  let solarized_termcolors = 256
+  let solarized_contrast = 'high'
+  let solarized_visibility = 'high'
+  silent! colorscheme solarized
+endif
 
 set ffs=unix,dos,mac "Default file types
 
