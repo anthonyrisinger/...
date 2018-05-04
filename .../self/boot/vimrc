@@ -47,8 +47,8 @@ let s:e_home = s:ellipsis . "/data/profile/vim"
 let s:e_plugins = s:e_home . "/plugged"
 
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
-let g:netrw_home = s:e_cache
-let g:vimrc_path = expand('%:p')
+let netrw_home = s:e_cache
+let vimrc_path = expand('%:p')
 
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
@@ -74,7 +74,6 @@ set autoread
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
-let g:mapleader = ","
 
 " Exit insert mode
 imap jj <Esc>
