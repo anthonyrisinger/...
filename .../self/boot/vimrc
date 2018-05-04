@@ -35,6 +35,7 @@ let s:e_plugins = s:e_home . "/plugged"
 
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
 let g:netrw_home = s:e_cache
+let g:vimrc_path = expand('%:p')
 
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
@@ -45,8 +46,9 @@ Plug 'mitsuhiko/vim-jinja'
 Plug 'vito-c/jq.vim'
 Plug 'cespare/vim-toml'
 call plug#end()
-if !isdirectory(s:e_plugins)
-  echo "Missing plugins! Please run :PlugInstall"
+if empty(globpath(s:e_plugins, '*'))
+  " Install plugins on first load.
+  autocmd VimEnter * PlugInstall --sync | execute 'source' g:vimrc_path
 endif
 
 " Sets how many lines of history VIM has to remember
