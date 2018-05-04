@@ -134,14 +134,10 @@ if has('nvim')
   if has('termguicolors') && $COLORTERM == 'truecolor'
     set termguicolors
   endif
-  let neosolarized_contrast = 'high'
-  let neosolarized_visibility = 'high'
   silent! colorscheme NeoSolarized
 else
   "set t_Co=256
   let solarized_termcolors = 256
-  let solarized_contrast = 'high'
-  let solarized_visibility = 'high'
   silent! colorscheme solarized
 endif
 
