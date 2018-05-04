@@ -25,19 +25,6 @@ case ${GIT_COMMITTER_EMAIL:=$(git config --global user.email)} in
   (*) export GIT_COMMITTER_EMAIL;;
 esac
 
-<<'COMMENT'
-export TMPDIR=~/tmp
-(   umask 0077
-    tmp=/tmp/user-${USER}/tmp
-    [[ ! -d ${tmp} ]] &&
-        mkdir -p ${tmp}/{dl,misc}
-    [[ ! $(readlink ~/tmp) == ${tmp} ]] &&
-        rm -f ~/tmp &&
-        ln -s ${tmp} ~/tmp
-    ) > /dev/null 2>&1
-COMMENT
-
-
 [[ ${TERM} == dumb ]] &&
     return 0
 
@@ -68,50 +55,6 @@ done
 eval _orig"$(declare -f _expand)"
 # Never expand ~ during TAB completion.
 _expand () { [[ "$cur" == \~*/* ]] || _orig_expand; }
-
-
-<<'COMMENT'
-_tmp_SSH_AUTH_SOCK="${SSH_AUTH_SOCK}"; _tmp_SSH_AGENT_PID="${SSH_AGENT_PID}"
-export SSH_AUTH_SOCK="${ELLIPSIS}"run/ssh/agent.* SSH_AGENT_PID="${SSH_AUTH_SOCK##*.}"
-
-
-if ! ssh-add -l > /dev/null 2>&1; then
-    rm -f "${ELLIPSIS}"run/ssh/agent.*
-    unset SSH_AUTH_SOCK SSH_AGENT_PID
-    export SSH_AUTH_SOCK="${_tmp_SSH_AUTH_SOCK}" SSH_AGENT_PID="${_tmp_SSH_AGENT_PID}"
-    ssh-add -l > /dev/null 2>&1 ||
-        eval $(ssh-agent) > /dev/null
-    ln -s "${SSH_AUTH_SOCK}" "${ELLIPSIS}"run/ssh/agent.${SSH_AGENT_PID}
-fi
-COMMENT
-
-
-if [[ -z ${NO_TERM_DISCOVER} ]]; then
-    if [[ ${TERM} == xterm ]]; then
-        case "${COLORTERM}:${XTERM_VERSION}" in
-            gnome-terminal:*)   TERM=gnome-256color;;
-            :XTerm'(256)')      TERM=xterm-256color;;
-            :XTerm'(88)')       TERM=xterm-88color;;
-        esac
-    fi
-    SCREEN_COLORS=$(tput colors)
-    if [[ -z ${SCREEN_COLORS} ]]; then
-        case "${TERM}" in
-            screen-*color-bce)  TERM=screen-bce;;
-            *-88color)          TERM=xterm-88color;;
-            *-256color)         TERM=xterm-256color;;
-        esac
-        SCREEN_COLORS=$(tput colors)
-    fi
-    if [[ -z $SCREEN_COLORS ]] ; then
-        case "${TERM}" in
-            rxvt*)              TERM=rxvt;;
-            screen*)            TERM=screen;;
-            *)                  TERM=xterm;;
-        esac
-        SCREEN_COLORS=$(tput colors)
-    fi
-fi
 
 # PS1 special sequences
 #  0   reset/default
