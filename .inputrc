@@ -1,3 +1,4 @@
+set keyseq-timeout 200
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
 "\e[1;3A": upcase-word
