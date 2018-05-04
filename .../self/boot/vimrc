@@ -150,7 +150,7 @@ set noswapfile
 
 "Persistent undo
 try
-    set undodir=~/.../self/data/profile/vim/undodir
+    set undodir=~/.../self/var/cache/vim/undo
     set undofile
 catch
 endtry
