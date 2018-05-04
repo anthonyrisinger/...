@@ -36,6 +36,9 @@ noremap <ESC>[1;9B guiw
 " Same thing under alternate screen:
 noremap <ESC>[1;3A gUiw
 noremap <ESC>[1;3B guiw
+" Un/indent selected text.
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
