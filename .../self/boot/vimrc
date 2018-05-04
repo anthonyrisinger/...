@@ -246,27 +246,18 @@ set viminfo=%,'100,s1024,h
 " Always hide the statusline
 set laststatus=2
 
-"Git branch
-function! GitBranch()
-    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    if branch != ''
-        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-    en
-    return ''
-endfunction
-
 "Delete trailing white space, useful for Python ;)
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
+
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.erl :call DeleteTrailingWS()
 autocmd BufWrite *.ex :call DeleteTrailingWS()
 autocmd BufWrite *.js :call DeleteTrailingWS()
 autocmd BufWrite *.jsx :call DeleteTrailingWS()
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
