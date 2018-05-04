@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Find nvim or fallback to vim (exclude this wrapper).
+exec "$(type -P nvim || type -Pa vim | sed -n 2p)" "$@"
