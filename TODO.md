@@ -1,11 +1,13 @@
 # iTerm
 - Tmux 100% the time
+- Purple selection
 
 # Shell
 - Move to ZSH
 
 # Git
 - Mergetool
+- `git add --patch .` should work to patch add unknown and known files
 
 # Tmux
 - Window close should reattach to right-adjacent window
@@ -22,6 +24,7 @@
 - Goto by Grepper content search
 - Goto by definition
 - Run tests
+- Purple selection
 - Handle upcase-word in all modes (Option-Up)
 - Handle downcase-word in all modes (Option-Down)
 - Handle twiddle-word in all modes instead? (Option-Up...Up...Up)
