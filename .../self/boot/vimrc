@@ -41,6 +41,9 @@ noremap <ESC>[1;3B guiw
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+" Remove search highlights.
+map <silent> <leader><cr> :let @/ = ''<cr>
+
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
 let s:e_home = s:ellipsis . "/data/profile/vim"
