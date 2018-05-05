@@ -1,3 +1,6 @@
+# iTerm
+- Tmux 100% the time
+
 # Shell
 - Move to ZSH
 
