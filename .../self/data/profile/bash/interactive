@@ -96,14 +96,14 @@ _ps1 () { (
     b () { c=setab _esc "${@}"; }
 
     local u="$(x;f 3)\h"
-    local w="$(x;e bold;f 0)"
+    local w="$(x;f 0)"
     local v="${w}\${VIRTUAL_ENV:+\"$(x;f 5)\${VIRTUAL_ENV//@(*\/|.venv)} ${w}\"}"
     local d="${w}|"
 
     if [[ ${EUID} == 0 ]]; then
         local m="$(x;f 1)▶"
     else
-        local m="$(x;e bold;f 0)▶"
+        local m="$(x;f 0)▶"
     fi
 
     local s=( )
@@ -116,7 +116,7 @@ _ps1 () { (
         s+=("$(f 4)⇅")
 
     ((${#s})) &&
-        s=" $(e bold)${s[*]} "
+        s=" ${s[*]} "
 
     local q='2>/dev/null'
 
