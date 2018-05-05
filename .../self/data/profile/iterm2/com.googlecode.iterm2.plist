@@ -1062,6 +1062,8 @@
 	<true/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
+	<key>ShowNewOutputIndicator</key>
+	<false/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>StretchTabsToFillBar</key>
