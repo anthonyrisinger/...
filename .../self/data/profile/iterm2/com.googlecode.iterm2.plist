@@ -22,6 +22,8 @@
 	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
+	<key>EliminateCloseButtons</key>
+	<true/>
 	<key>HideMenuBarInFullscreen</key>
 	<true/>
 	<key>HideScrollbar</key>
@@ -34,6 +36,8 @@
 	<true/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>MiddleClickClosesTab</key>
+	<false/>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/hi</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -1044,6 +1048,8 @@
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
+	<key>RememberWindowPositions</key>
+	<false/>
 	<key>SUAutomaticallyUpdate</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
@@ -1072,10 +1078,14 @@
 	<integer>1</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>TerminalVMargin</key>
+	<integer>0</integer>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
 	<false/>
+	<key>UseMetal</key>
+	<true/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>findMode_iTerm</key>
