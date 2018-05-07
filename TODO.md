@@ -16,6 +16,7 @@
 - Sync tmux <-> tmux/vim clipboards?
 
 # Vim
+- Visual select not picking up last char
 - Completion
 - FZF
 - Grepper
