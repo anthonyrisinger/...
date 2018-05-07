@@ -207,6 +207,8 @@
 			</dict>
 			<key>Ansi 3 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
 				<real>0.0</real>
 				<key>Color Space</key>
@@ -948,13 +950,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.7686274509803922</real>
+				<real>0.50980392156862742</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.44313725490196076</real>
+				<real>0.21176470588235294</real>
 				<key>Red Component</key>
-				<real>0.42352941176470588</real>
+				<real>0.82745098039215681</real>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
