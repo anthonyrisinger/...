@@ -139,8 +139,6 @@ if has('nvim')
   endif
   silent! colorscheme NeoSolarized
 else
-  "set t_Co=256
-  let solarized_termcolors = 256
   silent! colorscheme solarized
 endif
 
