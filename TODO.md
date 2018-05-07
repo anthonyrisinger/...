@@ -16,6 +16,7 @@
 - Sync tmux <-> tmux/vim clipboards?
 
 # Vim
+- Git line-level information (in the "gutter"?)
 - Visual select not picking up last char
 - Completion
 - FZF
