@@ -975,9 +975,9 @@
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.59999999999999998</real>
+				<real>0.53725490196078429</real>
 				<key>Red Component</key>
-				<real>0.52156862745098043</real>
+				<real>0.70980392156862748</real>
 			</dict>
 			<key>Tags</key>
 			<array/>
