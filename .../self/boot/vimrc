@@ -141,6 +141,8 @@ if has('nvim')
 else
   silent! colorscheme solarized
 endif
+hi! IncSearch cterm=standout ctermfg=5 gui=standout guifg=#d33682
+hi! Search cterm=reverse ctermfg=2 gui=reverse guifg=#859900
 
 set ffs=unix,dos,mac "Default file types
 
