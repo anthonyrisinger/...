@@ -50,6 +50,11 @@
 	<false/>
 	<key>NSScrollViewShouldScrollUnderTitlebar</key>
 	<false/>
+	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
+	<array>
+		<string>0.000000, 0.000000, 224.000000, 263.000000, NO, NO</string>
+		<string>0.000000, 264.000000, 224.000000, 43.000000, NO, NO</string>
+	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -73,16 +78,23 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>929 33 445 77 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 381 620 392 0 0 1440 900 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>226 395 606 469 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>422 213 796 473 0 0 1440 900 </string>
+	<string>327 364 918 512 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>209 0 1130 727 0 0 1440 900 </string>
+	<string>0 0 1128 731 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>481 127 570 452 0 0 1440 900 </string>
+	<string>310 0 1130 727 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_FA7C7831-5F6A-4C79-A1B7-20E82AD731B9_selection</key>
@@ -1096,5 +1108,9 @@
 	<integer>0</integer>
 	<key>iTerm Version</key>
 	<string>3.1.6</string>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>
