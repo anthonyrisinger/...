@@ -9,6 +9,7 @@
 - `git add --patch .` should work to patch add unknown and known files
 
 # Tmux
+- Double click should highlight
 - Window close should reattach to right-adjacent window
 - %if FORMAT cannot access client or session information
 - Normalize word seps in command- and copy-mode (include _ and -)
