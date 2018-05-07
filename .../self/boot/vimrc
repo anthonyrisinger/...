@@ -41,9 +41,6 @@ noremap <ESC>[1;3B guiw
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
-" Remove search highlights.
-map <silent> <leader><cr> :let @/ = ''<cr>
-
 let s:ellipsis = expand("~/.../self")
 let s:e_cache = s:ellipsis . "/var/cache/vim"
 let s:e_home = s:ellipsis . "/data/profile/vim"
@@ -85,6 +82,9 @@ nmap <leader>w :w!<cr>
 
 " Fast editing of the .vimrc
 map <leader>e :e! ~/.vimrc<cr>
+
+" Remove search highlights.
+map <silent> <leader><cr> :let @/ = ''<cr>
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
