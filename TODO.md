@@ -3,6 +3,7 @@
 
 # Shell
 - Move to ZSH
+- Multiline history entries are only partially matched by C-r
 
 # Git
 - Mergetool
