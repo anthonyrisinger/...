@@ -92,6 +92,7 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set noshowmode
 set scrolloff=6
 
 set ruler                           " Always show current position
