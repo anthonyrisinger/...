@@ -1,5 +1,6 @@
 # iTerm
 - Tmux 100% the time
+- Tab-switching goes to desktop occasionally
 
 # Shell
 - Move to ZSH
