@@ -53,13 +53,10 @@ let netrw_home = s:e_cache
 call plug#begin(s:e_plugins)
 Plug 'altercation/vim-colors-solarized', !has('nvim') ? {} : { 'on': [] }
 Plug 'iCyMind/NeoSolarized', has('nvim') ? {} : { 'on': [] }
-Plug 'hdima/python-syntax'
-Plug 'elixir-lang/vim-elixir'
-Plug 'mitsuhiko/vim-jinja'
 Plug 'vito-c/jq.vim'
-Plug 'cespare/vim-toml'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
