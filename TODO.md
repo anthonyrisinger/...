@@ -8,6 +8,7 @@
 # Git
 - Mergetool
 - `git add --patch .` should work to patch add unknown and known files
+- Unable to clone work repos from work dir
 
 # Tmux
 - Double click should highlight
