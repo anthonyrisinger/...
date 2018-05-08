@@ -275,3 +275,9 @@ let airline_mode_map = {
   \ '': 'S-B',
   \ 't': 'T',
   \ }
+
+if !exists('g:airline_symbols')
+  let airline_symbols = {}
+endif
+
+let airline_symbols.maxlinenr = ''
