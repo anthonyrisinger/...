@@ -57,6 +57,8 @@ Plug 'vito-c/jq.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
+Plug 'edkolev/promptline.vim'
+Plug 'edkolev/tmuxline.vim'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
