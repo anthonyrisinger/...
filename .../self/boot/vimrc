@@ -58,6 +58,8 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'mitsuhiko/vim-jinja'
 Plug 'vito-c/jq.vim'
 Plug 'cespare/vim-toml'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
