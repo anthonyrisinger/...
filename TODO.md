@@ -19,6 +19,7 @@
 - Sync tmux <-> tmux/vim clipboards?
 
 # Vim
+- Word jumping broken in command-mode outside tmux
 - Git line-level information (in the "gutter"?)
 - Visual select not picking up last char
 - Completion
