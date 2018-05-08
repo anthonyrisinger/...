@@ -38,6 +38,8 @@
 	<true/>
 	<key>MiddleClickClosesTab</key>
 	<false/>
+	<key>NSFontPanelPreviewHeight</key>
+	<real>100</real>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/Downloads/mbadolato-iTerm2-Color-Schemes-7d01cd1/schemes</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -84,13 +86,13 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>929 33 445 77 0 0 1440 900 </string>
+	<string>594 277 445 77 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>226 395 606 469 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>436 -73 928 394 0 0 1440 900 </string>
+	<string>363 266 918 492 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1128 731 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -104,6 +106,8 @@
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
+			<key>ASCII Ligatures</key>
+			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -914,6 +918,8 @@
 			<string>SourceCodeProForPowerline-Regular 24</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
+			<key>Non-ASCII Ligatures</key>
+			<false/>
 			<key>Normal Font</key>
 			<string>SourceCodeProForPowerline-Regular 24</string>
 			<key>Option Key Sends</key>
@@ -1079,7 +1085,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-05-07T04:51:12Z</date>
+	<date>2018-05-08T14:38:44Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
