@@ -12,6 +12,7 @@
 - Unable to clone work repos from work dir
 
 # Tmux
+- Prevent using alt screen
 - Double click should highlight
 - Window close should reattach to right-adjacent window
 - %if FORMAT cannot access client or session information
