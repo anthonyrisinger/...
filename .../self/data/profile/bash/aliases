@@ -32,7 +32,7 @@ td () (
   fi
   exec tmux \
     wait -L session\; \
-    new -ADs "$PWD"\; \
+    new -ADs "${PWD##*/}"\; \
       "${@:2}"
 )
 
