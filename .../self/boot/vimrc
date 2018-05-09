@@ -257,6 +257,7 @@ au FileType javascript setl nocindent
 
 map <leader>pp :setlocal paste!<cr>
 
+let airline#extensions#tmuxline#enabled = 0
 let airline_powerline_fonts = 1
 let airline_solarized_normal_green = 1
 let airline#extensions#tabline#enabled = 1
