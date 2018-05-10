@@ -38,6 +38,8 @@
 	<true/>
 	<key>MiddleClickClosesTab</key>
 	<false/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 0</string>
 	<key>NSFontPanelPreviewHeight</key>
 	<real>100</real>
 	<key>NSNavLastRootDirectory</key>
@@ -86,15 +88,15 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>594 277 445 77 0 0 1440 900 </string>
+	<string>581 183 445 77 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>226 395 606 469 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>363 266 918 492 0 0 1440 900 </string>
+	<string>363 152 918 492 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1128 731 0 0 1440 900 </string>
+	<string>0 0 1128 806 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>310 0 1130 727 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</key>
