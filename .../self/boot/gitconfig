@@ -28,9 +28,9 @@
 [color "diff"]
 	meta = yellow
 	frag = magenta bold
-	commit = "#b58900" bold
+	commit = yellow bold
 	old = red bold
-	new = "#859900" "#002b36" bold
+	new = green bold
 	whitespace = red reverse
 [core]
 	sshCommand = "ssh -i ~/.ssh/$(git config user.email)"
