@@ -136,6 +136,9 @@ shopt -s checkwinsize
 # Enable history appending instead of overwriting.
 shopt -s histappend
 
+# Collapse multiple lines to one.
+shopt -s cmdhist
+
 # Change the window title of X terminals
 case ${TERM} in
   xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
