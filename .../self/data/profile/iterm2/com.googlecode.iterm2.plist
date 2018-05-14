@@ -15,11 +15,11 @@
 	<key>Default Bookmark Guid</key>
 	<string>FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</string>
 	<key>DimBackgroundWindows</key>
-	<true/>
+	<false/>
 	<key>DimInactiveSplitPanes</key>
-	<true/>
+	<false/>
 	<key>DimOnlyText</key>
-	<true/>
+	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
 	<key>EliminateCloseButtons</key>
