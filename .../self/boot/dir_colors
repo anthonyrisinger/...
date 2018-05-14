@@ -32,6 +32,7 @@ TERM gnome-256color
 TERM iTerm2.app
 TERM iterm2
 TERM iterm2-direct
+TERM iterm2-direct-compat
 TERM jfbterm
 TERM konsole
 TERM kterm
@@ -55,7 +56,9 @@ TERM screen-w
 TERM screen.linux
 TERM tmux
 TERM tmux-256color
+TERM tmux-compat
 TERM tmux-direct
+TERM tmux-direct-compat
 TERM vt100
 TERM xterm
 TERM xterm-16color
