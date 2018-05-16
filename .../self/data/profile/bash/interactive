@@ -91,7 +91,7 @@ _esc () {
 _ps1 () { (
 
     e () { c= _esc "${@}"; }
-    x () { c= _esc sgr0; }
+    x () { c= _esc sgr0; c= _esc op; }
     f () { c=setaf _esc "${@}"; }
     b () { c=setab _esc "${@}"; }
 
