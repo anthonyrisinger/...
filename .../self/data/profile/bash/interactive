@@ -103,7 +103,7 @@ _ps1 () { (
     if [[ ${EUID} == 0 ]]; then
         local m="$(x;f 1)▶"
     else
-        local m="$(x;e bold;f 0)▶"
+        local m="$(x;f 0)▶"
     fi
 
     local s=( )
