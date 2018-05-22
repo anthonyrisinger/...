@@ -140,8 +140,8 @@ if has('termguicolors') && $COLORTERM == 'truecolor'
 endif
 let solarized_termtrans = 1
 silent! colorscheme solarized8
-hi! IncSearch cterm=standout ctermfg=3 gui=standout guifg=#b58900
-hi! Search cterm=reverse ctermfg=5 gui=reverse guifg=#d33682
+hi! IncSearch cterm=reverse ctermfg=3 ctermbg=none gui=reverse guifg=#b58900 guibg=none
+hi! Search cterm=reverse ctermfg=5 ctermbg=none gui=reverse guifg=#d33682 guibg=none
 
 set ffs=unix,dos,mac "Default file types
 
