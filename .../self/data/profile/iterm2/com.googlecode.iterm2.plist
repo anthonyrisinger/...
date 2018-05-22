@@ -43,7 +43,7 @@
 	<key>NSFontPanelPreviewHeight</key>
 	<real>100</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Downloads/mbadolato-iTerm2-Color-Schemes-7d01cd1/schemes</string>
+	<string>~/Pictures</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{881, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -320,7 +320,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string></string>
+			<string>~/Pictures/zgbg2.jpg</string>
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -334,6 +334,8 @@
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
+			<key>Blend</key>
+			<real>0.05</real>
 			<key>Blink Allowed</key>
 			<true/>
 			<key>Blinking Cursor</key>
