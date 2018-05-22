@@ -320,7 +320,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string>~/Pictures/zgbg2.jpg</string>
+			<string>/Users/anthonyrisinger/Pictures/zgbg2.jpg</string>
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
