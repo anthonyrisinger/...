@@ -134,8 +134,7 @@ set gfn=Monospace\ 10
 set shell=/bin/bash
 
 set background=dark
-if has('termguicolors') && $COLORTERM == 'truecolor'
-  " TODO: Check for t_Co > 256 or -direct TERM.
+if has('termguicolors') && ($COLORTERM == 'truecolor' || &t_Co > 256)
   set termguicolors
 endif
 let solarized_termtrans = 1
