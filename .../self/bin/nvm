@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export NVM_DIR=${NVM_DIR:-~/.nvm}
+. "$NVM_DIR/nvm.sh"
+. "$NVM_DIR/bash_completion"
+[[ $(type -t nvm) == function ]] &&
+  nvm "$@"

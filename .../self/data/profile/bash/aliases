@@ -82,3 +82,13 @@ cognito () {
     (off) [[ -z $HISTFILE__ ]] && HISTFILE__="$HISTFILE" && unset HISTFILE;;
   esac
 }
+
+# Lazy load nvm.
+nvm () {
+  unset nvm
+  export NVM_DIR=${NVM_DIR:-~/.nvm}
+  . "$NVM_DIR/nvm.sh"
+  . "$NVM_DIR/bash_completion"
+  [[ $(type -t nvm) == function ]] &&
+    nvm "$@"
+}
