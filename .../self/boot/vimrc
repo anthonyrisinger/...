@@ -266,6 +266,7 @@ let airline#extensions#tabline#show_tab_type = 0
 let airline#extensions#tmuxline#enabled = 0
 let airline_powerline_fonts = 1
 let airline#extensions#tabline#enabled = 1
+let airline_solarized_dark_inactive_border = 1
 let airline_mode_map = {
   \ '__': '--',
   \ 'n': 'N',
