@@ -56,63 +56,56 @@ eval _orig"$(declare -f _expand)"
 # Never expand ~ during TAB completion.
 _expand () { [[ "$cur" == \~*/* ]] || _orig_expand; }
 
-# PS1 special sequences
-#  0   reset/default
-#  1   bold
-#  5   blink
-#  30  fg black
-#  31  fg red
-#  32  fg green
-#  33  fg brown
-#  34  fg blue
-#  35  fg purple
-#  36  fg cyan
-#  37  fg gray
-#  40  bg black
-#  41  bg red
-#  42  bg green
-#  43  bg brown
-#  44  bg blue
-#  45  bg purple
-#  46  bg cyan
-#  47  bg gray
-#  \u  username
-#  \h  hostname
-#  \$  terminal
-#  \W  pwd /
-#  \w  pwd ~
-
-_esc () {
-    printf '\['
-    while ((${#*})); do tput ${c} ${1}; shift; done
-    printf '\]'
-}
-
 _ps1 () { (
 
-    e () { c= _esc "${@}"; }
-    x () { c= _esc sgr0; c= _esc op; }
-    f () { c=setaf _esc "${@}"; }
-    b () { c=setab _esc "${@}"; }
+    c () {
+      # Expands 0xffffff to 16777215.
+      declare -i i=$1
+      case $1 in
+        (black)   i=0;;
+        (red)     i=1;;
+        (green)   i=2;;
+        (yellow)  i=3;;
+        (blue)    i=4;;
+        (magenta) i=5;;
+        (cyan)    i=6;;
+        (white)   i=7;;
+      esac
+      echo -n $i
+    }
 
-    local u="$(x;f 3)\h"
-    local w="$(x)"
-    local v="${w}\${VIRTUAL_ENV:+\"$(x;f 5)\${VIRTUAL_ENV//@(*\/|.venv)} ${w}\"}"
+    e () {
+      printf '\['
+      while ((${#*})); do
+        case $1 in
+          (none) tput op; tput sgr0;;
+          (fg,*) tput setaf $(c ${1#fg,});;
+          (bg,*) tput setab $(c ${1#bg,});;
+          (*) tput $1;;
+        esac
+        shift
+      done
+      printf '\]'
+    }
+
+    local u="$(e none fg,yellow)\h"
+    local w="$(e none)"
+    local v="${w}\${VIRTUAL_ENV:+\"$(e none fg,magenta)\${VIRTUAL_ENV//@(*\/|.venv)} ${w}\"}"
 
     if [[ ${EUID} == 0 ]]; then
-        local m="$(x;f 1)▶"
+        local m="$(e none fg,red)▶"
     else
-        local m="$(x)▶"
+        local m="$(e none)▶"
     fi
 
     local s=( )
 
     [[ ${HOSTNAME} =~ ^ca- ]] &&
-        s+=("$(f 2)★") ||
-        s+=("$(f 1)⚑")
+        s+=("$(e fg,green)★") ||
+        s+=("$(e fg,red)⚑")
 
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
-        s+=("$(f 4)⇅")
+        s+=("$(e fg,blue)⇅")
 
     ((${#s})) &&
         s=" ${s[*]} "
@@ -120,9 +113,9 @@ _ps1 () { (
     local q='2>/dev/null'
 
     echo -e "\
-${w}  ⎞ ${w}\D{%l:%M%P} ${v}$(x)${u}${s}
-${w}  ⎥  \$(__git_ps1 '$(x;f 3)%s ' ${q})${w}\w
-${w}  ⎥${m} $(x)"
+${w}  ⎞ ${w}\D{%l:%M%P} ${v}$(e none)${u}${s}
+${w}  ⎥  \$(__git_ps1 '$(e none fg,yellow)%s ' ${q})${w}\w
+${w}  ⎥${m} $(e none)"
 
 ) }
 
