@@ -288,3 +288,28 @@ if !exists('g:airline_symbols')
 endif
 
 let airline_symbols.maxlinenr = ''
+
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  if g:airline_theme == 'solarized'
+    let normal = a:palette.normal
+    let insert = a:palette.insert
+    let visual = a:palette.visual
+    let lighter = normal.airline_b[1]
+    let dimmer = normal.airline_c[0]
+    let darker = normal.airline_c[1]
+    let normal.airline_y[0] = darker
+    let insert.airline_y[0] = darker
+    let visual.airline_y[0] = darker
+    let tabline = get(a:palette, 'tabline', {})
+    let tabline.airline_tab = get(tabline, 'airline_tab', normal.airline_b[:])
+    let tabline.airline_tab[0] = dimmer
+    let tabline.airline_tab[1] = darker
+    let tabline.airline_tabsel = get(tabline, 'airline_tabsel', normal.airline_a[:])
+    let tabline.airline_tabsel[1] = lighter
+    let tabline.airline_tabsel[4] = ''
+    let tabline.airline_tabmod = get(tabline, 'airline_tabmod', insert.airline_a[:])
+    let tabline.airline_tabmod[4] = ''
+    let a:palette.tabline = tabline
+  endif
+endfunction
