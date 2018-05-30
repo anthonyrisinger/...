@@ -263,6 +263,7 @@ let airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let airline#extensions#tabline#formatter = 'unique_tail_improved'
 let airline#extensions#tabline#overflow_marker = '…'
 let airline#extensions#tabline#show_tab_type = 0
+let airline#extensions#tabline#buffer_idx_mode = 1
 let airline#extensions#tmuxline#enabled = 0
 let airline_powerline_fonts = 1
 let airline#extensions#tabline#enabled = 1
