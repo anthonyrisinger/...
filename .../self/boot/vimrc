@@ -299,6 +299,9 @@ function! AirlineThemePatch(palette)
     let lighter = normal.airline_b[1]
     let dimmer = normal.airline_c[0]
     let darker = normal.airline_c[1]
+    let normal.airline_b[0] = darker
+    let insert.airline_b[0] = darker
+    let visual.airline_b[0] = darker
     let normal.airline_y[0] = darker
     let insert.airline_y[0] = darker
     let visual.airline_y[0] = darker
