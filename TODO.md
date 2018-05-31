@@ -23,6 +23,10 @@
 - Sync tmux <-> tmux/vim clipboards?
 
 # Vim
+-   M-Arrow whitespace word jump
+- S-M-Arrow contextual word jump
+-   M-BS    whitespace word delete
+- S-M-BS    contextual word delete
 - Word jumping broken in command-mode outside tmux
 - Git line-level information (in the "gutter"?)
 - Visual select not picking up last char
