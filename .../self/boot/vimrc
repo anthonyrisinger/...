@@ -145,8 +145,8 @@ else
 endif
 let solarized_termtrans = 1
 silent! colorscheme solarized8
-hi! IncSearch cterm=reverse ctermfg=3 ctermbg=none gui=reverse guifg=#d33682 guibg=none
-hi! Search cterm=reverse ctermfg=5 ctermbg=none gui=reverse guifg=#6c71c4 guibg=none
+hi! IncSearch ctermfg=3 ctermbg=NONE cterm=reverse guifg=#d33682 guibg=NONE gui=reverse
+hi! Search ctermfg=5 ctermbg=NONE cterm=reverse guifg=#6c71c4 guibg=NONE gui=reverse
 
 set ffs=unix,dos,mac "Default file types
 
