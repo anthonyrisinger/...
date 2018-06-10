@@ -123,6 +123,7 @@ set t_vb=
 
 set nonu              " I *did* love me some line numbers
 
+set cursorline
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
