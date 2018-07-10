@@ -24,7 +24,7 @@ map  <Esc>f <M-f>
 map! <Esc>f <M-f>
 
 " Repeat last normal mode command.
-nmap ; @:
+nmap <CR> @:
 
 " Select buffer-on-left and buffer-on-right.
 noremap  <silent> <S-C-Left> :bprevious<CR>
