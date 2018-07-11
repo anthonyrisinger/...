@@ -43,27 +43,52 @@ alias vd='VIRTUAL_ENV="glob:*.venv" td'
 
 # Git aliases.
 alias diff="git diff --no-index"
-# Higher-speed keystrokes.
+
+# Git operations framed as mutable QUERIES against three stacked TREES:
+#   - Input operations (eg. add/commit) start at filesystem and push data IN.
+#       TREE#1 [fs] -> TREE#2 [index] -> TREE#3 [repo]
+#   - Output operations (eg. checkout/reset) start at repository and pull data OUT.
+#       TREE#1 [repo] -> TREE#2 [index] -> TREE#3 [fs]
+#   - Other operations (eg. status/diff) use INPUT order unless OUTPUT is obvious.
+# (in)  Query
 alias q="git status"
-alias qa="git add --patch"
-alias qaa="git add --all"
-alias qd!="git reset --mixed"
-alias qd="git reset --patch"
-alias qdd!="git reset --hard"
-alias qdd="git checkout --patch"
+# (in)  Query +QUIET
 alias qq="git status --short"
+# (in)  Query Adds
+alias qa="git add --patch"
+# (in)  Query Adds +EXTRA (non-interactive)
+alias qaa="git add --all"
+# (out) Query Deletes
+alias qd="git reset --patch"
+# (out) Query Deletes +FORCE (unsafe; resets index)
+alias qd!="git reset --mixed"
+# (out) Query Deletes +EXTRA
+alias qdd="git checkout --patch"
+# (out) Query Deletes +EXTRA +FORCE (unsafe; resets filesystem)
+alias qdd!="git reset --hard"
+# (in)  Query Shows
 alias qs="git show"
+# (in)  Query Shows +QUIET
 alias qsq="git show --stat"
+# (in)  Query Shows +EXTRA (patch)
 alias qss="git log --patch"
+# (in)  Query Shows +EXTRA2 (graph)
 alias qsso="git log --graph --oneline"
+# (in)  Query Shows +EXTRA +QUIET
 alias qssq="git log --stat"
+# (in)  Query Upstream
 alias qu="git remote --verbose"
+# (in)  Query Upstream +EXTRA (sync; update and prune)
 alias quu="git remote --verbose update --prune"
+# (in)  Query WorkTREE#1
 alias qw="git diff"
+# (in)  Query WorkTREE#1 +QUIET
 alias qwq="git diff --stat"
+# (in)  Query WorkTREE#2
 alias qww="git diff --cached"
+# (in)  Query WorkTREE#2 +QUIET
 alias qwwq="git diff --cached --stat"
-# Lower-speed keystrokes.
+# (in)  Query Commits ...
 alias qc="git commit"
 alias qca="git commit --amend"
 alias qcam="git commit --amend --message"
