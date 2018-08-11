@@ -17,8 +17,8 @@
 [push]
 	default = current
 
-[includeIf "gitdir/i:~/work/"]
-	path = ~/.../self/data/profile/git/work/config
+[includeIf "gitdir:Leadpages/"]
+	path = Leadpages/config
 
 [diff]
 	noprefix = true
