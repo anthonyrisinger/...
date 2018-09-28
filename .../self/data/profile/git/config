@@ -17,8 +17,8 @@
 [push]
 	default = current
 
-[includeIf "gitdir:Leadpages/"]
-	path = Leadpages/config
+[includeIf "gitdir:ZipRecruiter/"]
+	path = ZipRecruiter/config
 
 [diff]
 	noprefix = true
