@@ -2,3 +2,5 @@
 	email = anthonyr@ziprecruiter.com
 [pull]
 	rebase = true
+[url "git@git.ziprecruiter.com:"]
+	insteadOf = https://git.ziprecruiter.com/
