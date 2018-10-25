@@ -68,6 +68,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'edkolev/promptline.vim'
 Plug 'edkolev/tmuxline.vim'
+Plug 'lepture/vim-jinja'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
@@ -254,7 +255,7 @@ map <leader>ss :setlocal spell!<cr>
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
-au BufNewFile,BufRead *.jinja setf htmljinja
+au BufNewFile,BufRead *.jinja,*.sls setf jinja
 au BufNewFile,BufRead *.mako set ft=mako
 
 au! FileType python setl nosmartindent
