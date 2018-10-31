@@ -22,18 +22,7 @@ td () (
   set -e
   shopt -s extglob
   cd "${1:-.}"
-  if [[ ${VIRTUAL_ENV:0:6} == glob:? ]]; then
-    case "${VIRTUAL_ENV:5:1}" in
-      (/) VIRTUAL_ENV=$(echo ${VIRTUAL_ENV:5}/);;
-      (?) VIRTUAL_ENV=$(echo "$PWD"/${VIRTUAL_ENV:5}/);;
-    esac
-    # Either find the venv or fail the subshell.
-    . "${VIRTUAL_ENV}bin/activate"
-  fi
-  exec tmux \
-    wait -L session\; \
-    new -ADs "${PWD##*/}"\; \
-      "${@:2}"
+  exec tmux new -ADs "$PWD" \; "${@:2}"
 )
 
 # Venv + Tmux wrappers.
