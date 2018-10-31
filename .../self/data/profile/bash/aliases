@@ -65,9 +65,11 @@ alias qss="git log --patch"
 alias qsso="git log --graph --oneline"
 # (in)  Query Shows +EXTRA +QUIET
 alias qssq="git log --stat"
-# (in)  Query Upstream
-alias qu="git remote --verbose"
-# (in)  Query Upstream +EXTRA (sync; update and prune)
+# (in)  Query Upstream (update local)
+alias qu="git remote --verbose update"
+# (in)  Query Upstream +QUIET
+alias quq="git remote --verbose"
+# (in)  Query Upstream +EXTRA (update and prune local)
 alias quu="git remote --verbose update --prune"
 # (in)  Query WorkTREE#1
 alias qw="git diff"
