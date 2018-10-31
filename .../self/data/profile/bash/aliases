@@ -19,10 +19,8 @@ alias th='td .'
 alias ty='td ~'
 alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
 td () (
-  set -e
-  shopt -s extglob
-  cd "${1:-.}"
-  exec tmux new -ADs "$PWD" \; "${@:2}"
+  set -e; cd "${1:-.}"; shift
+  exec tmux new -ADs "$PWD;" set @session_name "${PWD##*/};" "$@"
 )
 
 # Venv + Tmux wrappers.
