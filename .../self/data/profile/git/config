@@ -17,7 +17,7 @@
 [push]
 	default = current
 
-[includeIf "gitdir:ZipRecruiter/"]
+[includeIf "gitdir/i:ZipRecruiter/"]
 	path = ZipRecruiter/config
 
 [diff]
