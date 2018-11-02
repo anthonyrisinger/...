@@ -17,6 +17,8 @@
 [push]
 	default = current
 
+[includeIf "gitdir/i:ZR/"]
+	path = ZipRecruiter/config
 [includeIf "gitdir/i:ZipRecruiter/"]
 	path = ZipRecruiter/config
 
