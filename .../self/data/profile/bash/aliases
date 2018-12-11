@@ -56,27 +56,27 @@ alias qdd!="git reset --hard"
 # (in)  Query Shows
 alias qs="git show"
 # (in)  Query Shows +QUIET
-alias qsq="git show --stat"
+alias qqs="git show --stat"
 # (in)  Query Shows +EXTRA (patch)
 alias qss="git log --patch"
 # (in)  Query Shows +EXTRA2 (graph)
 alias qsso="git log --graph --oneline"
 # (in)  Query Shows +EXTRA +QUIET
-alias qssq="git log --stat"
+alias qqss="git log --stat"
 # (in)  Query Upstream (update local)
 alias qu="git remote --verbose update"
 # (in)  Query Upstream +QUIET
-alias quq="git remote --verbose"
+alias qqu="git remote --verbose"
 # (in)  Query Upstream +EXTRA (update and prune local)
 alias quu="git remote --verbose update --prune"
 # (in)  Query WorkTREE#1
 alias qw="git diff"
 # (in)  Query WorkTREE#1 +QUIET
-alias qwq="git diff --stat"
+alias qqw="git diff --stat"
 # (in)  Query WorkTREE#2
 alias qww="git diff --cached"
 # (in)  Query WorkTREE#2 +QUIET
-alias qwwq="git diff --cached --stat"
+alias qqww="git diff --cached --stat"
 # (in)  Query Commits ...
 alias qc="git commit"
 alias qca="git commit --amend"
