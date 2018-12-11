@@ -37,47 +37,49 @@ alias diff="git diff --no-index"
 #   - Output operations (eg. checkout/reset) start at repository and pull data OUT.
 #       TREE#1 [repo] -> TREE#2 [index] -> TREE#3 [fs]
 #   - Other operations (eg. status/diff) use INPUT order unless OUTPUT is obvious.
-# (in)  Query
-alias q="git status"
-# (in)  Query +QUIET
-alias qq="git status --short"
-# (in)  Query Adds
+# Query (quiet)
+alias q="git status --short"
+# Query2 (verbose)
+alias qq="git status"
+# Query Add (interactive; any tracked file)
 alias qa="git add --patch"
-# (in)  Query Adds +EXTRA (non-interactive)
+# Query Add (interactive; any worktree file)
+alias qa!="git add --patch \$(git rev-parse --show-toplevel)"
+# Query Add2 (batch; any tracked file)
 alias qaa="git add --all"
-# (out) Query Deletes
+# Query Add2 (batch; any worktree file)
+alias qaa!="git add --all \$(git rev-parse --show-toplevel)"
+# Query Delete (interactive; updates index)
 alias qd="git reset --patch"
-# (out) Query Deletes +FORCE (unsafe; resets index)
+# Query Delete (batch; resets index)
 alias qd!="git reset --mixed"
-# (out) Query Deletes +EXTRA
+# Query Delete2 (interactive; updates worktree)
 alias qdd="git checkout --patch"
-# (out) Query Deletes +EXTRA +FORCE (unsafe; resets filesystem)
+# Query Delete2 (batch; resets worktree)
 alias qdd!="git reset --hard"
-# (in)  Query Shows
-alias qs="git show"
-# (in)  Query Shows +QUIET
-alias qqs="git show --stat"
-# (in)  Query Shows +EXTRA (patch)
-alias qss="git log --patch"
-# (in)  Query Shows +EXTRA2 (graph)
-alias qsso="git log --graph --oneline"
-# (in)  Query Shows +EXTRA +QUIET
-alias qqss="git log --stat"
-# (in)  Query Upstream (update local)
-alias qu="git remote --verbose update"
-# (in)  Query Upstream +QUIET
-alias qqu="git remote --verbose"
-# (in)  Query Upstream +EXTRA (update and prune local)
+# Query State (last update)
+alias qs="git show --stat"
+# Query2 State (last update; verbose)
+alias qqs="git show --patch"
+# Query State2 (recent updates)
+alias qss="git log --stat"
+# Query2 State2 (recent updates; verbose)
+alias qqss="git log --patch"
+# Query Upstream (show remotes)
+alias qu="git remote --verbose"
+# Query2 Upstream (show remotes; query server)
+alias qqu="git ls-remote --symref"
+# Query Upstream2 (sync remotes)
 alias quu="git remote --verbose update --prune"
-# (in)  Query WorkTREE#1
-alias qw="git diff"
-# (in)  Query WorkTREE#1 +QUIET
-alias qqw="git diff --stat"
-# (in)  Query WorkTREE#2
-alias qww="git diff --cached"
-# (in)  Query WorkTREE#2 +QUIET
-alias qqww="git diff --cached --stat"
-# (in)  Query Commits ...
+# Query TREE#1 (worktree)
+alias qw="git diff --stat"
+# Query TREE#1 (worktree; patch)
+alias qqw="git diff"
+# Query TREE#2 (index)
+alias qww="git diff --cached --stat"
+# Query TREE#2 (index; show patch)
+alias qqww="git diff --cached"
+# Query Commits ...
 alias qc="git commit"
 alias qca="git commit --amend"
 alias qcam="git commit --amend --message"
