@@ -43,12 +43,12 @@ alias q="git status --short"
 alias qq="git status"
 # Query Add (interactive; any tracked file)
 alias qa="git add --patch"
-# Query Add (interactive; any worktree file)
-alias qa!="git add --patch \$(git rev-parse --show-toplevel)"
+# Query2 Add (interactive; any worktree file)
+alias qqa="git add --patch \$(git rev-parse --show-toplevel)"
 # Query Add2 (batch; any tracked file)
 alias qaa="git add --all"
-# Query Add2 (batch; any worktree file)
-alias qaa!="git add --all \$(git rev-parse --show-toplevel)"
+# Query2 Add2 (batch; any worktree file)
+alias qqaa="git add --all \$(git rev-parse --show-toplevel)"
 # Query Delete (interactive; updates index)
 alias qd="git reset --patch"
 # Query Delete (batch; resets index)
@@ -58,9 +58,9 @@ alias qdd="git checkout --patch"
 # Query Delete2 (batch; resets worktree)
 alias qdd!="git reset --hard"
 # Query State (last update)
-alias qs="git show --stat"
+alias qqs="git show --stat"
 # Query2 State (last update; verbose)
-alias qqs="git show --patch"
+alias qs="git show --patch"
 # Query State2 (recent updates)
 alias qss="git log --stat"
 # Query2 State2 (recent updates; verbose)
@@ -72,13 +72,13 @@ alias qqu="git ls-remote --symref"
 # Query Upstream2 (sync remotes)
 alias quu="git remote --verbose update --prune"
 # Query TREE#1 (worktree)
-alias qw="git diff --stat"
+alias qqw="git diff --stat"
 # Query TREE#1 (worktree; patch)
-alias qqw="git diff"
+alias qw="git diff"
 # Query TREE#2 (index)
-alias qww="git diff --cached --stat"
+alias qqww="git diff --cached --stat"
 # Query TREE#2 (index; show patch)
-alias qqww="git diff --cached"
+alias qww="git diff --cached"
 # Query Commits ...
 alias qc="git commit"
 alias qca="git commit --amend"
