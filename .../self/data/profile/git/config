@@ -21,6 +21,8 @@
 	path = ZipRecruiter/config
 [includeIf "gitdir/i:ZipRecruiter/"]
 	path = ZipRecruiter/config
+[includeIf "gitdir/i:go.zr.org/"]
+	path = ZipRecruiter/config
 
 [diff]
 	noprefix = true
