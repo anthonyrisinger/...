@@ -39,7 +39,7 @@ alias diff="git diff --no-index"
 #   - Other operations (eg. status/diff) use INPUT order unless OUTPUT is obvious.
 # Query (verbose)
 alias q="git status"
-# Query2 (quiet)
+# Query Quietly
 alias qq="git status --short"
 # Query Add (interactive; any tracked file)
 alias qa="git add --patch"
@@ -57,8 +57,8 @@ alias qd!="git reset --mixed"
 alias qdd="git checkout --patch"
 # Query Delete2 (batch; resets worktree)
 alias qdd!="git reset --hard"
-# Query2 State (last update)
-alias qqs="git show --stat"
+# Query State Quietly (last update)
+alias qsq="git show --stat"
 # Query State (last update; verbose)
 alias qs="git show --patch"
 # Query State2 (recent updates)
@@ -71,12 +71,12 @@ alias qu="git remote --verbose"
 alias qqu="git ls-remote --symref"
 # Query Upstream2 (sync remotes)
 alias quu="git remote --verbose update --prune"
-# Query2 TREE#1 (worktree)
-alias qqw="git diff --stat"
+# Query TREE#1 Quietly (worktree)
+alias qwq="git diff --stat"
 # Query TREE#1 (worktree; patch)
 alias qw="git diff"
-# Query2 TREE#2 (index)
-alias qqww="git diff --cached --stat"
+# Query TREE#2 Quietly (index)
+alias qwwq="git diff --cached --stat"
 # Query TREE#2 (index; show patch)
 alias qww="git diff --cached"
 # Query Commits ...
