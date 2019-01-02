@@ -4,6 +4,7 @@
 alias l='ls -Flh'
 alias ll='ls -Flha'
 alias t='tree --charset=ascii -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go|.pytest_cache|htmlcov"'
+tree () { set -- ${COLORTERM:+-C} "$@"; command tree "$@"; }
 alias tt='t -a'
 alias v='. *.venv/bin/activate'
 
