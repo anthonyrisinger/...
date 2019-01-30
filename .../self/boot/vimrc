@@ -69,6 +69,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'edkolev/promptline.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'lepture/vim-jinja'
+Plug 'ambv/black'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
