@@ -229,7 +229,10 @@ set viminfo=%,'100,s1024,h
 " Always hide the statusline
 set laststatus=2
 
-"Delete trailing white space, useful for Python ;)
+" Python BLACK.
+let g:black_fast = 1
+autocmd BufWritePre *.py if exists(':Black') == 2 | execute 'Black' | endif
+
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
