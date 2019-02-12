@@ -144,47 +144,19 @@ if [[ -n ${TMUX} && -n ${SSH_AUTH_SOCK} ]]; then
 fi
 '
 
-use_color=false
-
-# Set colorful PS1 only on colorful terminals.
-# dircolors --print-database uses its own built-in database
-# instead of using /etc/DIR_COLORS.  Try to use the external file
-# first to take advantage of user additions.  Use internal bash
-# globbing instead of external grep binary.
-safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
-match_lhs=""
-[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-[[ -z ${match_lhs}    ]] \
-  && type -P dircolors >/dev/null \
-  && match_lhs=$(dircolors --print-database)
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
-
-if ${use_color} ; then
-  # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-  if type -P dircolors >/dev/null ; then
-    if [[ -f ~/.dir_colors ]] ; then
-      eval $(dircolors -b ~/.dir_colors)
-    elif [[ -f /etc/DIR_COLORS ]] ; then
-      eval $(dircolors -b /etc/DIR_COLORS)
-    fi
-  fi
-    PS1=$(_ps1)
-    ls --color=auto >/dev/null 2>&1 && _gnu_ls=true || _gnu_ls=false
-    if ${_gnu_ls}; then
-      alias ls='ls -F --color=auto'
-    else
-      alias ls='ls -F -G'
-    fi
+if ls --color=auto >/dev/null 2>&1; then
+  alias ls='ls -F --color=auto'
 else
-  if [[ ${EUID} == 0 ]] ; then
-    # show root@ when we don't have colors
-    PS1='\u@\h \W \$ '
-  else
-    PS1='\u@\h \w \$ '
-  fi
+  alias ls='ls -F -G'
 fi
 
+if type -P dircolors >/dev/null ; then
+  if [[ -f ~/.dir_colors ]] ; then
+    eval $(dircolors -b ~/.dir_colors)
+  elif [[ -f /etc/DIR_COLORS ]] ; then
+    eval $(dircolors -b /etc/DIR_COLORS)
+  fi
+fi
 
 HISTCONTROL=ignoreboth:erasedups
 HISTFILE=${ELLIPSIS}var/cache/bash/history
@@ -193,6 +165,7 @@ HISTIGNORE='[bf]g:[bf]g :exit:exit :cognito:cognito :incognito:incognito '
 HISTSIZE=10000000
 HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 
+PS1=$(_ps1)
 
 [[ -r ${ELLIPSIS}data/profile/bash/aliases ]] &&
     . ${ELLIPSIS}data/profile/bash/aliases
