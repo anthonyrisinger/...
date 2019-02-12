@@ -27,5 +27,3 @@
 	init = !${GIT_DIR}/self/bin/ellipsis init
 [merge]
 	defaultToUpstream = true
-[format]
-	pretty = fuller

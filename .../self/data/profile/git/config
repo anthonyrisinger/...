@@ -41,3 +41,5 @@
 	pager = "LESSOPEN=\"||-$(type -P diff-so-fancy)\" && export LESSOPEN || unset LESSOPEN; exec less"
 [commit]
 	verbose = true
+[format]
+	pretty = fuller
