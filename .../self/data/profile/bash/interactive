@@ -6,9 +6,6 @@ if [[ $(date +%Z) == 'UTC' ]]; then
     export TZ='America/Chicago'
 fi
 
-# because en_US.utf8 sorting is... dumb
-export LC_COLLATE=C
-
 export TERM="${TERM:-dumb}"
 export EDITOR='vim'
 export PROMPT_DIRTRIM=3
