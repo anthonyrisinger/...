@@ -30,6 +30,9 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 #shopt -s nullglob
 shopt -s extglob
 
+# ZR exports.
+export ZIPRECRUITER=~/go/src/go.zr.org
+
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \
   /usr{,/local}/share/bash-completion/bash_completion \
