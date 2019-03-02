@@ -27,10 +27,10 @@ map! <Esc>f <M-f>
 nmap <CR> @:
 
 " Select buffer-on-left and buffer-on-right.
-noremap  <silent> <S-C-Left> :bprevious<CR>
-noremap! <silent> <S-C-Left> <C-o>:bprevious<CR>
-noremap  <silent> <S-C-Right> :bnext<CR>
-noremap! <silent> <S-C-Right> <C-o>:bnext<CR>
+noremap  <silent> <C-Left> :bprevious<CR>
+noremap! <silent> <C-Left> <C-o>:bprevious<CR>
+noremap  <silent> <C-Right> :bnext<CR>
+noremap! <silent> <C-Right> <C-o>:bnext<CR>
 
 " Option + Left/Right/Delete.
 noremap  <M-BS> db
