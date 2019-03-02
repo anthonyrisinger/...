@@ -31,6 +31,10 @@ noremap  <silent> <C-Left> :bprevious<CR>
 noremap! <silent> <C-Left> <C-o>:bprevious<CR>
 noremap  <silent> <C-Right> :bnext<CR>
 noremap! <silent> <C-Right> <C-o>:bnext<CR>
+noremap  <silent> <C-x> :bdelete<CR>
+noremap! <silent> <C-x> <C-o>:bdelete<CR>
+noremap  <C-Down> :badd ./
+noremap! <C-Down> <C-o>:badd ./
 
 " Option + Left/Right/Delete.
 noremap  <M-BS> db
@@ -336,3 +340,9 @@ function! AirlineThemePatch(palette)
     let a:palette.tabline = tabline
   endif
 endfunction
+
+" Avoid E173 by visiting last buffer ASAP.
+if argc() > 1
+  silent blast
+  silent bfirst
+endif
