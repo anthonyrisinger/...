@@ -99,7 +99,7 @@ alias qp!="git push --force"
 alias qp="git push"
 
 # ZR niceties.
-alias zcd='cd "$ZIPRECRUITER"'
+alias zcd='cd "$STARTERVIEW"'
 
 incognito () { cognito off; }
 cognito () {

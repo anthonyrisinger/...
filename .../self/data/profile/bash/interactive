@@ -28,7 +28,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 shopt -s extglob
 
 # ZR exports.
-export ZIPRECRUITER=~/go/src/go.zr.org
+export STARTERVIEW=~/go/src/go.zr.org
+export SALTSTACK=~/devel/zr/saltstack
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \
