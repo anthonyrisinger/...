@@ -171,7 +171,7 @@ hi! Search ctermfg=5 ctermbg=NONE cterm=reverse guifg=#6c71c4 guibg=NONE gui=rev
 set ffs=unix,dos,mac "Default file types
 
 if exists("&colorcolumn")
-    set colorcolumn=101
+    set colorcolumn=111
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -202,7 +202,7 @@ autocmd BufEnter sys.config :set tabstop=2 shiftwidth=2 filetype=erlang
 autocmd BufEnter rebar.config :set tabstop=2 shiftwidth=2 filetype=erlang
 
 set lbr
-set textwidth=101
+set textwidth=111
 
 set ai "Auto indent
 set si "Smart indet
