@@ -63,6 +63,9 @@ let s:e_plugins = s:e_home . "/plugged"
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
 let netrw_home = s:e_cache
 
+let g:go_fmt_command = "goimports"
+let g:go_fmt_options = {'goimports': '-local go.zr.org'}
+
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
 Plug 'lifepillar/vim-solarized8'
