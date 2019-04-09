@@ -118,3 +118,11 @@ nvm () {
   [[ $(type -t nvm) == function ]] &&
     nvm "$@"
 }
+
+# Push and compile terminfo files.
+terminfo-ssh () {
+  for host in "$@"; do
+    ssh -A "$host" <"${ELLIPSIS}"data/profile/iterm2/iterm2-direct-compat.terminfo -- \
+      bash -c 'cat > /tmp/terminfo && tic -x /tmp/terminfo && rm -f /tmp/terminfo'
+  done
+}
