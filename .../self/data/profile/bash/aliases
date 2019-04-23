@@ -100,6 +100,7 @@ alias qp="git push"
 
 # dev niceties.
 alias dcd='cd ~/devel'
+alias ghcd='cd "$STARTERVIEW"/../github.com'
 
 # ZR niceties.
 alias zcd='cd "$STARTERVIEW"'
