@@ -70,6 +70,7 @@ let g:go_fmt_options = {'goimports': '-local go.zr.org'}
 call plug#begin(s:e_plugins)
 Plug 'lifepillar/vim-solarized8'
 Plug 'vito-c/jq.vim'
+Plug 'sirtaj/vim-openscad'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
