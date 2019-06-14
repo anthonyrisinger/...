@@ -79,6 +79,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'lepture/vim-jinja'
 Plug 'ambv/black'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'hashivim/vim-terraform'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
@@ -171,6 +172,7 @@ let solarized_termtrans = 1
 silent! colorscheme solarized8
 hi! IncSearch ctermfg=3 ctermbg=NONE cterm=reverse guifg=#d33682 guibg=NONE gui=reverse
 hi! Search ctermfg=5 ctermbg=NONE cterm=reverse guifg=#6c71c4 guibg=NONE gui=reverse
+hi clear CursorLine
 
 set ffs=unix,dos,mac "Default file types
 
