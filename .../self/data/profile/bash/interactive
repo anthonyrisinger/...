@@ -28,7 +28,11 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 shopt -s extglob
 
 # ZR exports.
-export STARTERVIEW=~/go/src/go.zr.org
+export STARTERVIEW=$(
+  shopt -s nullglob
+  printf '%s\n' ~/go/src/go.zr.or[g] ~/ziprecruite[r] /var/starterview |
+    head -n1
+)
 export SALTSTACK=~/devel/zr/saltstack
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
