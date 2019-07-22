@@ -33,6 +33,8 @@ export STARTERVIEW=$(
   printf '%s\n' ~/go/src/go.zr.or[g] ~/ziprecruite[r] /var/starterview |
     head -n1
 )
+export ZR=~/devel/zr/ziprecruiter
+export ZR_WIKI=~/devel/zr/wiki
 export SALTSTACK=~/devel/zr/saltstack
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
