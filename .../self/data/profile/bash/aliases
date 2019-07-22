@@ -104,6 +104,7 @@ alias ghcd='cd "$STARTERVIEW"/../github.com'
 
 # ZR niceties.
 alias zcd='cd "$STARTERVIEW"'
+alias wcd='cd "$ZR_WIKI"'
 alias scd='cd "$SALTSTACK"'
 
 incognito () { cognito off; }
