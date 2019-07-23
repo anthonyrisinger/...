@@ -35,7 +35,7 @@ export STARTERVIEW=$(
 )
 export ZR_WIKI=$(
   shopt -s nullglob
-  printf '%s\n' ~/zr/wik[i] "$STARTERVIEW"/.zr-wik[i] |
+  printf '%s\n' ~/zr/wik[i] "$STARTERVIEW"/.zr-wiki |
     head -n1
 )
 export SALTSTACK=~/devel/zr/saltstack
