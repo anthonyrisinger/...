@@ -30,7 +30,7 @@ shopt -s extglob
 # ZR exports.
 export STARTERVIEW=$(
   shopt -s nullglob
-  printf '%s\n' ~/go/src/go.zr.or[g] ~/ziprecruite[r] /var/starterview |
+  printf '%s\n' ~/zr/ziprecruite[r] ~/ziprecruite[r] /var/starterview |
     head -n1
 )
 export ZR_WIKI=$(
