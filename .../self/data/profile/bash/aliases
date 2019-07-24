@@ -98,10 +98,6 @@ alias qcm="git commit --message"
 alias qp!="git push --force"
 alias qp="git push"
 
-# dev niceties.
-alias dcd='cd ~/devel'
-alias ghcd='cd "$STARTERVIEW"/../github.com'
-
 # ZR niceties.
 alias zcd='cd "$STARTERVIEW"'
 alias wcd='cd "$ZR_WIKI"'
