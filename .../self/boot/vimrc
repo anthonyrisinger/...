@@ -219,6 +219,7 @@ autocmd BufEnter wscript :set noexpandtab filetype=python
 autocmd BufEnter *.djhtml :set filetype=htmldjango
 autocmd BufEnter */git*config :set filetype=gitconfig
 autocmd BufEnter */tmux*conf :set filetype=tmux
+autocmd BufEnter */zr*.page :set filetype=markdown
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
