@@ -38,6 +38,7 @@ export ZR_WIKI=$(
   printf '%s\n' ~/zr/wik[i] "$STARTERVIEW"/.zr-wiki |
     head -n1
 )
+export ZR_WIKI_PAGER=cat
 export SALTSTACK=~/zr/saltstack
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
