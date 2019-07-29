@@ -212,7 +212,7 @@ set textwidth=111
 
 set ai "Auto indent
 set si "Smart indet
-set wrap "Wrap lines
+"set wrap "Wrap lines
 
 autocmd BufEnter *.go :set noexpandtab
 autocmd BufEnter wscript :set noexpandtab filetype=python
