@@ -134,3 +134,9 @@ ecr () {
   curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
     jq -r '"\(.accountId).dkr.ecr.\(.region).amazonaws.com"'
 }
+
+# Output current region.
+region () {
+  curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
+    jq -r '.region'
+}
