@@ -63,9 +63,9 @@ alias qddq="git"
 # Query2 Delete2 (TODO: git clean)
 alias qddq!="git"
 # Query State Quietly (last update)
-alias qsq="git show --stat"
+alias qsq="git\${_GIT_DIFF_ARGS} show --stat"
 # Query State (last update; verbose)
-alias qs="git show --patch"
+alias qs="git\${_GIT_DIFF_ARGS} show --patch"
 # Query State2 (recent updates)
 alias qss="git log --stat"
 # Query2 State2 (recent updates; verbose)
@@ -77,13 +77,13 @@ alias quq="git ls-remote --symref"
 # Query Upstream2 (sync remotes)
 alias quu="git remote --verbose update --prune"
 # Query TREE#1 Quietly (worktree)
-alias qwq="git diff --stat"
+alias qwq="git\${_GIT_DIFF_ARGS} diff --stat"
 # Query TREE#1 (worktree; patch)
-alias qw="git diff"
+alias qw="git\${_GIT_DIFF_ARGS} diff"
 # Query TREE#2 Quietly (index)
-alias qwwq="git diff --cached --stat"
+alias qwwq="git\${_GIT_DIFF_ARGS} diff --cached --stat"
 # Query TREE#2 (index; show patch)
-alias qww="git diff --cached"
+alias qww="git\${_GIT_DIFF_ARGS} diff --cached"
 # Query Commits ...
 alias qc="git commit"
 alias qca="git commit --amend"
@@ -97,6 +97,9 @@ alias qccm="git commit --all --message"
 alias qcm="git commit --message"
 alias qp!="git push --force"
 alias qp="git push"
+
+normaldiffs () { _GIT_DIFF_ARGS=' -c core.pager= -c diff.noprefix='; }
+prettydiffs () { _GIT_DIFF_ARGS=; }
 
 # ZR niceties.
 alias zcd='cd "$STARTERVIEW"'
