@@ -1,0 +1,145 @@
+#!/bin/bash
+
+# Liked or used often.
+alias l='ls -Flh'
+alias ll='ls -Flha'
+alias t='tree --charset=ascii -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go|.pytest_cache|htmlcov"'
+tree () { set -- ${COLORTERM:+-C} "$@"; command tree "$@"; }
+alias tt='t -a'
+alias v='. *.venv/bin/activate'
+
+# Grep wrappers.
+alias ge='grep --extended-regexp'
+alias gi='ge --ignore-case'
+alias gr='ge --recursive'
+alias gri='gi --recursive'
+alias grep='grep --colour=auto --devices=skip --binary-files=without-match --exclude-dir={".*[.]venv",__pycache__,"*.egg-info",node_modules,vendor,.git,go,.pytest_cache,htmlcov} --exclude={".*[.]pyc",".coverage","*[.]min[.]*","*/dist/*[.]js","*/dist/*[.]js[.]*",}'
+
+# Tmux wrappers.
+alias th='td .'
+alias ty='td ~'
+alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
+td () (
+  set -e; cd "${1:-.}"; shift
+  exec tmux new -ADs "$PWD;" set @session_name "${PWD##*/};" "$@"
+)
+
+# Venv + Tmux wrappers.
+alias vh='VIRTUAL_ENV="glob:*.venv" th'
+alias vg='VIRTUAL_ENV="glob:*.venv" tg'
+alias vd='VIRTUAL_ENV="glob:*.venv" td'
+
+# Git aliases.
+alias diff="git diff --no-index"
+
+# Git operations framed as mutable QUERIES against three stacked TREES:
+#   - Input operations (eg. add/commit) start at filesystem and push data IN.
+#       TREE#1 [fs] -> TREE#2 [index] -> TREE#3 [repo]
+#   - Output operations (eg. checkout/reset) start at repository and pull data OUT.
+#       TREE#1 [repo] -> TREE#2 [index] -> TREE#3 [fs]
+#   - Other operations (eg. status/diff) use INPUT order unless OUTPUT is obvious.
+# Query (verbose)
+alias q="git status"
+# Query2 (quiet)
+alias qq="git status --short"
+# Query Add (interactive; any tracked file)
+alias qa="git add --patch"
+# Query2 Add (interactive; any worktree file)
+alias qaq="git add --patch \$(git rev-parse --show-toplevel)"
+# Query Add2 (batch; any tracked file)
+alias qaa="git add --all"
+# Query2 Add2 (batch; any worktree file)
+alias qaaq="git add --all \$(git rev-parse --show-toplevel)"
+# Query Delete (interactive; updates index)
+alias qd="git reset --patch"
+# Query Delete (batch; resets index)
+alias qd!="git reset --mixed"
+# Query Delete2 (interactive; updates worktree)
+alias qdd="git checkout --patch"
+# Query Delete2 (batch; resets worktree)
+alias qdd!="git reset --hard"
+# Query2 Delete2 (TODO: git clean)
+alias qddq="git"
+# Query2 Delete2 (TODO: git clean)
+alias qddq!="git"
+# Query State Quietly (last update)
+alias qsq="git\${_GIT_DIFF_ARGS} show --stat"
+# Query State (last update; verbose)
+alias qs="git\${_GIT_DIFF_ARGS} show --patch"
+# Query State2 (recent updates)
+alias qss="git log --stat"
+# Query2 State2 (recent updates; verbose)
+alias qssq="git log --patch"
+# Query Upstream (show remotes)
+alias qu="git remote --verbose"
+# Query2 Upstream (show remotes; query server)
+alias quq="git ls-remote --symref"
+# Query Upstream2 (sync remotes)
+alias quu="git remote --verbose update --prune"
+# Query TREE#1 Quietly (worktree)
+alias qwq="git\${_GIT_DIFF_ARGS} diff --stat"
+# Query TREE#1 (worktree; patch)
+alias qw="git\${_GIT_DIFF_ARGS} diff"
+# Query TREE#2 Quietly (index)
+alias qwwq="git\${_GIT_DIFF_ARGS} diff --cached --stat"
+# Query TREE#2 (index; show patch)
+alias qww="git\${_GIT_DIFF_ARGS} diff --cached"
+# Query Commits ...
+alias qc="git commit"
+alias qca="git commit --amend"
+alias qcam="git commit --amend --message"
+alias qcan="git commit --amend --no-edit"
+alias qcc="git commit --all"
+alias qcca="git commit --all --amend"
+alias qccam="git commit --all --amend --message"
+alias qccan="git commit --all --amend --no-edit"
+alias qccm="git commit --all --message"
+alias qcm="git commit --message"
+alias qp!="git push --force"
+alias qp="git push"
+
+normaldiffs () { _GIT_DIFF_ARGS=' -c core.pager= -c diff.noprefix='; }
+prettydiffs () { _GIT_DIFF_ARGS=; }
+
+# ZR niceties.
+alias zcd='cd "$STARTERVIEW"'
+alias wcd='cd "$ZR_WIKI"'
+alias scd='cd "$SALTSTACK"'
+
+incognito () { cognito off; }
+cognito () {
+  case ${1:-on} in
+    (on)  [[ -z $HISTFILE ]] && fc -WIP && HISTFILE="$HISTFILE__" && unset HISTFILE__;;
+    (off) [[ -z $HISTFILE__ ]] && HISTFILE__="$HISTFILE" && fc -WIp && unset HISTFILE;;
+  esac
+}
+
+# Lazy load nvm.
+nvm () {
+  unset nvm
+  export NVM_DIR=${NVM_DIR:-~/.nvm}
+  . "$NVM_DIR/nvm.sh"
+  . "$NVM_DIR/zsh_completion"
+  [[ $(type -t nvm) == function ]] &&
+    nvm "$@"
+}
+
+# Push and compile terminfo files.
+terminfo-ssh () {
+  for host in "$@"; do
+    ssh -A "$host" <"${ELLIPSIS}"data/profile/iterm2/iterm2-direct-compat.terminfo -- \
+      bash -c 'cat > /tmp/terminfo && tic -x /tmp/terminfo && rm -f /tmp/terminfo'
+  done
+}
+
+# Output current ECR repo.
+ecr () {
+  curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
+    jq -r '"\(.accountId).dkr.ecr.\(.region).amazonaws.com"'
+}
+
+# Output current region.
+region () {
+  curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
+    jq -r '.region'
+}
