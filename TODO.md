@@ -3,15 +3,12 @@
 - Tab-switching goes to desktop occasionally
 
 # Shell
-- Move to ZSH
 - Multiline history entries are only partially matched by C-r
-- stty -icanon ixany
 - Fix and split .dir_colors for direct-color and 16-color
 
 # Git
 - Mergetool
 - `git add --patch .` should work to patch add unknown and known files
-- Unable to clone work repos from work dir
 
 # Tmux
 - Prevent using alt screen
