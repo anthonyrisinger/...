@@ -80,6 +80,7 @@ Plug 'lepture/vim-jinja'
 Plug 'ambv/black'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'hashivim/vim-terraform'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.

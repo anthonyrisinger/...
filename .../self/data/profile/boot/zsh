@@ -21,6 +21,7 @@ if [[ -z $ELLIPSIS_PATH ]]; then
     IFS=; setopt -o null_glob
     matches=(
       ${ELLIPSIS}[b]in/
+      ${ELLIPSIS}data/profile/vim/plugged/*/bin/
       $HOME/{,.local/,go/,Library/Python/[0-9].[0-9]/}[b]in/{,[0-9A-Za-z]*/}
     )
     printf '%s' "${matches[@]/%?/:}$PATH"

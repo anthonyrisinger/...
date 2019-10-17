@@ -43,6 +43,7 @@ for x in \
   /usr{,/local}/share/zsh-completion/zsh_completion \
   {,/usr/local}/etc/zsh_completion \
   {,$DEVELOPER_DIR}/usr/share/git{,-core}/git-{prompt.sh,completion.zsh} \
+  ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/completion.zsh \
 ;
 do
     [[ $x == */git-completion.zsh ]] &&
@@ -109,6 +110,8 @@ bindkey "^[[F" end-of-line
 bindkey "^[[H" beginning-of-line
 bindkey "\x15" backward-kill-line
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+[[ -r ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/key-bindings.zsh ]] &&
+  . ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/key-bindings.zsh
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
