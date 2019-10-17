@@ -100,6 +100,11 @@ if type -p dircolors >/dev/null ; then
   fi
 fi
 
+bindkey -e
+bindkey "^[[F" end-of-line
+bindkey "^[[H" beginning-of-line
+bindkey "\x15" backward-kill-line
+
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 
@@ -119,6 +124,7 @@ SAVEHIST=10000000
 HISTSIZE=10000000
 HISTORY_IGNORE='([bf]g|[bf]g |exit|exit |cognito|cognito |incognito|incognito )'
 
+KEYTIMEOUT=20
 NULLCMD=:
 
 PROMPT=$(_ps1)
