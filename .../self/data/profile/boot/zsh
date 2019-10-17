@@ -30,6 +30,10 @@ fi
 # ELLIPSIS_PATH is only computed once.
 PATH="$ELLIPSIS_PATH"
 
+if [[ -z $HOSTNAME ]]; then
+  HOSTNAME=$(hostname)
+fi
+
 # Detect OSTYPE (darwin, linux, etc).
 if [[ -z $OSTYPE ]]; then
   OSTYPE=$(uname -s | tr '[:upper:]' '[:lower:]')
