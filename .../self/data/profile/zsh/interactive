@@ -54,20 +54,18 @@ done
 _ps1 () { (
 
     local s=( )
-    if [[ ${HOSTNAME} =~ ^ca- ]]; then
-        s+=("%F{blue}\u2605")
-    elif [[ ${HOSTNAME} =~ ^anthonyr- ]]; then
-        s+=("%F{magenta}\u2605")
+    if [[ ${HOSTNAME} =~ ^(ca|anthonyr)- ]]; then
+        s+=("%F{green}\u2605")
     else
         s+=("%F{red}\u2691")
     fi
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
-        s+=("%F{green}\u21c5")
+        s+=("%F{blue}\u21c5")
     ((${#s})) &&
         s=" ${s[*]} "
 
     print -n -- "\
-%f%s  \u239e %D{%l:%M%P} %F{yellow}%M${s}
+%f%s  \u239e %D{%l:%M%P} %F{yellow}%m${s}
 %f%s  \u23a5  \$(__git_ps1 '%%F{yellow}%s ' 2>/dev/null)%f%s%40<...<%~%<<
 %f%s  \u23a5%(!.%F{red}.%f%s)\u25b6 %f%s"
 
@@ -104,12 +102,15 @@ if type -p dircolors >/dev/null ; then
   fi
 fi
 
+zmodload zsh/complist
+
 bindkey -e
 bindkey "^[[F" end-of-line
 bindkey "^[[H" beginning-of-line
 bindkey "\x15" backward-kill-line
+bindkey -M menuselect '^[[Z' reverse-menu-complete
 
-autoload -Uz compinit
+autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 
 setopt promptpercent
