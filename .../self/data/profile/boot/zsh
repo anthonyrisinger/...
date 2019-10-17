@@ -49,7 +49,7 @@ fi
 (if [[ -x $(type -p git) && -f ${_ELLIPSIS}config && -z ${UID/#$EUID} ]]; then
 
   # Better working conditions.
-  IFS=$'\n'; set -f; shopt -s extglob
+  IFS=$'\n'; set -f; setopt -o extendedglob
 
   # Clean stdout unless interactive.
   if ! [[ $- =~ .*i.* ]]; then

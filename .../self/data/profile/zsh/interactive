@@ -7,7 +7,6 @@ fi
 
 export TERM="${TERM:-dumb}"
 export EDITOR='vim'
-export PROMPT_DIRTRIM=3
 
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 
@@ -54,86 +53,38 @@ done
 
 _ps1 () { (
 
-    c () {
-      # Expands 0xffffff to 16777215.
-      declare -i i=$1
-      case $1 in
-        (black)   i=0;;
-        (red)     i=1;;
-        (green)   i=2;;
-        (yellow)  i=3;;
-        (blue)    i=4;;
-        (magenta) i=5;;
-        (cyan)    i=6;;
-        (white)   i=7;;
-      esac
-      echo -n $i
-    }
-
-    e () {
-      printf '\['
-      while ((${#*})); do
-        case $1 in
-          (none) tput op; tput sgr0;;
-          (fg,*) tput setaf $(c ${1#fg,});;
-          (bg,*) tput setab $(c ${1#bg,});;
-          (*) tput $1;;
-        esac
-        shift
-      done
-      printf '\]'
-    }
-
-    local u="$(e none fg,yellow)\h"
-    local w="$(e none)"
-    local v="${w}\${VIRTUAL_ENV:+\"$(e none fg,magenta)\${VIRTUAL_ENV//@(*\/|.venv)} ${w}\"}"
-
-    if [[ ${EUID} == 0 ]]; then
-        local m="$(e none fg,red)▶"
-    else
-        local m="$(e none)▶"
-    fi
-
     local s=( )
-
-    [[ ${HOSTNAME} =~ ^ca- ]] &&
-        s+=("$(e fg,green)★") ||
-        s+=("$(e fg,red)⚑")
-
+    [[ ${HOSTNAME} =~ ^(ca|anthonyr)- ]] &&
+        s+=("%F{green}★") ||
+        s+=("%F{red}⚑")
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
-        s+=("$(e fg,blue)⇅")
-
+        s+=("%F{blue}⇅")
     ((${#s})) &&
         s=" ${s[*]} "
 
-    local q='2>/dev/null'
-
-    echo -e "\
-${w}  ⎞ ${w}\D{%l:%M%P} ${v}$(e none)${u}${s}
-${w}  ⎥  \$(__git_ps1 '$(e none fg,yellow)%s ' ${q})${w}\w
-${w}  ⎥${m} $(e none)"
+    print -n -- "\
+%f%s  \u239e %D{%l:%M%P} %F{yellow}%M${s}
+%f%s  \u23a5  \$(__git_ps1 '%%F{yellow}%s ' 2>/dev/null)%f%s%40<...<%~%<<
+%f%s  \u23a5%(!.%F{red}.%f%s)\u25b6 %f%s"
 
 ) }
 
-# Change the window title of X terminals
-case ${TERM} in
-  [ixatE]term*|rxvt*|gnome*|interix)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-    ;;
-  tmux|screen)
-    PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-    ;;
-esac
-
-# auto-update SSH_AUTH_SOCK within running shells
-PROMPT_COMMAND+='
-if [[ -n ${TMUX} && -n ${SSH_AUTH_SOCK} ]]; then
-    unset SSH_AUTH_SOCK
-    export $(tmux show-environment | grep ^SSH_AUTH_SOCK)
-fi
-'
-
-precmd() { eval "$PROMPT_COMMAND" }
+precmd() {
+  # Change the window title of X terminals
+  case ${TERM} in
+    [ixatE]term*|rxvt*|gnome*|interix)
+      echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"
+      ;;
+    tmux|screen)
+      echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"
+      ;;
+  esac
+  # Update SSH_AUTH_SOCK within running shells
+  if [[ -n ${TMUX} && -n ${SSH_AUTH_SOCK} ]]; then
+      unset SSH_AUTH_SOCK
+      export $(tmux show-environment | grep ^SSH_AUTH_SOCK)
+  fi
+}
 
 if ls --color=auto >/dev/null 2>&1; then
   alias ls='ls -F --color=auto'
@@ -149,14 +100,20 @@ if type -p dircolors >/dev/null ; then
   fi
 fi
 
-setopt -o extendedglob
-setopt -o hist_fcntl_lock
-setopt -o hist_ignore_space
-setopt -o hist_ignore_all_dups
-setopt -o hist_reduce_blanks
-setopt -o hist_lex_words
-setopt -o share_history
-setopt -o extended_history
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+
+setopt promptpercent
+setopt promptsubst
+setopt extendedglob
+setopt histfcntllock
+setopt histignorespace
+setopt histignorealldups
+setopt histreduceblanks
+setopt histlexwords
+setopt sharehistory
+setopt extendedhistory
+
 HISTFILE=${ELLIPSIS}var/cache/zsh/history
 SAVEHIST=10000000
 HISTSIZE=10000000
@@ -164,7 +121,7 @@ HISTORY_IGNORE='([bf]g|[bf]g |exit|exit |cognito|cognito |incognito|incognito )'
 
 NULLCMD=:
 
-PS1=$(_ps1)
+PROMPT=$(_ps1)
 
 [[ -r ${ELLIPSIS}data/profile/zsh/aliases ]] &&
     . ${ELLIPSIS}data/profile/zsh/aliases
