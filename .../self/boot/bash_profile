@@ -1,4 +1,4 @@
 #!/bin/sh
 
-[ -f ~/.../self/data/profile/boot/"${SHELL##*/}" ] &&
-    . ~/.../self/data/profile/boot/"${SHELL##*/}"
+[ -f ~/.../self/data/profile/boot/bash ] &&
+    . ~/.../self/data/profile/boot/bash

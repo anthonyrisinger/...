@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 [[ $- == *i* ]] &&
     [[ -f ~/.../self/data/profile/bash/interactive ]] &&
     . ~/.../self/data/profile/bash/interactive
