@@ -55,14 +55,14 @@ _ps1 () { (
 
     local s=( )
     if [[ ${HOSTNAME} =~ ^ca- ]]; then
-        s+=("%F{blue}★")
+        s+=("%F{blue}\u2605")
     elif [[ ${HOSTNAME} =~ ^anthonyr- ]]; then
-        s+=("%F{magenta}★")
+        s+=("%F{magenta}\u2605")
     else
-        s+=("%F{red}⚑")
+        s+=("%F{red}\u2691")
     fi
     [[ ${SSH_CONNECTION} =~ [0-9.]+ ]] &&
-        s+=("%F{blue}⇅")
+        s+=("%F{green}\u21c5")
     ((${#s})) &&
         s=" ${s[*]} "
 
