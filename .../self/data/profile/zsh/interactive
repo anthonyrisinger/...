@@ -137,5 +137,7 @@ NULLCMD=:
 
 PROMPT=$(_ps1)
 
+WORDCHARS='*?_[]~=&;!#$%^(){}<>'
+
 [[ -r ${ELLIPSIS}data/profile/zsh/aliases ]] &&
     . ${ELLIPSIS}data/profile/zsh/aliases
