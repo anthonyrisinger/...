@@ -113,6 +113,8 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 [[ -r ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/key-bindings.zsh ]] &&
   . ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/key-bindings.zsh
 
+unalias run-help
+autoload run-help
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 
