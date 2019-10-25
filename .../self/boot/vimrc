@@ -209,7 +209,7 @@ autocmd BufEnter sys.config :set tabstop=2 shiftwidth=2 filetype=erlang
 autocmd BufEnter rebar.config :set tabstop=2 shiftwidth=2 filetype=erlang
 
 set lbr
-set textwidth=110
+set textwidth=109
 
 set ai "Auto indent
 set si "Smart indet
