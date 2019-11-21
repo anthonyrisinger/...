@@ -178,7 +178,7 @@ hi clear CursorLine
 set ffs=unix,dos,mac "Default file types
 
 if exists("&colorcolumn")
-    set colorcolumn=110
+    set colorcolumn=111
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,7 +209,7 @@ autocmd BufEnter sys.config :set tabstop=2 shiftwidth=2 filetype=erlang
 autocmd BufEnter rebar.config :set tabstop=2 shiftwidth=2 filetype=erlang
 
 set lbr
-set textwidth=109
+set textwidth=110
 
 set ai "Auto indent
 set si "Smart indet
