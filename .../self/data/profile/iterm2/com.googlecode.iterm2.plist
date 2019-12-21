@@ -1133,12 +1133,22 @@
 		<string>3.3.2beta1</string>
 		<string>3.3.0beta13</string>
 		<string>3.3.1beta1</string>
+		<string>3.3.8beta2</string>
 		<string>3.3.0beta15</string>
 		<string>3.3.3beta2</string>
 		<string>3.3.0beta16</string>
 		<string>3.3.5beta3</string>
+		<string>3.3.7beta2</string>
 		<string>3.3.4beta1</string>
+		<string>3.3.8beta1</string>
 	</array>
+	<key>NoSyncFrame_SessionsPreferences</key>
+	<dict>
+		<key>screenFrame</key>
+		<string>{{0, 0}, {1440, 900}}</string>
+		<key>topLeft</key>
+		<string>{417, 804}</string>
+	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
@@ -1153,7 +1163,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>F6C8380D-DA33-47CF-BC0A-77A1D587530E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>44</integer>
+	<integer>59</integer>
 	<key>NoSyncNeverAskAboutSettingAlternateMouseScroll</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -1896,32 +1906,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>NoSyncSearchHistory</key>
-	<array>
-		<string>faie</string>
-		<string>metadata</string>
-		<string>Alert</string>
-		<string>/api/co</string>
-		<string>autoscaling</string>
-		<string>extensions</string>
-		<string>Additi</string>
-		<string>io.k8s.api.batch.v1.JobSpecq</string>
-		<string>group-</string>
-		<string>groupp-</string>
-	</array>
-	<key>NoSyncSearchHistory2</key>
-	<array>
-		<string>TYPE</string>
-		<string>list</string>
-		<string>xoxp</string>
-		<string>anthonyr</string>
-		<string>C06VCPNBE</string>
-		<string>set the channel topic</string>
-		<string>should</string>
-		<string>set the</string>
-		<string>whiteqq</string>
-		<string>+03</string>
-	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>559846625.38197601</real>
 	<key>PMPrintingExpandedStateForPrint2</key>
@@ -1982,7 +1966,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-10-16T22:13:33Z</date>
+	<date>2019-12-15T22:00:25Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -2022,7 +2006,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.7beta1</string>
+	<string>3.3.8beta2</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
