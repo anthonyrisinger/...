@@ -78,7 +78,7 @@ Plug 'edkolev/promptline.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'lepture/vim-jinja'
 Plug 'ambv/black'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 call plug#end()
