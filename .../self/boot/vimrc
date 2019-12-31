@@ -110,7 +110,7 @@ map <leader>e :e! ~/.vimrc<cr>
 map <silent> <leader><cr> :let @/ = ''<cr>
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost .vimrc source ~/.vimrc
+"autocmd! bufwritepost .vimrc source ~/.vimrc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
