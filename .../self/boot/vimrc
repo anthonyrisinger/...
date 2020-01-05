@@ -370,8 +370,8 @@ set viminfo=%,'100,s1024,h
 set laststatus=2
 
 " Python BLACK.
-let g:black_fast = 1
-autocmd BufWritePre *.py if exists(':Black') == 2 | execute 'Black' | endif
+"let g:black_fast = 1
+"autocmd BufWritePre *.py if exists(':Black') == 2 | execute 'Black' | endif
 
 func! DeleteTrailingWS()
   exe "normal mz"
