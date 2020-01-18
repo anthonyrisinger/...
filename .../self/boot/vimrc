@@ -63,6 +63,8 @@ let s:e_plugins = s:e_home . "/plugged"
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
 let netrw_home = s:e_cache
 
+" disable vim-go `gd` short cut; handled by coc.vim
+let g:go_def_mapping_enabled = 0
 let g:go_fmt_command = "goimports"
 let g:go_fmt_options = {'goimports': '-local go.zr.org'}
 
@@ -78,7 +80,8 @@ Plug 'edkolev/promptline.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'lepture/vim-jinja'
 Plug 'ambv/black'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 call plug#end()
