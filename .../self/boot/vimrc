@@ -306,7 +306,7 @@ hi clear CursorLine
 set ffs=unix,dos,mac "Default file types
 
 if exists("&colorcolumn")
-    set colorcolumn=111
+    set colorcolumn=131
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
