@@ -90,6 +90,8 @@ if empty(globpath(s:e_plugins, '*'))
   autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
 
+set clipboard=unnamed
+
 " Sets how many lines of history VIM has to remember
 set history=10000
 
