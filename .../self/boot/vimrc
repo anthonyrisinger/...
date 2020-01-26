@@ -68,6 +68,8 @@ let g:go_def_mapping_enabled = 0
 let g:go_fmt_command = "goimports"
 let g:go_fmt_options = {'goimports': '-local go.zr.org'}
 
+let g:polyglot_disabled = ['jenkins']
+
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
 Plug 'lifepillar/vim-solarized8'
