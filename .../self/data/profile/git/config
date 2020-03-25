@@ -43,3 +43,5 @@
 	verbose = true
 [format]
 	pretty = fuller
+[protocol]
+	version = 2
