@@ -28,7 +28,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 # ZR exports.
 export STARTERVIEW=$(
   setopt -o nullglob
-  printf '%s\n' ~/zr/ziprecruite[r] ~/ziprecruite[r] /var/starterview |
+  printf '%s\n' /ziprecruite[r] ~/ziprecruite[r] /var/starterview |
     head -n1
 )
 export ZR_WIKI=$(
