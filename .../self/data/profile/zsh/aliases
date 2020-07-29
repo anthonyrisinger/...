@@ -67,9 +67,9 @@ alias qsq="git\${_GIT_DIFF_ARGS} show --stat"
 # Query State (last update; verbose)
 alias qs="git\${_GIT_DIFF_ARGS} show --patch"
 # Query State2 (recent updates)
-alias qss="git log --stat"
+alias qssq="git log --stat"
 # Query2 State2 (recent updates; verbose)
-alias qssq="git log --patch"
+alias qss="git log --patch"
 # Query Upstream (show remotes)
 alias qu="git remote --verbose"
 # Query2 Upstream (show remotes; query server)
