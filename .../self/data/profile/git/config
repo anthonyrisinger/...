@@ -39,6 +39,7 @@
 [core]
 	sshCommand = "ssh -i ~/.ssh/$(git config user.email)"
 	pager = "LESSOPEN=\"||-$(type -P diff-so-fancy)\" && export LESSOPEN || unset LESSOPEN; exec less"
+	untrackedCache = true
 [commit]
 	verbose = true
 [format]
