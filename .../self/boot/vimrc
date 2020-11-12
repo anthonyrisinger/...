@@ -81,6 +81,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'edkolev/promptline.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'lepture/vim-jinja'
+Plug 'b0o/builder.vim'
+Plug 'b0o/quicktemplate.vim'
 Plug 'ambv/black'
 Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
