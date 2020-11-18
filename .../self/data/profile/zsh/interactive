@@ -66,7 +66,7 @@ _ps1 () { (
         s=" ${s[*]} "
 
     print -n -- "\
-%f%s  \u239e %D{%l:%M%P} %F{yellow}%m${s}
+%f%s  \u239e %D{%-l:%M %p} %F{yellow}%m %F{normal}%D{%b %-e}${s}
 %f%s  \u23a5  \$(__git_ps1 '%%F{yellow}%s ' 2>/dev/null)%f%s%40<...<%~%<<
 %f%s  \u23a5%(!.%F{red}.%f%s)\u25b6 %f%s"
 
