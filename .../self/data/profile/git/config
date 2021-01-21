@@ -38,7 +38,7 @@
 	whitespace = red reverse
 [core]
 	sshCommand = "ssh -i ~/.ssh/$(git config user.email)"
-	pager = "LESSOPEN=\"||-$(type -P diff-so-fancy)\" && export LESSOPEN || unset LESSOPEN; exec less"
+	pager = "LESSOPEN=\"||-$(type -P diff-so-fancy)\" && export LESSOPEN || unset LESSOPEN; exec less -x2"
 	untrackedCache = true
 [commit]
 	verbose = true
