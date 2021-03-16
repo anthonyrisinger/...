@@ -46,3 +46,6 @@
 	pretty = fuller
 [protocol]
 	version = 2
+[feature]
+	experimental = true
+	manyFiles = true
