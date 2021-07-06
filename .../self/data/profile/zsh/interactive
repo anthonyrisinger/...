@@ -26,6 +26,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 #setopt -o extglob
 
 # ZR exports.
+export GIT_SUBMIT_OAUTH_URL_OPEN_CMD=open
 export STARTERVIEW=$(
   setopt -o nullglob
   printf '%s\n' /ziprecruite[r] ~/ziprecruite[r] /var/starterview |
