@@ -63,11 +63,6 @@ let s:e_plugins = s:e_home . "/plugged"
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
 let netrw_home = s:e_cache
 
-" disable vim-go `gd` short cut; handled by coc.vim
-let g:go_def_mapping_enabled = 0
-let g:go_fmt_command = "goimports"
-let g:go_fmt_options = {'goimports': '-local go.zr.org'}
-
 let g:polyglot_disabled = ['jenkins']
 
 " Specify a directory for plugins
@@ -84,7 +79,6 @@ Plug 'lepture/vim-jinja'
 Plug 'b0o/builder.vim'
 Plug 'b0o/quicktemplate.vim'
 Plug 'ambv/black'
-Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
