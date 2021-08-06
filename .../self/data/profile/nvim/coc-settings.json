@@ -1,3 +1,26 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["go"]
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "json",
+    "jsonc"
+  ],
+  "go.goplsArgs": [
+    "-remote.listen.timeout=1h",
+    "-remote.logfile=auto"
+  ],
+  "go.goplsEnv": {
+    "CGO_ENABLED": "1",
+    "GO111MODULE": "on",
+    "GOFLAGS": "-trimpath",
+    "GOPATH": "/Users/anthonyr/go",
+    "GOPROXY": "file:///Users/anthonyr/go/pkg/mod/cache/download,https://proxy.golang.org,direct",
+    "GOSUMDB": "sum.golang.org",
+    "LC_ALL": "C"
+  },
+  "go.goplsOptions": {
+    "buildFlags": [
+      "-tags=netgo,osusergo"
+    ],
+    "local": "go.zr.org"
+  }
 }

@@ -79,7 +79,7 @@ Plug 'lepture/vim-jinja'
 Plug 'b0o/builder.vim'
 Plug 'b0o/quicktemplate.vim'
 Plug 'ambv/black'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 call plug#end()
