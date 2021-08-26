@@ -49,3 +49,9 @@
 [feature]
 	experimental = true
 	manyFiles = true
+[credential]
+	helper = 
+[credential "https://git.zr.org"]
+	helper = /Applications/zam.app/Contents/MacOS/zam git-credential-gitlab
+[credential "https://test-git.zr.org"]
+	helper = /Applications/zam.app/Contents/MacOS/zam git-credential-gitlab
