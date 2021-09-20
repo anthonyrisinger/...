@@ -34,10 +34,10 @@ export STARTERVIEW=$(
 )
 export ZR_WIKI=$(
   setopt -o nullglob
-  printf '%s\n' ~/zr/wik[i] "$STARTERVIEW"/.zr-wiki |
+  printf '%s\n' ~/ziprecruiter/wik[i] "$STARTERVIEW"/.zr-wiki |
     head -n1
 )
-export SALTSTACK=~/zr/saltstack
+export SALTSTACK=~/ziprecruiter/saltstack
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \
