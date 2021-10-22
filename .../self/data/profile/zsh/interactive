@@ -86,7 +86,7 @@ precmd() {
   # Update SSH_AUTH_SOCK within running shells
   if [[ -n ${TMUX} && -n ${SSH_AUTH_SOCK} ]]; then
       unset SSH_AUTH_SOCK
-      export $(tmux show-environment | grep ^SSH_AUTH_SOCK)
+      export $(tmux show-environment | grep -E '^SSH_AUTH_SOCK')
   fi
 }
 
