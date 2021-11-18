@@ -144,3 +144,8 @@ region () {
   curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
     jq -r '.region'
 }
+
+# TERM eic-ssh ...
+eic-ssh () {
+  TERM=xterm-256color command eic-ssh $@
+}
