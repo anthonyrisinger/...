@@ -22,7 +22,7 @@ if [[ -z $ELLIPSIS_PATH ]]; then
     matches=(
       ${ELLIPSIS}[b]in/
       ${ELLIPSIS}data/profile/vim/plugged/*/bin/
-      {$HOME/,/usr/{local/,},/}{,.local/,go/,Library/Python/[0-9].[0-9]/}{s,}[b]in/{,[0-9A-Za-z]*/}
+      {$HOME/,/opt/homebrew/,/usr/{local/,},/}{,.local/,go/,Library/Python/[0-9].[0-9]/}{s,}[b]in/{,[0-9A-Za-z]*/}
     )
     printf '%s' "${matches[@]/%?/:}$PATH"
   )
