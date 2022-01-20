@@ -55,3 +55,5 @@
 	helper = /Applications/zam.app/Contents/MacOS/zam git-credential-gitlab
 [credential "https://test-git.zr.org"]
 	helper = /Applications/zam.app/Contents/MacOS/zam git-credential-gitlab
+[advice]
+	skippedCherryPicks = false
