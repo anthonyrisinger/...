@@ -149,3 +149,9 @@ region () {
 eic-ssh () {
   TERM=xterm-256color command eic-ssh $@
 }
+
+vr () {
+  ssh -A ubuntu@${1:-cmh} -- journalctl -n3 --follow -u gs.snap.lobby-SnapshotVR@${2:-1} \
+    | grep --line-buffered -Eo 'players=[0-9]+' \
+    | while IFS== read _ n; do say "$n in ${1:-cmh} ${2:-1}"; done
+}
