@@ -17,6 +17,8 @@
 [push]
 	default = current
 
+[includeIf "gitdir/i:snap-gs/"]
+	path = snap-gs/config
 [includeIf "gitdir/i:ZR/"]
 	path = ZipRecruiter/config
 [includeIf "gitdir/i:ZipRecruiter/"]
