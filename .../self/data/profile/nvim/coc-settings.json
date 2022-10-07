@@ -5,11 +5,8 @@
     "jsonc"
   ],
   "go.goplsArgs": [
-    // "-rpc.trace",
-    // "-debug=:0",
     "-logfile=auto",
     "-remote=auto",
-    // "-remote.debug=:0",
     "-remote.logfile=auto",
     "-remote.listen.timeout=1h"
   ],
