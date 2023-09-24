@@ -63,25 +63,30 @@ let s:e_plugins = s:e_home . "/plugged"
 let &runtimepath = s:e_home . "," . $VIMRUNTIME
 let netrw_home = s:e_cache
 
-let g:polyglot_disabled = ['jenkins']
+let g:polyglot_disabled = ['jenkins', 'tex']
+
+let g:vimtex_indent_enabled = 1
+"let g:vimtex_indent_bib_enabled = 0
+"let g:vimtex_indent_on_ampersands = 0
 
 " Specify a directory for plugins
 call plug#begin(s:e_plugins)
+Plug 'ambv/black'
+Plug 'b0o/builder.vim'
+Plug 'b0o/quicktemplate.vim'
+Plug 'edkolev/promptline.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'hashivim/vim-terraform'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'lepture/vim-jinja'
+Plug 'lervag/vimtex'
 Plug 'lifepillar/vim-solarized8'
-Plug 'vito-c/jq.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
 Plug 'sirtaj/vim-openscad'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sheerun/vim-polyglot'
-Plug 'edkolev/promptline.vim'
-Plug 'edkolev/tmuxline.vim'
-Plug 'lepture/vim-jinja'
-Plug 'b0o/builder.vim'
-Plug 'b0o/quicktemplate.vim'
-Plug 'ambv/black'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'hashivim/vim-terraform'
-Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'vito-c/jq.vim'
 call plug#end()
 if empty(globpath(s:e_plugins, '*'))
   " Install plugins on first load.
