@@ -1134,6 +1134,8 @@
 	<false/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>StartDebugLoggingAutomatically</key>
+	<false/>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>TabFlashAnimationDuration</key>
