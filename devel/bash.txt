@@ -1,0 +1,62 @@
+. accepts args
+
+. reads PATH by default
+
+aliases + : == free debug
+
+. /dev/stdin <<<"$(echo hi)=there"
+
+^^^^ declare can be used for that too
+
+:<<'' empty line terminates the HEREDOC
+
+{ is a reserved word ... ( is a metachar, thus { can be aliased/etc
+
+yo () (yes=12345;echo $yes)
+
+localenv=somvar some_function
+
+^^^^ also applies to IFS= and the like
+
+exec {somevar}> /path/to/whatever
+
+use compgen to do cool stuff! like partial command completion
+
+use nullglob, expand_aliases
+
+use -o errortrace -o functrace
+
+use ${!indirection}, ${!glob@}, and ${!keys[@]}
+
+set IFS=$'\n'
+
+text translate with $"translate me"
+
+detect source vs exec: ${0} != ${BASH_SOURCE[0]}
+
+overload: aliases -> funcs -> builtins -> system
+
+^^^^ use builtin and command keywords to override
+
+add trailing /'s! makes it easy to handle rel OR abs, AND "reset" abs (//)
+
+functions accept default redirects
+
+exec >> >(process)
+
+exec {fd}<> <($())
+
+unset arr[sub]
+
+exec {fd}<&-
+
+cycle=(0 1)
+ref='cycle[i++%2]'
+i=0; echo ${!ref} ${!ref} ${!ref} ${!ref}
+
+printf '%.1s' /{0..}
+
+printf '%X' \'=
+
+printf '%nthen we went%n for a ride\n%n' o m g
+echo $o $m $g
