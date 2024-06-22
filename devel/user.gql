@@ -1,0 +1,15 @@
+{"query": "
+{
+  getUser(id: \"3e2ffa3d-dd87-49ef-9fe5-8d48b181dd6b\") {
+    id
+    nickname
+    stats {
+      xp
+      level
+      kills
+      deaths
+      killDeathRatio
+    }
+  }
+}
+"}
