@@ -98,13 +98,10 @@ alias qcm="git commit --message"
 alias qp!="git push --force"
 alias qp="git push"
 
+alias scd='cd ~/abnormalsecurity/source'
 normaldiffs () { _GIT_DIFF_ARGS=' -c core.pager= -c diff.noprefix='; }
 prettydiffs () { _GIT_DIFF_ARGS=; }
 
-# ZR niceties.
-alias zcd='cd "$STARTERVIEW"'
-alias wcd='cd "$ZR_WIKI"'
-alias scd='cd "$SALTSTACK"'
 
 incognito () { cognito off; }
 cognito () {

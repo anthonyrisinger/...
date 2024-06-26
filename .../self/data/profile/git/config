@@ -19,12 +19,10 @@
 
 [includeIf "gitdir/i:snap-gs/"]
 	path = snap-gs/config
-[includeIf "gitdir/i:ZR/"]
-	path = ZipRecruiter/config
-[includeIf "gitdir/i:ZipRecruiter/"]
-	path = ZipRecruiter/config
-[includeIf "gitdir/i:go.zr.org/"]
-	path = ZipRecruiter/config
+[includeIf "gitdir/i:AS/"]
+	path = AbnormalSecurity/config
+[includeIf "gitdir/i:AbnormalSecurity/"]
+	path = AbnormalSecurity/config
 
 [diff]
 	noprefix = true
