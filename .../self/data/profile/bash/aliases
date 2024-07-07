@@ -98,7 +98,7 @@ alias qcm="git commit --message"
 alias qp!="git push --force"
 alias qp="git push"
 
-alias scd='cd ~/abnormalsecurity/source'
+alias zcd='cd ~/abnormalsecurity/source'
 normaldiffs () { _GIT_DIFF_ARGS=' -c core.pager= -c diff.noprefix='; }
 prettydiffs () { _GIT_DIFF_ARGS=; }
 
