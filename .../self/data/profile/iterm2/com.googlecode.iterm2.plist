@@ -58,9 +58,9 @@
 			<key>AWDS Tab Option</key>
 			<string>Recycle</string>
 			<key>AWDS Window Directory</key>
-			<string></string>
+			<string>~/abnormalsecurity/source</string>
 			<key>AWDS Window Option</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
