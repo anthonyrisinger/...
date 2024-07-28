@@ -40,6 +40,8 @@
 	sshCommand = "bash -c 'IFS=; id=~/.ssh/$(git config user.email); [[ -e $id ]] && set -- -i $id $@; exec ssh $@' bash"
 	pager = "LESSOPEN=\"||-$(command -v diff-so-fancy) # %s\" && export LESSOPEN || unset LESSOPEN; exec less -x2"
 	untrackedCache = true
+[interactive]
+	diffFilter = "LESSOPEN=\"||-$(command -v diff-so-fancy) --patch # %s\" && export LESSOPEN || unset LESSOPEN; exec less -x2"
 [commit]
 	verbose = true
 [format]
