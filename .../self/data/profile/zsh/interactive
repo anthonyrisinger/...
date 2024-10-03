@@ -32,9 +32,12 @@ export ABSEC=$(
   printf '%s\n' ~/abnormalsecurit[y] /abnormalsecurit[y] |
     head -n1
 )
-SOURCE=$ABSEC/sourc[e]
-VENV=$ABSEC/.ven[v]
-. "$SOURCE"/tools/bash/prelude.sh
+SOURCE=$ABSEC/source
+VENV=$ABSEC/.venv
+[[ -e $SOURCE/tools/bash/prelude.sh ]] &&
+  . "$SOURCE"/tools/bash/prelude.sh ||
+  true
+
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \
