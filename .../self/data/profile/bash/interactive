@@ -27,18 +27,14 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 #shopt -s nullglob
 shopt -s extglob
 
-# ZR exports.
-export STARTERVIEW=$(
+# ABSEC exports.
+export ABSEC=$(
   shopt -s nullglob
-  printf '%s\n' ~/zr/ziprecruite[r] ~/ziprecruite[r] /var/starterview |
+  printf '%s\n' ~/abnormalsecurit[y] /abnormalsecurit[y] |
     head -n1
 )
-export ZR_WIKI=$(
-  shopt -s nullglob
-  printf '%s\n' ~/zr/wik[i] "$STARTERVIEW"/.zr-wiki |
-    head -n1
-)
-export SALTSTACK=~/zr/saltstack
+export SOURCE=$ABSEC/sourc[e]
+export VENV=$ABSEC/.ven[v]
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \

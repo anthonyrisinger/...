@@ -25,19 +25,14 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 #setopt -o nullglob
 #setopt -o extglob
 
-# ZR exports.
-export GIT_SUBMIT_OAUTH_URL_OPEN_CMD=open
-export STARTERVIEW=$(
+# ABSEC exports.
+export ABSEC=$(
   setopt -o nullglob
-  printf '%s\n' /ziprecruite[r] ~/ziprecruite[r] /var/starterview |
+  printf '%s\n' ~/abnormalsecurit[y] /abnormalsecurit[y] |
     head -n1
 )
-export ZR_WIKI=$(
-  setopt -o nullglob
-  printf '%s\n' ~/ziprecruiter/wik[i] "$STARTERVIEW"/.zr-wiki |
-    head -n1
-)
-export SALTSTACK=~/ziprecruiter/saltstack
+export SOURCE=$ABSEC/sourc[e]
+export VENV=$ABSEC/.ven[v]
 
 : ${DEVELOPER_DIR:=$(xcode-select --print-path 2> /dev/null)}
 for x in \
