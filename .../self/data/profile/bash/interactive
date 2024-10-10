@@ -35,7 +35,7 @@ export ABSEC=$(
     head -n1
 )
 SOURCE=$ABSEC/source
-VENV=$ABSEC/.venv
+VENV=$SOURCE/.venv
 [[ -e $SOURCE/tools/bash/prelude.sh ]] &&
   . "$SOURCE"/tools/bash/prelude.sh ||
   true
