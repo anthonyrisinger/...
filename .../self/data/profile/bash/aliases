@@ -8,6 +8,12 @@ tree () { set -- ${COLORTERM:+-C} "$@"; command tree "$@"; }
 alias tt='t -a'
 alias v='. *.venv/bin/activate'
 
+# JIRA wrapper.
+jira () (
+  for x in ~/.tokens/JIRA_*; do export ${x##*/}=$(<$x); done
+  command jira "$@"
+)
+
 # Grep wrappers.
 alias ge='grep --extended-regexp'
 alias gi='ge --ignore-case'
