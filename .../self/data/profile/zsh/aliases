@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Bash compat.
+alias help=run-help
+
 # Liked or used often.
 alias l='ls -Flh'
 alias ll='ls -Flha'
