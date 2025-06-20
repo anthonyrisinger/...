@@ -162,7 +162,7 @@ if type -P dircolors >/dev/null ; then
 fi
 
 HISTCONTROL=ignoreboth:erasedups
-HISTFILE=${ELLIPSIS}var/cache/bash/history
+HISTFILE=${ELLIPSIS}var/cache/bash/history${VSCODE_INJECTION:+.vscode}
 HISTFILESIZE=10000000
 HISTIGNORE='[bf]g:[bf]g :exit:exit :cognito:cognito :incognito:incognito '
 HISTSIZE=10000000

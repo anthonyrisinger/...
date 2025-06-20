@@ -122,7 +122,7 @@ setopt histlexwords
 setopt sharehistory
 setopt extendedhistory
 
-HISTFILE=${ELLIPSIS}var/cache/zsh/history
+HISTFILE=${ELLIPSIS}var/cache/zsh/history${VSCODE_INJECTION:+.vscode}
 SAVEHIST=10000000
 HISTSIZE=10000000
 HISTORY_IGNORE='([bf]g|[bf]g |exit|exit |cognito|cognito |incognito|incognito )'
