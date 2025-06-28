@@ -17,8 +17,15 @@
 [push]
 	default = current
 
-[includeIf "gitdir/i:snap-gs/"]
+# '**.../**' for SSH and '**/.../**' for HTTPS.
+[includeIf "hasconfig:remote.*.url:**snap-gs/**"]
 	path = snap-gs/config
+[includeIf "hasconfig:remote.*.url:**/snap-gs/**"]
+	path = snap-gs/config
+[includeIf "hasconfig:remote.*.url:**infimalabs/**"]
+	path = infimalabs/config
+[includeIf "hasconfig:remote.*.url:**/infimalabs/**"]
+	path = infimalabs/config
 [includeIf "gitdir/i:NEA/"]
 	path = NexteraAnalytics/config
 [includeIf "gitdir/i:NexteraAnalytics/"]
