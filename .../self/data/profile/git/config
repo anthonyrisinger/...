@@ -26,9 +26,9 @@
 	path = infimalabs/config
 [includeIf "hasconfig:remote.*.url:**/infimalabs/**"]
 	path = infimalabs/config
-[includeIf "gitdir/i:NEA/"]
+[includeIf "hasconfig:remote.*.url:**internal/**"]
 	path = NexteraAnalytics/config
-[includeIf "gitdir/i:NexteraAnalytics/"]
+[includeIf "hasconfig:remote.*.url:**/internal/**"]
 	path = NexteraAnalytics/config
 
 [diff]
