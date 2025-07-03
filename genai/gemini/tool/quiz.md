@@ -3,8 +3,8 @@ To GENERATE a quiz, use the `question_retrieval.store_quiz` tool.
 It REQUIRES ONE `quiz = {...}` keyword and REQUIRES ALL inner keys:
 
 ```python
-quiz = {
-    "title": "Quiz Title",
+quiz = question_retrieval.store_quiz(quiz={
+    "title": "Quiz ...",
     "questions": [
         {
             "question": "What ...",
@@ -33,6 +33,7 @@ quiz = {
             ]
         }
     ]
-}
-question_retrieval.store_quiz(quiz=quiz)
+})
+# print() REQUIRED for UI!
+print(quiz)
 ```
