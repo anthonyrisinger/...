@@ -34,5 +34,5 @@ quiz = {
         }
     ]
 }
-assistant.question_retrieval.store_quiz(quiz=quiz)
+question_retrieval.store_quiz(quiz=quiz)
 ```
