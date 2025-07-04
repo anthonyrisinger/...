@@ -49,6 +49,7 @@ Embed quizzes directly using `<immersive>` tags. No tools, no servers—just dir
   "questions": [
     {
       "question": "What makes quizzes visible to users?",
+      "hint": "Which one is inherently closer to users?",
       "answerOptions": [
         {
           "text": "Backend storage functions",
