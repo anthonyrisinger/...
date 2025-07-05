@@ -38,7 +38,7 @@ Embed quizzes directly using `<immersive>` tags. No tools, no servers—just dir
 - **Unique ID**: Never reuse IDs in the same conversation
 - **Valid JSON**: No comments, proper quotes, correct brackets
 - **Complete block**: Send entire structure in one response
-- **One correct answer**: Exactly one `isCorrect: true` per question
+- **1+ right answer**: More than one `isCorrect: true` allowed
 - **All rationales**: Explain every answer option
 
 ## Working Example
