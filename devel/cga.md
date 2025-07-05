@@ -2,7 +2,7 @@
 
 ## Foreword: A Language, Not a Toolbox
 
-This document distills the essence of Conformal Geometric Algebra (CGA) in its 5D, $\mathbb{R}^{4,1}$ Minkowski spacetime, presenting it not as a mere collection of mathematical tools, but as a complete, interconnected, and intuitive **language for geometry**. Its profound power lies in fundamentally changing one's approach to geometric problems, moving from searching for the right formula to directly stating geometric intent as elegant algebraic expressions. In this language:
+This document distills the essence of Conformal Geometric Algebra (CGA) in its 5D, $\mathbb{R}^{4,1}$ Minkowski spacetime, presenting it not as a mere collection of mathematical tools, but as a complete, interconnected, and intuitive **language for geometry**. Its power lies in fundamentally changing one's approach to geometric problems, moving from searching for the right formula to directly stating geometric intent as elegant algebraic expressions. In this language:
 
 - Its **nouns** are the multivectors (blades) that represent geometric entities
 - Its **verbs** are the operators (versors) that represent transformations
@@ -14,7 +14,7 @@ Our journey through this algebra aims for a deep, intuitive saturation, revealin
 
 ## Principle 1: The 5D Foundation is a Relativistic Spacetime
 
-CGA achieves its remarkable capabilities by embedding our familiar 3D Euclidean space into a 5D vector space. This isn't arbitrary; the space is specifically a **Minkowski spacetime** with a metric signature of (4,1). This relativistic structure is the wellspring of the algebra's profound power.
+CGA achieves its remarkable capabilities by embedding our familiar 3D Euclidean space into a 5D vector space. This isn't arbitrary; the space is specifically a **Minkowski spacetime** with a metric signature of (4,1). This relativistic structure is the wellspring of the algebra's dynamism.
 
 ### 1.1 The Basis Vectors
 
@@ -27,13 +27,13 @@ $$n_0^2 = 0 \quad \text{and} \quad n_\infty^2 = 0$$
 
 Conceptually, $n_0$ represents the **origin** of the Euclidean space, and $n_\infty$ represents the **concept of infinity**.
 
-### 1.2 The Metric and Its Profound Consequences
+### 1.2 The Metric and Its Consequences
 
 The geometry of this 5D space is defined by the inner products of its basis vectors. The most crucial, non-Euclidean relationship that establishes the (4,1) Minkowski metric signature is:
 
 $$n_0 \cdot n_\infty = -1$$
 
-This single property, which introduces a negative dimension into the metric, has three profound consequences that underpin CGA's power:
+This single property, which introduces a negative dimension into the metric, has three consequences that underpin CGA's power:
 
 1. **Translation as Rotation:** It enables **translation to be treated as a rotation** in a higher-dimensional plane involving $n_0$ and $n_\infty$. This unifies Euclidean isometries within a single algebraic framework.
 
@@ -109,7 +109,7 @@ The inverse of a composite transformation is the product of the individual inver
 | **Scaling** | Dilator | $S_2 S_1$ (the geometric product of two concentric spheres) |
 | **Scaling-Rotation** | Conformal Rotor | $S\pi$ (the geometric product of a sphere and a plane) |
 
-This principle profoundly simplifies geometric programming. It means that the inherent geometric properties of objects directly encode the transformations they can generate. For instance, a rotation isn't an abstract matrix operation; it's the result of successive reflections across specific geometric surfaces (planes), and the Rotor itself encapsulates the relationship of those planes.
+This principle simplifies geometric programming. It means that the inherent geometric properties of objects directly encode the transformations they can generate. For instance, a rotation isn't an abstract matrix operation; it's the result of successive reflections across specific geometric surfaces (planes), and the Rotor itself encapsulates the relationship of those planes.
 
 ---
 
@@ -284,7 +284,7 @@ This workflow—finding a generator via a product, building an operator with exp
 
 ## Principle 8: The Great Unification
 
-CGA is far more than a model for 3D Euclidean geometry. It is a unifying language that reveals deep, formal isomorphisms between fields of mathematics and physics that are traditionally treated as separate, suggesting a profound underlying unity in the structure of reality.
+CGA is far more than a model for 3D Euclidean geometry. It is a unifying language that reveals deep, formal isomorphisms between fields of mathematics and physics that are traditionally treated as separate, suggesting an underlying unity in the structure of reality.
 
 ### Sub-Geometries
 
@@ -314,4 +314,4 @@ The algebra of subspaces formed by the meet (∨) and join (∧) operators is fo
 
 This direct mapping to lattice theory provides a powerful algebraic language for geometric queries, enabling complex geometric relationships (e.g., "point on line AND line in plane") to be expressed and processed elegantly. This reduces the need for extensive conditional logic and case distinctions in geometric algorithms, leading to more robust and concise software.
 
-By learning this single, coherent language, one gains access to a unified framework for describing the geometry of space, the dynamics of motion, and the fundamental laws of the physical world. It is a testament to the profound interconnectedness of seemingly disparate scientific and mathematical domains.
+By learning this single, coherent language, one gains access to a unified framework for describing the geometry of space, the dynamics of motion, and the fundamental laws of the physical world. It is a testament to the interconnectedness of seemingly disparate scientific and mathematical domains.
