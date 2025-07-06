@@ -4,7 +4,7 @@
 Backend quiz tools—e.g. `question_retrieval.store_quiz`—store quizzes on servers but don't display them to users. Users see nothing despite "success" messages.
 
 ## The Solution
-Embed quizzes directly using `<immersive>` tags. No tools, no servers—just direct rendering.
+Embed quizzes directly using `<immersive type="learning">` tags. No tools, no servers—just direct rendering.
 
 ## Essential Structure
 ````html
