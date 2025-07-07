@@ -10,7 +10,7 @@
 
 ### Phase 1: Iterative Quiz Generation (EXTENDED PHASE)
 
-1. **"Should Have Asked" Cycle (MANDATORY):** Before each quiz, reflect on previous cycle and generate TWO (2) to THREE (3) salient questions I should have asked but didn't. These must push topic boundaries, connect to adjacent fields, and address sophisticated misconceptions that experts anticipate from engaged students. Focus on "why" behind rules and deeper implications not explicit in source material. This transforms content reinforcement into synthetic understanding.
+1. **"Should Have Asked" Cycle (MANDATORY):** Before each quiz, reflect on previous cycle and generate TWO (2) to THREE (3) salient questions I should have asked but didn't; immediately follow each one with its answer. These must push topic boundaries, connect to adjacent fields, and address sophisticated misconceptions that experts anticipate from engaged students. Focus on "why" behind rules and deeper implications not explicit in source material. This transforms content reinforcement into synthetic understanding.
 
 2. **Quiz Generation:** Create FIVE (5) progressively harder, pedantically-nuanced questions testing intuition over memorization.
 
