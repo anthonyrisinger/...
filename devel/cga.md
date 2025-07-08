@@ -290,11 +290,11 @@ The commutator often serves as the 'blueprint' for transformations. The general 
 
 **Interpolation:** To interpolate a transformation $M$ by a factor $t \in [0,1]$ along its continuous path, one first recovers the generator using the **logarithm**: $B = \log(M)$. Then, scale the generator by $t$ and re-exponentiate: $M_t = \exp(tB)$.
 
-## The Algebra in Action - Case Studies
+## The Algebra in Action
 
 CGA's power is best illustrated by its directness in solving geometric problems, allowing us to state geometric intent directly as algebraic expressions.
 
-### Case Study 1: Geometric Construction - Intersection Circle of Two Spheres
+### Geometric Construction - Intersection Circle of Two Spheres
 
 **Goal:** Find the intersection circle C of two spheres, $S_1$ and $S_2$.
 
@@ -302,8 +302,6 @@ CGA's power is best illustrated by its directness in solving geometric problems,
 - $S_2$: Centered at (1,0,0), radius 2. Algebraically: $S_2 = (e_1 + \frac{1}{2}(1^2) n_\infty + n_0) - \frac{1}{2}(2^2) n_\infty = e_1 - \frac{3}{2}n_\infty + n_0$
 
 **Action:** State the geometric intent directly: the intersection is found by the **outer product** (span/join).
-
-**Action:** State the geometric intent directly: the intersection is found by their **outer product**.
 
 $$C = S_1 \wedge S_2 = (n_0 - 2n_\infty) \wedge (e_1 - \frac{3}{2}n_\infty + n_0)$$
 
