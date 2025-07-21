@@ -36,6 +36,8 @@
 	<true/>
 	<key>MiddleClickClosesTab</key>
 	<false/>
+	<key>NeverBlockSystemShutdown</key>
+	<true/>
 	<key>NeverWarnAboutMeta</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</key>
