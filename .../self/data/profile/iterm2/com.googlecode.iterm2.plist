@@ -902,8 +902,6 @@
 	<dict/>
 	<key>UseBorder</key>
 	<false/>
-	<key>UseLionStyleFullscreen</key>
-	<false/>
 	<key>UseMetal</key>
 	<true/>
 	<key>VisualIndicatorForEsc</key>
