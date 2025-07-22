@@ -26,10 +26,10 @@
 	path = infimalabs/config
 [includeIf "hasconfig:remote.*.url:**/infimalabs/**"]
 	path = infimalabs/config
-[includeIf "hasconfig:remote.*.url:**internal/**"]
-	path = NexteraAnalytics/config
-[includeIf "hasconfig:remote.*.url:**/internal/**"]
-	path = NexteraAnalytics/config
+[includeIf "hasconfig:remote.*.url:**flocksafety/**"]
+	path = flocksafety/config
+[includeIf "hasconfig:remote.*.url:**/flocksafety/**"]
+	path = flocksafety/config
 
 [diff]
 	noprefix = true
