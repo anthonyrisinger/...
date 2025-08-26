@@ -3,8 +3,9 @@
 # LLM
 __CLAUDE_UUID=$(uuidgen)
 claude () (
+  setopt nonomatch
   set -euo pipefail
-  if [[ -e ~/.claude/*/*/$__CLAUDE_UUID* ]]; then
+  if test -e ~/.claude/*/*/$__CLAUDE_UUID*; then
     command claude --dangerously-skip-permissions --resume $__CLAUDE_UUID "$@"
   elif PS4='>>>> '; set -x; then
     command claude --dangerously-skip-permissions --session-id $__CLAUDE_UUID "$@"
