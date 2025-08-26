@@ -1,16 +1,18 @@
 #!/bin/bash
 
 # LLM
-__CLAUDE_UUID=
-claude () {
-  if [[ -n $__CLAUDE_UUID ]]; then
-    command claude --resume $__CLAUDE_UUID --permission-mode bypassPermissions "$@"
-  else
-    command claude --session-id ${__CLAUDE_UUID:=$(uuidgen)} --permission-mode bypassPermissions "$@"
+__CLAUDE_UUID=$(uuidgen)
+claude () (
+  set -euo pipefail
+  if [[ -e ~/.claude/*/*/$__CLAUDE_UUID* ]]; then
+    command claude --dangerously-skip-permissions --resume $__CLAUDE_UUID "$@"
+  elif PS4='-- '; set -x; then
+    command claude --dangerously-skip-permissions --session-id $__CLAUDE_UUID "$@"
   fi
-}
-alias "Claude= claude --print <<''"
-alias "Claude,= claude --print <<'$__CLAUDE_UUID'"
+)
+alias "Claude:= claude --print << ''"
+alias "Claude,= claude --print << --\\ "
+alias "@Claude= claude --print << '$__CLAUDE_UUID'"
 
 # Liked or used often.
 alias l='ls -Flh'
