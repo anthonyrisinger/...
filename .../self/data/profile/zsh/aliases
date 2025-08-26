@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# LLM
+alias 'Claude,= claude --permission-mode bypassPermissions --print <<";;;;"'
+
 # Bash compat.
 alias help=run-help
 

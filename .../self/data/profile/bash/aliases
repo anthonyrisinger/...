@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# LLM
+alias 'Claude,= claude --permission-mode bypassPermissions --print <<";;;;"'
+
 # Liked or used often.
 alias l='ls -Flh'
 alias ll='ls -Flha'
