@@ -3,13 +3,15 @@
 # LLM
 __CLAUDE_UUID=$(uuidgen)
 claude () (
-  setopt nonomatch
+  PS4='>>>> '
   set -euo pipefail
   if test -e ~/.claude/*/*/$__CLAUDE_UUID*; then
-    command claude --dangerously-skip-permissions --resume $__CLAUDE_UUID "$@"
-  elif PS4='>>>> '; set -x; then
-    command claude --dangerously-skip-permissions --session-id $__CLAUDE_UUID "$@"
+    set -- --resume $__CLAUDE_UUID "$@"
+  else
+    set -- --session-id $__CLAUDE_UUID "$@"
   fi
+  set -x
+  command claude --dangerously-skip-permissions "$@"
 )
 alias "Claude,= claude --print << '-- '"
 alias "@Claude= claude --print << '$__CLAUDE_UUID'"

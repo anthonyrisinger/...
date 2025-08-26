@@ -111,6 +111,7 @@ autoload run-help
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 
+setopt nonomatch
 setopt promptpercent
 setopt promptsubst
 setopt extendedglob
