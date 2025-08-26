@@ -9,9 +9,8 @@ claude () {
     command claude --session-id ${__CLAUDE_UUID:=$(uuidgen)} --permission-mode bypassPermissions "$@"
   fi
 }
-alias "Claude= claude --print"
-alias "Claude,= claude --print <<''"
-alias "@Claude= claude --print <<'$__CLAUDE_UUID'"
+alias "Claude= claude --print <<''"
+alias "Claude,= claude --print <<'$__CLAUDE_UUID'"
 
 # Bash compat.
 alias help=run-help
