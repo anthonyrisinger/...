@@ -10,7 +10,6 @@ claude () (
     command claude --dangerously-skip-permissions --session-id $__CLAUDE_UUID "$@"
   fi
 )
-alias "Claude= claude --print << ''"
 alias "Claude,= claude --print << --\\ "
 alias "@Claude= claude --print << '$__CLAUDE_UUID'"
 
