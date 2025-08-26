@@ -4,12 +4,12 @@
 __CLAUDE_UUID=$(uuidgen)
 claude () (
   set -xeuo pipefail
-  if ! command claude --print --permission-mode bypassPermissions --resume $__CLAUDE_UUID "$@"; then
-    command claude --print --permission-mode bypassPermissions --session-id $__CLAUDE_UUID "$@"
+  if ! command claude --permission-mode bypassPermissions --resume $__CLAUDE_UUID "$@"; then
+    command claude --permission-mode bypassPermissions --session-id $__CLAUDE_UUID "$@"
   fi
 )
-alias 'Claude= claude <<""'
-alias 'Claude,= claude <<"$__CLAUDE_UUID"'
+alias 'claude:= claude --print <<""'
+alias 'claude,= claude --print <<"$__CLAUDE_UUID"'
 
 # Liked or used often.
 alias l='ls -Flh'
