@@ -4,17 +4,11 @@
 __CLAUDE_UUID=$(uuidgen)
 claude () (
   set -euo pipefail
-  if ! test -e ~/.claude/*/*/$__CLAUDE_UUID*; then
-    set -- "$@" --session-id $__CLAUDE_UUID
-  else
-    set -- "$@" --resume $__CLAUDE_UUID
-  fi
-  if ! ((${VSCODE_INJECTION-})); then
-    TIMEFMT=$'\n\u2728'" Claude ($__CLAUDE_UUID) %P CPU / %*Es"$'\n'
-    time command claude "$@"
-  else
-    command claude "$@"
-  fi
+  test -e ~/.claude/*/*/$__CLAUDE_UUID* \
+    && set -- "$@" --resume $__CLAUDE_UUID \
+    || set -- "$@" --session-id $__CLAUDE_UUID
+  TIMEFMT=" Claude ($__CLAUDE_UUID) %P CPU / %*Es"
+  time command claude "$@"
 )
 alias "Claude,= claude --dangerously-skip-permissions --print << '-- '"
 
