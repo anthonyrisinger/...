@@ -7,7 +7,7 @@ claude () (
   test -e ~/.claude/*/*/$__CLAUDE_UUID* \
     && set -- "$@" --resume $__CLAUDE_UUID \
     || set -- "$@" --session-id $__CLAUDE_UUID
-  TIMEFMT="<!-- $__CLAUDE_UUID / %P CPU / %*Es -->"
+  TIMEFMT="< -- $__CLAUDE_UUID / %P CPU / %*Es -- >"
   time command claude --dangerously-skip-permissions "$@"
 )
 alias "Claude,= claude --print << '-- '"
