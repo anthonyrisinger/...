@@ -132,7 +132,7 @@ KEYTIMEOUT=20
 NULLCMD=:
 
 PROMPT=$(_ps1)
-PS2='> '
+PS2='     '
 
 WORDCHARS='*?_[]~=&;!#$%^(){}<>'
 

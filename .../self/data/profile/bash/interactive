@@ -169,7 +169,7 @@ HISTSIZE=10000000
 HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 
 PS1=$(_ps1)
-PS2='> '
+PS2='     '
 
 [[ -r ${ELLIPSIS}data/profile/bash/aliases ]] &&
     . ${ELLIPSIS}data/profile/bash/aliases
