@@ -32,5 +32,9 @@ fi
 
 # Determine if user expects active venv.
 if [ -n "$VIRTUAL_ENV" ]; then
-  . "$VIRTUAL_ENV/bin/activate" || unset VIRTUAL_ENV
-fi
+  . "$VIRTUAL_ENV/bin/activate"
+elif [ "$VSCODE_INJECTION" = 1 ]; then
+  if [ -e "$PWD/.venv/bin/activate" ]; then
+    . "$PWD/.venv/bin/activate"
+  fi
+fi || unset VIRTUAL_ENV
