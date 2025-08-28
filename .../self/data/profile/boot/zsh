@@ -1,21 +1,5 @@
 #!/bin/zsh
 
-# Look in common places for more candidates.
-if [[ -z $ELLIPSIS_PATH ]]; then
-  ELLIPSIS_PATH=$(
-    IFS=; setopt -o null_glob
-    matches=(
-      ${ELLIPSIS}[b]in/.
-      ${ELLIPSIS}data/profile/vim/plugged/*/bin/.
-      {$HOME/,/opt/homebrew/,/usr/{local/,},/}{,opt/}{,libpq/,.local/,go/,Library/Python/[0-9].[0-9]{,[0-9]}/}{s,}[b]in/{,[0-9A-Za-z]*/}.
-    )
-    printf '%s' "${matches[@]/%\/./:}$PATH"
-  )
-fi
-
-# ELLIPSIS_PATH is only computed once.
-PATH="$ELLIPSIS_PATH"
-
 # Subshell to avoid side effects. Return code determines next step.
 (if [[ -x $(type -p git) && -f ${_ELLIPSIS}config && -z ${UID/#$EUID} ]]; then
 
