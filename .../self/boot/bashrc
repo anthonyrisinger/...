@@ -1,5 +1,8 @@
 #!/bin/bash
 
 [[ $- == *i* ]] &&
+    [[ -f ~/.../self/data/profile/sh/interactive ]] &&
+    . ~/.../self/data/profile/sh/interactive
+[[ $- == *i* ]] &&
     [[ -f ~/.../self/data/profile/bash/interactive ]] &&
     . ~/.../self/data/profile/bash/interactive

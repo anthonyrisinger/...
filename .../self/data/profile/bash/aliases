@@ -1,52 +1,5 @@
 #!/bin/bash
 
-# LLM
-export __CLAUDE_UUID=$(uuidgen | tr ABCDEF abcdef)
-claude () (
-  set -euo pipefail
-  test -e ~/.claude/*/*/$__CLAUDE_UUID* \
-    && set -- "$@" --resume $__CLAUDE_UUID \
-    || set -- "$@" --session-id $__CLAUDE_UUID
-  TIMEFMT=" Claude ($__CLAUDE_UUID) %P CPU / %*Es"
-  time command claude "$@"
-)
-alias "Claude,= claude --dangerously-skip-permissions --print << '-- '"
-
-# Liked or used often.
-alias l='ls -Flh'
-alias ll='ls -Flha'
-alias t='tree --charset=ascii -h -I "*.venv|*.pyc|__pycache__|*.egg-info|node_modules|vendor|.git|go|.pytest_cache|htmlcov"'
-tree () { set -- ${COLORTERM:+-C} "$@"; command tree "$@"; }
-alias tt='t -a'
-alias v='. *.venv/bin/activate'
-
-# JIRA wrapper.
-jira () (
-  for x in ~/.tokens/JIRA_*; do export ${x##*/}=$(<$x); done
-  command jira "$@"
-)
-
-# Grep wrappers.
-alias ge='grep --extended-regexp'
-alias gi='ge --ignore-case'
-alias gr='ge --recursive'
-alias gri='gi --recursive'
-alias grep='grep --colour=auto --devices=skip --binary-files=without-match --exclude-dir={".*[.]venv",__pycache__,"*.egg-info",node_modules,vendor,.git,go,.pytest_cache,htmlcov} --exclude={".*[.]pyc",".coverage","*[.]min[.]*","*/dist/*[.]js","*/dist/*[.]js[.]*",}'
-
-# Tmux wrappers.
-alias th='td .'
-alias ty='td ~'
-alias tg='td "$(git rev-parse --show-cdup 2>/dev/null)"'
-td () (
-  set -e; cd "${1:-.}"; shift
-  exec tmux new -ADs "$PWD;" set @session_name "${PWD##*/};" "$@"
-)
-
-# Venv + Tmux wrappers.
-alias vh='VIRTUAL_ENV="glob:*.venv" th'
-alias vg='VIRTUAL_ENV="glob:*.venv" tg'
-alias vd='VIRTUAL_ENV="glob:*.venv" td'
-
 # Git aliases.
 alias diff="git diff --no-index"
 
@@ -116,10 +69,6 @@ alias qcm="git commit --message"
 alias qp!="git push --force"
 alias qp="git push"
 
-alias zcd='cd ~/devel/zset'
-normaldiffs () { _GIT_DIFF_ARGS=' -c core.pager= -c diff.noprefix='; }
-prettydiffs () { _GIT_DIFF_ARGS=; }
-
 
 incognito () { cognito off; }
 cognito () {
@@ -127,34 +76,4 @@ cognito () {
     (on)  [[ -z $HISTFILE ]] && HISTFILE="$HISTFILE__" && unset HISTFILE__;;
     (off) [[ -z $HISTFILE__ ]] && HISTFILE__="$HISTFILE" && unset HISTFILE;;
   esac
-}
-
-# Lazy load nvm.
-nvm () {
-  unset nvm
-  export NVM_DIR=${NVM_DIR:-~/.nvm}
-  . "$NVM_DIR/nvm.sh"
-  . "$NVM_DIR/bash_completion"
-  [[ $(type -t nvm) == function ]] &&
-    nvm "$@"
-}
-
-# Push and compile terminfo files.
-terminfo-ssh () {
-  for host in "$@"; do
-    ssh -A "$host" <"${ELLIPSIS}"data/profile/iterm2/iterm2-direct-compat.terminfo -- \
-      bash -c 'cat > /tmp/terminfo && tic -x /tmp/terminfo && rm -f /tmp/terminfo'
-  done
-}
-
-# Output current ECR repo.
-ecr () {
-  curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
-    jq -r '"\(.accountId).dkr.ecr.\(.region).amazonaws.com"'
-}
-
-# Output current region.
-region () {
-  curl -s 169.254.169.254/latest/dynamic/instance-identity/document |
-    jq -r '.region'
 }

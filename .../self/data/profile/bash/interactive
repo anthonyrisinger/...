@@ -1,17 +1,5 @@
 #!/bin/bash
 
-
-# I'm human, thanks
-if [[ $(date +%Z) == 'UTC' ]]; then
-    export TZ='America/Chicago'
-fi
-
-export TERM="${TERM:-dumb}"
-export EDITOR='vim'
-export PROMPT_DIRTRIM=3
-
-export VIRTUAL_ENV_DISABLE_PROMPT=true
-
 [[ ${TERM} == dumb ]] &&
     return 0
 
@@ -25,7 +13,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 #IFS=$'\n'
 #set -f
 #shopt -s nullglob
-shopt -s extglob
+#shopt -s extglob
 
 export DEVEL=$(
   shopt -s nullglob
@@ -39,15 +27,20 @@ for x in \
   {,/usr/local}/etc/bash_completion \
   ${ELLIPSIS}data/profile/bash/completion.d/* \
   {,$DEVELOPER_DIR}/usr/share/git{,-core}/git-{prompt.sh,completion.bash} \
+  ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/completion.bash \
 ;
 do
     [[ -r ${x} ]] &&
         . ${x}
 done
-# Rename _expand to _orig_expand.
-eval _orig"$(declare -f _expand)"
-# Never expand ~ during TAB completion.
-_expand () { [[ "$cur" == \~*/* ]] || _orig_expand; }
+
+if type -P dircolors >/dev/null ; then
+  if [[ -f ~/.dir_colors ]] ; then
+    eval $(dircolors -b ~/.dir_colors)
+  elif [[ -f /etc/DIR_COLORS ]] ; then
+    eval $(dircolors -b /etc/DIR_COLORS)
+  fi
+fi
 
 _ps1 () { (
 
@@ -146,27 +139,6 @@ if [[ -n ${TMUX} && -n ${SSH_AUTH_SOCK} ]]; then
     export $(tmux show-environment | grep -E "^SSH_AUTH_SOCK")
 fi
 '
-
-if ls --color=auto >/dev/null 2>&1; then
-  alias ls='ls -F --color=auto'
-else
-  alias ls='ls -F -G'
-fi
-
-if type -P dircolors >/dev/null ; then
-  if [[ -f ~/.dir_colors ]] ; then
-    eval $(dircolors -b ~/.dir_colors)
-  elif [[ -f /etc/DIR_COLORS ]] ; then
-    eval $(dircolors -b /etc/DIR_COLORS)
-  fi
-fi
-
-HISTCONTROL=ignoreboth:erasedups
-HISTFILE=${ELLIPSIS}var/cache/bash/history${VSCODE_INJECTION:+.vscode}
-HISTFILESIZE=10000000
-HISTIGNORE='[bf]g:[bf]g :exit:exit :cognito:cognito :incognito:incognito '
-HISTSIZE=10000000
-HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 
 PS1=$(_ps1)
 PS2='    '

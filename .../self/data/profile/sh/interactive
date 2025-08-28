@@ -1,0 +1,26 @@
+#!/bin/sh
+
+export EDITOR='vim'
+export PROMPT_DIRTRIM=3
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+
+if [[ $(date +%Z) == 'UTC' ]]; then
+    export TZ='America/Chicago'
+fi
+
+export TERM="${TERM:-dumb}"
+
+[[ ${TERM} == dumb ]] &&
+    return 0
+
+HISTCONTROL=ignoreboth:erasedups
+HISTFILE=${ELLIPSIS}var/cache/${SHELL##*/}/history${VSCODE_INJECTION:+.vscode}
+HISTFILESIZE=10000000
+HISTIGNORE='[bf]g:[bf]g :exit:exit :cognito:cognito :incognito:incognito '
+HISTORY_IGNORE='([bf]g|[bf]g |exit|exit |cognito|cognito |incognito|incognito )'
+HISTSIZE=10000000
+HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
+SAVEHIST=10000000
+
+[[ -r ${ELLIPSIS}data/profile/sh/aliases ]] &&
+    . ${ELLIPSIS}data/profile/sh/aliases

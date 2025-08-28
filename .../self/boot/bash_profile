@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-[ -f ~/.../self/data/profile/boot/bash ] &&
+[[ -f ~/.../self/data/profile/boot/sh ]] &&
+    . ~/.../self/data/profile/boot/sh
+[[ -f ~/.../self/data/profile/boot/bash ]] &&
     . ~/.../self/data/profile/boot/bash

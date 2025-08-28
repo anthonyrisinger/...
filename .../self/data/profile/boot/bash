@@ -1,20 +1,5 @@
 #!/bin/bash
 
-# Not auto-exported by shells or POSIX.
-export PWD HOME PATH SHELL TERM HOSTNAME HOSTTYPE MACHTYPE OSTYPE
-
-# Used in downstream configuration files.
-export _ELLIPSIS ELLIPSIS ELLIPSIS_PATH ELLIPSIS_DEBUG
-
-# Let the shell work it out.
-HOME=~
-
-# Allow overrides, eg. `_ELLIPSIS=a bash`.
-: "${_ELLIPSIS:=$HOME/.../}"
-: "${ELLIPSIS:=${_ELLIPSIS}self/}"
-# Case-insensitive: 0-9 t/rue f/alse y/es n/o
-ELLIPSIS_DEBUG="${ELLIPSIS_DEBUG:0:1}"
-ELLIPSIS_DEBUG="$((${ELLIPSIS_DEBUG/[TYty]/1}))"
 # Look in common places for more candidates.
 if [[ -z $ELLIPSIS_PATH ]]; then
   ELLIPSIS_PATH=$(
@@ -30,21 +15,6 @@ fi
 
 # ELLIPSIS_PATH is only computed once.
 PATH="$ELLIPSIS_PATH"
-
-# Detect OSTYPE (darwin, linux, etc).
-if [[ -z $OSTYPE ]]; then
-  OSTYPE=$(uname -s | tr '[:upper:]' '[:lower:]')
-fi
-
-# Detect HOSTTYPE (x86, x86_64, etc).
-if [[ -z $HOSTTYPE ]]; then
-  HOSTTYPE=$(uname -m | tr '[:upper:]' '[:lower:]')
-fi
-
-# Determine if user expects active venv.
-if [[ -n $VIRTUAL_ENV ]]; then
-  . "$VIRTUAL_ENV/bin/activate" || unset VIRTUAL_ENV
-fi
 
 # Subshell to avoid side effects. Return code determines next step.
 (if [[ -x $(type -p git) && -f ${_ELLIPSIS}config && -z ${UID/#$EUID} ]]; then

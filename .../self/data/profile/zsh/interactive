@@ -1,14 +1,4 @@
-#!/bin/bash
-
-# I'm human, thanks
-if [[ $(date +%Z) == 'UTC' ]]; then
-    export TZ='America/Chicago'
-fi
-
-export TERM="${TERM:-dumb}"
-export EDITOR='vim'
-
-export VIRTUAL_ENV_DISABLE_PROMPT=true
+#!/bin/zsh
 
 [[ ${TERM} == dumb ]] &&
     return 0
@@ -44,6 +34,14 @@ do
     [[ -r ${x} ]] &&
         . ${x}
 done
+
+if type -p dircolors >/dev/null ; then
+  if [[ -f ~/.dir_colors ]] ; then
+    eval $(dircolors -b ~/.dir_colors)
+  elif [[ -f /etc/DIR_COLORS ]] ; then
+    eval $(dircolors -b /etc/DIR_COLORS)
+  fi
+fi
 
 _ps1 () { (
 
@@ -82,20 +80,6 @@ precmd() {
   fi
 }
 
-if ls --color=auto >/dev/null 2>&1; then
-  alias ls='ls -F --color=auto'
-else
-  alias ls='ls -F -G'
-fi
-
-if type -p dircolors >/dev/null ; then
-  if [[ -f ~/.dir_colors ]] ; then
-    eval $(dircolors -b ~/.dir_colors)
-  elif [[ -f /etc/DIR_COLORS ]] ; then
-    eval $(dircolors -b /etc/DIR_COLORS)
-  fi
-fi
-
 zmodload zsh/complist
 
 bindkey -e
@@ -123,18 +107,12 @@ setopt histlexwords
 setopt sharehistory
 setopt extendedhistory
 
-HISTFILE=${ELLIPSIS}var/cache/zsh/history${VSCODE_INJECTION:+.vscode}
-SAVEHIST=10000000
-HISTSIZE=10000000
-HISTORY_IGNORE='([bf]g|[bf]g |exit|exit |cognito|cognito |incognito|incognito )'
-
+WORDCHARS='*?_[]~=&;!#$%^(){}<>'
 KEYTIMEOUT=20
 NULLCMD=:
 
 PROMPT=$(_ps1)
 PS2='    '
-
-WORDCHARS='*?_[]~=&;!#$%^(){}<>'
 
 [[ -r ${ELLIPSIS}data/profile/zsh/aliases ]] &&
     . ${ELLIPSIS}data/profile/zsh/aliases

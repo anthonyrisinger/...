@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 
+[[ -f ~/.../self/data/profile/sh/interactive ]] &&
+  . ~/.../self/data/profile/sh/interactive
 [[ -f ~/.../self/data/profile/zsh/interactive ]] &&
   . ~/.../self/data/profile/zsh/interactive

@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 
+[[ -f ~/.../self/data/profile/boot/sh ]] &&
+    . ~/.../self/data/profile/boot/sh
 [[ -f ~/.../self/data/profile/boot/zsh ]] &&
     . ~/.../self/data/profile/boot/zsh
