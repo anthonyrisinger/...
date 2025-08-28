@@ -10,7 +10,7 @@ claude () (
   TIMEFMT=" Claude ($__CLAUDE_UUID) %P CPU / %*Es"
   time command claude "$@"
 )
-alias "Claude,= claude --dangerously-skip-permissions --print << '-- '"
+alias "Claude,= claude << '-- ' --dangerously-skip-permissions --print --verbose --output-format=stream-json | jq --unbuffered --raw-output '.message.content[]?.text//empty'"
 
 # Liked or used often.
 if ls --color=auto >/dev/null 2>&1; then
