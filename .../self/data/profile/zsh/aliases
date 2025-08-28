@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # LLM
-export __CLAUDE_UUID=$(uuidgen)
+export __CLAUDE_UUID=$(uuidgen | tr ABCDEF abcdef)
 claude () (
   set -euo pipefail
   test -e ~/.claude/*/*/$__CLAUDE_UUID* \
