@@ -12,8 +12,8 @@ claude () (
 )
 claudec () (
   claude "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
-  | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\b"' \
-  | tr -s '\b' '\n'
+  | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
+  | sed -r $'1s,^\u0007+,,;$s,\u0007+$,,;s,\u0007+,\\n\\n,g'
 )
 alias "Claude,= claudec << '-- '"
 
