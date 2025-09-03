@@ -32,10 +32,10 @@ alias qd!="git reset --mixed"
 alias qdd="git checkout --patch"
 # Query Delete2 (batch; resets worktree)
 alias qdd!="git reset --hard"
-# Query2 Delete2 (TODO: git clean)
-alias qddq="git"
-# Query2 Delete2 (TODO: git clean)
-alias qddq!="git"
+# Query2 Delete2 (interactive; cleanup untracked files)
+alias qddq="git clean -i"
+# Query2 Delete2 (force; cleanup untracked files)
+alias qddq!="git clean -fd"
 # Query State Quietly (last update)
 alias qsq="git\${=_GIT_DIFF_ARGS} show --stat"
 # Query State (last update; verbose)
