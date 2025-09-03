@@ -4,14 +4,29 @@
 export __CLAUDE_UUID=$(uuidgen | tr ABCDEF abcdef)
 claude () (
   set -euo pipefail
-  test -e ~/.claude/*/*/$__CLAUDE_UUID* \
+  test -e ~/.claude/*/*/$__CLAUDE_UUID.jsonl \
     && set -- "$@" --resume $__CLAUDE_UUID \
     || set -- "$@" --session-id $__CLAUDE_UUID
   TIMEFMT=" Claude ($__CLAUDE_UUID) %P CPU / %*Es"
   time command claude "$@"
 )
 claudec () (
+  set -euo pipefail
+  exec 3>> /dev/null
+  if test -e ~/.claude/*/*/$__CLAUDE_UUID.jsonl; then
+    for x in ~/.claude/*/*/$__CLAUDE_UUID.jsonl; do
+      exec 3>> "$x.claudec.jsonl"
+      if test -s "$x.claudec.jsonl"; then
+        __CLAUDE_UUID2=$(tail -n1 "$x.claudec.jsonl" | jq -r '.session_id//empty')
+        if test "${#__CLAUDE_UUID2}" -eq 36; then
+          __CLAUDE_UUID=$__CLAUDE_UUID2
+        fi
+      fi
+      break
+    done
+  fi
   claude "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
+  | tee -a /dev/fd/3 \
   | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
   | sed -r $'1s,^\u0007+,,;$s,\u0007+$,,;s,\u0007+,\\n\\n,g'
 )
