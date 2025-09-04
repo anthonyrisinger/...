@@ -1,36 +1,38 @@
 #!/bin/sh
 
-# LLM
-export __CLAUDE_UUID=$(uuidgen | tr ABCDEF abcdef)
-claude () (
+# ATTN: LLM
+export __ATTN_NAME="${__ATTN_NAME:-claude}"
+export __ATTN_UUID="${__ATTN_UUID:-$(uuidgen | tr ABCDEF abcdef)}"
+attn () (
   set -euo pipefail
-  test -e ~/.claude/*/*/$__CLAUDE_UUID.jsonl \
-    && set -- "$@" --resume $__CLAUDE_UUID \
-    || set -- "$@" --session-id $__CLAUDE_UUID
-  TIMEFMT=" Claude ($__CLAUDE_UUID) %P CPU / %*Es"
-  time command claude "$@"
+  test -s ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl" \
+    && set -- "$@" --resume "$__ATTN_UUID" \
+    || set -- "$@" --session-id "$__ATTN_UUID"
+  TIMEFMT=" $__ATTN_NAME / %P CPU / %*Es / $__ATTN_UUID"
+  time command "$__ATTN_NAME" "$@"
 )
-claudec () (
+attnc () (
   set -euo pipefail
-  exec 3>> /dev/null
-  if test -e ~/.claude/*/*/$__CLAUDE_UUID.jsonl; then
-    for x in ~/.claude/*/*/$__CLAUDE_UUID.jsonl; do
-      exec 3>> "$x.claudec.jsonl"
-      if test -s "$x.claudec.jsonl"; then
-        __CLAUDE_UUID2=$(tail -n1 "$x.claudec.jsonl" | jq -r '.session_id//empty')
-        if test "${#__CLAUDE_UUID2}" -eq 36; then
-          __CLAUDE_UUID=$__CLAUDE_UUID2
-        fi
-      fi
-      break
-    done
+  set -- "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json
+  if test -s ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl"; then
+    find ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl" -exec cp -an {} {}.$__ATTN_NAME.jsonl \;
+    exec 3>> ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl"
+    __ATTN_UUID=$(tail -n1 ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl" | jq -er '.session_id//.sessionId//empty')
+  elif test -e ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl"; then
+    rm -f ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl"
+    exec 3>> /dev/null
+  else
+    exec 3>> /dev/null
   fi
-  claude "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
+  attn "$@" \
   | tee -a /dev/fd/3 \
   | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
   | sed -r $'1s,^\u0007+,,;$s,\u0007+$,,;s,\u0007+,\\n\\n,g'
 )
-alias "Claude,= claudec << '-- '"
+alias "ATTN:= attnc << '-- ' "
+
+claude () { __ATTN_NAME=claude attn "$@"; }
+alias "Claude,= __ATTN_NAME=claude attnc << '-- '"
 
 # Liked or used often.
 if ls --color=auto >/dev/null 2>&1; then
