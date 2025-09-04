@@ -7,8 +7,6 @@ attn () (
   set -euo pipefail
   if test -s ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl"; then
     __ATTN_UUID=$(tail -n1 ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl" | jq -er '.session_id//.sessionId//empty')
-  elif test -e ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl"; then
-    rm -f ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl"
   fi
   test -s ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl" \
     && set -- "$@" --resume "$__ATTN_UUID" \
