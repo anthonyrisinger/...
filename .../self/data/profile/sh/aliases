@@ -19,7 +19,7 @@ agent () (
   test -s ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl" \
     && set -- "$@" --resume "$AGENT_UUID" \
     || set -- "$@" --session-id "$AGENT_UUID"
-  TIMEFMT=" $AGENT_NAME / %P CPU / %*Es / $AGENT_UUID"
+  TIMEFMT=" $AGENT_NAME-$AGENT_ROLE / %P CPU / %*Es / $AGENT_UUID"
   time command "$AGENT_NAME" "$@"
 )
 agentc () (
