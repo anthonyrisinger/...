@@ -2,12 +2,20 @@
 
 # ATTN: LLM
 export __ATTN_NAME="${__ATTN_NAME:-claude}"
+export __ATTN_SPEC="${__ATTN_SPEC:-engineer}"
 export __ATTN_UUID="${__ATTN_UUID:-$(uuidgen | tr ABCDEF abcdef)}"
 attn () (
   set -euo pipefail
   if test -s ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl"; then
     __ATTN_UUID=$(tail -n1 ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl.$__ATTN_NAME.jsonl" | jq -er '.session_id//.sessionId//empty')
   fi
+  case "$__ATTN_NAME:$__ATTN_SPEC" in
+    (claude:architect)  set -- --model opus --fallback-model opusplan "$@";;
+    (claude:customer)   set -- --model sonnet --fallback-model opusplan "$@";;
+    (claude:engineer)   set -- --model opusplan --fallback-model sonnet "$@";;
+    (claude:*)          set -- --model sonnet --fallback-model sonnet "$@";;
+    (*)                 :;;
+  esac
   test -s ~/".$__ATTN_NAME"/*/*/"$__ATTN_UUID.jsonl" \
     && set -- "$@" --resume "$__ATTN_UUID" \
     || set -- "$@" --session-id "$__ATTN_UUID"
@@ -29,6 +37,9 @@ attnc () (
   | sed -r $'1s,^\u0007+,,;$s,\u0007+$,,;s,\u0007+,\\n\\n,g'
 )
 alias "ATTN:= attnc << '-- ' "
+alias "Architect= __ATTN_SPEC=architect "
+alias "Customer= __ATTN_SPEC=customer "
+alias "Engineer= __ATTN_SPEC=engineer "
 
 claude () { __ATTN_NAME=claude attn "$@"; }
 alias "Claude,= __ATTN_NAME=claude attnc << '-- '"
