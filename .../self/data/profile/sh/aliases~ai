@@ -55,14 +55,15 @@ ai:gen () (
 
 ai:cat () (
   ai::fn; set -${AIWTF:+x}euo pipefail
-  test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl" \
-    && exec 3>> ~/".$AIGEN"/*/*/"$AIMTH.jsonl.${AIGEN}${AIMOD:+"~$AIMOD"}.jsonl" \
-    || exec 3>> /dev/null
   TIMEFORMAT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AIMTH"
   TIMEFMT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AIMTH"
   time (
     ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
-    | tee -a /dev/fd/3 \
+    | if test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl"; then
+        tee -a ~/".$AIGEN"/*/*/"$AIMTH.jsonl.${AIGEN}${AIMOD:+"~$AIMOD"}.jsonl"
+      else
+        cat
+      fi \
     | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
     | sed -r $'1s,^\u0007*,\\n,;$s,\u0007*$,\\n,;s,\u0007+,\\n\\n,g'
   )
