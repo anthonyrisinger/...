@@ -1,0 +1,87 @@
+#!/bin/sh
+
+export AIGEN="${AIGEN:-claude}"
+export AIMTH="${AIMTH:-$(uuidgen | tr ABCDEF abcdef)}"
+export AINTH="${AINTH:-$AIMTH}"
+export AIMOD="${AIMOD:-}"
+export AIWTF="${AIWTF:-}"
+
+ai::fn () (
+  set -${AIWTF:+x}euo pipefail
+  if test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl"; then
+    return
+  fi
+  if test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl"; then
+    find ~/".$AIGEN"/*/*/"$AIMTH.jsonl"* -empty -delete
+    find ~/".$AIGEN"/*/*/"$AIMTH.jsonl" -exec cp -an "{}" "{}.$AIGEN.jsonl" \;
+    find ~/".$AIGEN"/*/*/"$AIMTH.jsonl" -exec cp -an "{}" "{}.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl" \;
+  elif test -e ~/".$AIGEN"/*/*/"$AIMTH.jsonl"; then
+    find ~/".$AIGEN"/*/*/"$AIMTH.jsonl"* -delete
+  fi
+)
+
+ai:gen () (
+  ai::fn; set -${AIWTF:+x}euo pipefail
+  AINTH=$(
+    if test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl.$AIGEN~$AIMOD.jsonl"; then
+      tail -n1 ~/".$AIGEN"/*/*/"$AIMTH.jsonl.$AIGEN~$AIMOD.jsonl" | jq -er '.session_id//.sessionId//empty'
+    elif test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl.$AIGEN.jsonl"; then
+      tail -n1 ~/".$AIGEN"/*/*/"$AIMTH.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
+    elif test -s ~/".$AIGEN"/*/*/"$AINTH.jsonl"; then
+      echo >&2 "WARNING: No '$AIMTH.jsonl.*' sessions found; using old session '$AINTH.jsonl'."
+      echo "$AINTH"
+    elif test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl"; then
+      echo >&2 "WARNING: No '$AINTH.jsonl' session found; forking base session '$AIMTH.jsonl'."
+      echo "$AIMTH"
+    elif test "$AIMTH" != "$AINTH"; then
+      echo >&2 "WARNING: No '$AIMTH.jsonl' session found; starting new session '$AINTH.jsonl'."
+      echo "$AINTH"
+    else
+      echo "$AIMTH"
+    fi
+  )
+  case "$AIGEN~$AIMOD" in
+    ("claude~")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
+    ("claude~customer")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
+    ("claude~engineer")   set -- --model opusplan --fallback-model sonnet   "$@" ;;
+    ("claude~architect")  set -- --model opus     --fallback-model opusplan "$@" ;;
+    ("claude~"*)          set -- --model "$AIMOD" --fallback-model sonnet   "$@" ;;
+  esac
+  test -s ~/".$AIGEN"/*/*/"$AINTH.jsonl" \
+    && set -- "$@" --resume "$AINTH" \
+    || set -- "$@" --session-id "$AINTH"
+  command "$AIGEN" "$@"
+)
+
+ai:cat () (
+  ai::fn; set -${AIWTF:+x}euo pipefail
+  test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl" \
+    && exec 3>> ~/".$AIGEN"/*/*/"$AIMTH.jsonl.${AIGEN}${AIMOD:+"~$AIMOD"}.jsonl" \
+    || exec 3>> /dev/null
+  TIMEFORMAT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AIMTH ($AINTH)"
+  TIMEFMT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AIMTH ($AINTH)"
+  time (
+    ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
+    | tee -a /dev/fd/3 \
+    | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
+    | sed -r $'1s,^\u0007*,\\n,;$s,\u0007*$,\\n,;s,\u0007+,\\n\\n,g'
+  )
+)
+
+alias "WTF= AIWTF=x "
+
+alias "Customer= AIMOD=customer "
+alias "Engineer= AIMOD=engineer "
+alias "Architect= AIMOD=architect "
+
+alias "Assistant,= ai:cat << '-- '"
+alias "Agent,= ai:cat << '-- '"
+alias "AI,= ai:cat << '-- '"
+
+claude () { AIGEN=claude ai:gen "$@"; }
+
+alias "Opus= AIMOD=opus "
+alias "Sonnet= AIMOD=sonnet "
+alias "Haiku= AIMOD=haiku "
+
+alias "Claude,= AIGEN=claude ai:cat << '-- '"

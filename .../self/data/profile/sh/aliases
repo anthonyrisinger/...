@@ -1,51 +1,5 @@
 #!/bin/sh
 
-# agent: LLM
-export AGENT_NAME="${AGENT_NAME:-claude}"
-export AGENT_ROLE="${AGENT_ROLE:-engineer}"
-export AGENT_UUID="${AGENT_UUID:-$(uuidgen | tr ABCDEF abcdef)}"
-agent () (
-  set -euo pipefail
-  if test -s ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl.$AGENT_NAME-$AGENT_ROLE.jsonl"; then
-    AGENT_UUID=$(tail -n1 ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl.$AGENT_NAME-$AGENT_ROLE.jsonl" | jq -er '.session_id//.sessionId//empty')
-  fi
-  case "$AGENT_NAME-$AGENT_ROLE" in
-    (claude-architect)  set -- --model opus --fallback-model opusplan "$@";;
-    (claude-customer)   set -- --model sonnet --fallback-model opusplan "$@";;
-    (claude-engineer)   set -- --model opusplan --fallback-model sonnet "$@";;
-    (claude-*)          set -- --model sonnet --fallback-model sonnet "$@";;
-    (*)                 :;;
-  esac
-  test -s ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl" \
-    && set -- "$@" --resume "$AGENT_UUID" \
-    || set -- "$@" --session-id "$AGENT_UUID"
-  TIMEFMT=" $AGENT_NAME-$AGENT_ROLE / %P CPU / %*Es / $AGENT_UUID"
-  time command "$AGENT_NAME" "$@"
-)
-agentc () (
-  set -euo pipefail
-  set -- "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json
-  if test -s ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl"; then
-    find ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl" -exec cp -an {} {}.$AGENT_NAME-$AGENT_ROLE.jsonl \;
-    exec 3>> ~/".$AGENT_NAME"/*/*/"$AGENT_UUID.jsonl.$AGENT_NAME-$AGENT_ROLE.jsonl"
-  else
-    exec 3>> /dev/null
-  fi
-  agent "$@" \
-  | tee -a /dev/fd/3 \
-  | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
-  | sed -r $'1s,^\u0007+,,;$s,\u0007+$,,;s,\u0007+,\\n\\n,g'
-)
-alias "Architect= AGENT_ROLE=architect "
-alias "Customer= AGENT_ROLE=customer "
-alias "Engineer= AGENT_ROLE=engineer "
-alias "Assistant,= agentc << '-- '"
-alias "Agent,= agentc << '-- '"
-alias "AI,= agentc << '-- '"
-
-claude () { AGENT_NAME=claude agent "$@"; }
-alias "Claude,= AGENT_NAME=claude agentc << '-- '"
-
 # Liked or used often.
 if ls --color=auto >/dev/null 2>&1; then
   alias ls='ls -F --color=auto'

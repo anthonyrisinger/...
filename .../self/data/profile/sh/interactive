@@ -22,5 +22,7 @@ HISTSIZE=10000000
 HISTTIMEFORMAT='%a %b %-d %-I:%M:%S %p  # '
 SAVEHIST=10000000
 
+[[ -r ${ELLIPSIS}data/profile/sh/aliases~ai ]] &&
+    . ${ELLIPSIS}data/profile/sh/aliases~ai
 [[ -r ${ELLIPSIS}data/profile/sh/aliases ]] &&
     . ${ELLIPSIS}data/profile/sh/aliases
