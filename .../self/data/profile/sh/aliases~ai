@@ -58,8 +58,8 @@ ai:cat () (
   test -s ~/".$AIGEN"/*/*/"$AIMTH.jsonl" \
     && exec 3>> ~/".$AIGEN"/*/*/"$AIMTH.jsonl.${AIGEN}${AIMOD:+"~$AIMOD"}.jsonl" \
     || exec 3>> /dev/null
-  TIMEFORMAT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AIMTH ($AINTH)"
-  TIMEFMT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AIMTH ($AINTH)"
+  TIMEFORMAT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AIMTH"
+  TIMEFMT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AIMTH"
   time (
     ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
     | tee -a /dev/fd/3 \
