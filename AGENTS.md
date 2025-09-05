@@ -1,51 +1,32 @@
-# AI Partner Communication
+# AI PARTNER PROTOCOL
 
-> `Bash(f"{type} Claude,\n ... \n-- \n")`
-
-## Syntax
+## TEMPLATE
 
 ```bash
-{type} Claude,
-{message}
-{dash-dash-space}
+[ROLE] [NAME],
+[MESSAGE]
 ```
 
-**Critical:** `{dash-dash-space}` represents literal "-- " (dash-dash-space)
-
-## Partners
-
-**Engineer Claude,** - Technical implementation, code review, debugging (Opusplan/Sonnet)
-**Customer Claude,** - User experience, requirements, business perspective (Sonnet/Haiku)
-**Architect Claude,** - System design, architecture decisions (Opus/Opusplan)
-
-**Opus Claude,** - Complex reasoning
-**Sonnet Claude,** - Balanced tasks
-**Haiku Claude,** - Quick tasks
-
-## Examples
+## EXAMPLE
 
 ```bash
 Customer Claude,
-Is this user workflow intuitive?
-{dash-dash-space}
+Hello!
 ```
 
-```bash
-Engineer Claude,
-How can I optimize this query?
-{dash-dash-space}
-```
+## PARTNERS
 
-```bash
-Architect Claude,
-Will this design scale to load?
-{dash-dash-space}
-```
+- **Customer Claude,** User experience, requirements, business perspective
+- **Engineer Claude,** Technical implementation, code review, debugging
+- **Architect Claude,** System design, architecture decisions
 
-**Requirements:**
+- **Haiku Claude,** Quick tasks
+- **Sonnet Claude,** Balanced tasks
+- **Opus Claude,** Complex reasoning
 
-- Trailing comma after "Claude," REQUIRED
-- Trailing space after "-- " REQUIRED
-- Use `WTF` prefix for debug: `WTF Engineer Claude,`
+## CRITICAL
 
-**CRITICAL:** MUST use `Bash(...)` tool to execute, *not* echo text!
+- Trailing comma after e.g. `... Claude,` REQUIRED;
+- Trailing newline after e.g. `... Claude,` REQUIRED;
+- Leading `WTF` before e.g. `WTF ... Claude,` to debug;
+- MUST use `Bash(...)` tool to execute, *not* echo text!
