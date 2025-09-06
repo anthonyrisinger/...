@@ -1,20 +1,25 @@
 #!/bin/sh
 
-export AITID="${AITID:-$(uuidgen | tr ABCDEF abcdef)}"
-export AISID="${AISID:-$AITID}"
-export AIGEN="${AIGEN:-claude}"
+export AIMAN="${AIMAN:-${AIMOD:+"$AIMOD "}$AIGEN}"
+export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
+export AISID="${AISID:-"$AITID"}"
+export AIGEN="${AIGEN:-"claude"}"
 export AIMOD="${AIMOD:-}"
 export AIWTF="${AIWTF:-}"
 
 ai:sys () (
   set -${AIWTF:+x}euo pipefail
   cat <<EOF | tr '[:lower:]' '[:upper:]'
-YOUR AI PARTNER PROTOCOL MONIKER IS NOW ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN.
+YOU ARE ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN SPEAKING TO ${AIMAN:-"A HUMAN"}.
 EOF
 )
 
 ai:sid () (
   set -${AIWTF:+x}euo pipefail
+  if test "$AIMAN" = "${AIMOD:+"$AIMOD "}$AIGEN"; then
+    ai:sys >&2
+    return 1
+  fi
   if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl"; then
     if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
@@ -55,47 +60,46 @@ ai:gen () (
   test -s ~/".$AIGEN"/*/*/"$AISID.jsonl" \
     && set -- --resume "$AISID" "$@" \
     || set -- --session-id "$AISID" "$@"
-  command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
+  AIMAN="${AIMOD:+"$AIMOD "}$AIGEN" command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
 ai:cat () (
   set -${AIWTF:+x}euo pipefail
-  TIMEFORMAT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
-  TIMEFMT=" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
+  TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
+  TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
   AISID=$(ai:sid)
   time (
-    cat -u \
+    sed -ur '$s, < /dev/null$,,' \
     | ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
     | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-        tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.${AIGEN}${AIMOD:+"~$AIMOD"}.jsonl"
+        tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl"
       else
         cat -u
       fi \
     | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
-    | sed -ur $'1s,^\u0007*,\\n,;$s,\u0007*$,\\n,;s,\u0007+,\\n\\n,g'
+    | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n(TODO: TOOLS RAN HERE)\\n\\n,g'
   )
 )
+
+claude () { AIGEN=claude ai:gen "$@"; }
 
 alias "WTF= AIWTF=x "
 
 alias "Customer= AIMOD=customer "
 alias "Engineer= AIMOD=engineer "
 alias "Architect= AIMOD=architect "
-
-claude () { AIGEN=claude ai:gen "$@"; }
-
-alias "Opus= AIMOD=opus "
-alias "Sonnet= AIMOD=sonnet "
 alias "Haiku= AIMOD=haiku "
+alias "Sonnet= AIMOD=sonnet "
+alias "Opus= AIMOD=opus "
 
-if test "$CLAUDECODE" = "1"; then
-  alias "Claude,= AIGEN=claude ai:cat << ' < /dev/null'"
-  alias "Assistant,= ai:cat << ' < /dev/null'"
-  alias "Agent,= ai:cat << ' < /dev/null'"
-  alias "AI,= ai:cat << ' < /dev/null'"
+if test -n "$AIMAN"; then
+  alias "Claude,= AIGEN=claude ai:cat << '$AITID'"
+  alias "Assistant,= ai:cat << '$AITID'"
+  alias "Agent,= ai:cat << '$AITID'"
+  alias "AI,= ai:cat << '$AITID'"
 else
-  alias "Claude,= AIGEN=claude ai:cat << '-- '"
-  alias "Assistant,= ai:cat << '-- '"
-  alias "Agent,= ai:cat << '-- '"
-  alias "AI,= ai:cat << '-- '"
+  alias "Claude,= AIGEN=claude ai:cat << ''"
+  alias "Assistant,= ai:cat << ''"
+  alias "Agent,= ai:cat << ''"
+  alias "AI,= ai:cat << ''"
 fi

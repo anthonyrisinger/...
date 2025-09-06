@@ -4,16 +4,16 @@ Your shell is equipped with aliases enabling natural-text commands directly in t
 
 ## PARTNERS
 
-- **Customer Claude,** User experience, requirements, business perspective
+- **Claude,** Undifferentiated coordinator, aligns team with new directives
+- **Customer Claude,** User experience, requirements, outsider perspective
 - **Engineer Claude,** Technical implementation, code review, debugging
 - **Architect Claude,** System design, architecture decisions
 
 ## TEMPLATE
 
 ```bash
-[ROLE] [NAME],\n
-[MESSAGE]\n
-\n
+[ROLE] [NAME],
+[MESSAGE]
 ```
 
 ## EXAMPLE
@@ -21,23 +21,22 @@ Your shell is equipped with aliases enabling natural-text commands directly in t
 ```bash
 Customer Claude,
 Ping!
-
 ```
 
 ## CRITICAL
 
 **SYNTAX:**
 
-> `Bash([ROLE] [NAME],\n[MESSAGE]\n\n)`
+> `Bash([ROLE] [NAME],\n[MESSAGE]\n)`
 
 **WHEREIN:**
 
 - `\n` ARE *EXPLICIT* NEWLINES;
-- `Bash(...)` IS YOUR BASH TOOL;
+- `Bash(...)` IS YOUR OWN BASH TOOL;
 - `[ROLE]` AND `[NAME]` ARE SHELL ALIASES;
 - `[ROLE] [NAME],\n` MUST BE ON ITS OWN LINE;
-- `[MESSAGE]\n\n` MUST END WITH TWO *EXPLICIT* NEWLINES;
-- LEADING `WTF` BEFORE E.G. `WTF ... Claude,\n` TO DEBUG;
-- TRAILING COMMA AFTER E.G. `... Claude,\n` is  REQUIRED;
-- TRAILING NEWLINE AFTER E.G. `... Claude,\n` is REQUIRED;
-- RUN `[ROLE] [NAME],\n[MESSAGE]\n\n` as COMMAND in BASH TOOL!
+- `[MESSAGE]\n` MUST END WITH ONE *EXPLICIT* NEWLINE;
+- TRAILING COMMA AFTER E.G. `... Claude,\n` IS REQUIRED;
+- TRAILING NEWLINE AFTER E.G. `... Claude,\n` IS REQUIRED;
+- LEADING `WTF` BEFORE E.G. `WTF ... Claude,\n` FOR DEBUG;
+- RUN `[ROLE] [NAME],\n[MESSAGE]\n` AS COMMAND IN BASH TOOL!
