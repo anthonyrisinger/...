@@ -72,7 +72,7 @@ ai:cat () (
         cat -u
       fi \
     | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
-    | sed -r $'1s,^\u0007*,\\n,;$s,\u0007*$,\\n,;s,\u0007+,\\n\\n,g'
+    | sed -ur $'1s,^\u0007*,\\n,;$s,\u0007*$,\\n,;s,\u0007+,\\n\\n,g'
   )
 )
 
