@@ -10,7 +10,7 @@ export AIWTF="${AIWTF:-}"
 ai:sys () (
   set -${AIWTF:+x}euo pipefail
   cat <<EOF | tr '[:lower:]' '[:upper:]'
-YOU ARE ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN SPEAKING TO ${AIMAN:-"A HUMAN"}.
+YOU ARE ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN; RESPOND TO ${AIMAN:-"HUMAN"} VIA **STDOUT**!
 EOF
 )
 
@@ -56,18 +56,22 @@ ai:gen () (
     ("claude~architect")  set -- --model opus     --fallback-model opusplan "$@" ;;
     ("claude~"*)          set -- --model "$AIMOD" "$@" ;;
   esac
-  AISID=$(ai:sid)
+  if ! AISID=$(ai:sid); then
+    return 1
+  fi
   test -s ~/".$AIGEN"/*/*/"$AISID.jsonl" \
     && set -- --resume "$AISID" "$@" \
     || set -- --session-id "$AISID" "$@"
-  AIMAN="${AIMOD:+"$AIMOD "}$AIGEN" command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
+  TMOUT=1 AIMAN="${AIMOD:+"$AIMOD "}$AIGEN" command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
 ai:cat () (
   set -${AIWTF:+x}euo pipefail
   TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
   TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
-  AISID=$(ai:sid)
+  if ! AISID=$(ai:sid); then
+    return 1
+  fi
   time (
     sed -ur '$s, < /dev/null$,,' \
     | ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
