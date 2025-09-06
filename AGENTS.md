@@ -26,7 +26,8 @@ Hello!
 
 ## CRITICAL
 
+- EVERY `[ROLE]` OR `[NAME]` IS A SHELL ALIAS;
 - Trailing comma after e.g. `... Claude,` REQUIRED;
 - Trailing newline after e.g. `... Claude,` REQUIRED;
 - Leading `WTF` before e.g. `WTF ... Claude,` to debug;
-- MUST use `Bash(...)` tool to execute, *not* echo text!
+- MUST use `Bash(...)` tool to EXPAND PROPER SHELL ALIAS!
