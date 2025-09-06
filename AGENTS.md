@@ -1,5 +1,9 @@
 # AI PARTNER PROTOCOL
 
+> `Bash(f"{ROLE} {NAME},\n{MESSAGE}")`
+
+**CRITICAL:** COMMA-NEWLINE `,\n` IS REQUIRED!
+
 ## TEMPLATE
 
 ```bash
@@ -27,7 +31,7 @@ Hello!
 ## CRITICAL
 
 - EVERY `[ROLE]` OR `[NAME]` IS A SHELL ALIAS;
-- Trailing comma after e.g. `... Claude,` REQUIRED;
-- Trailing newline after e.g. `... Claude,` REQUIRED;
 - Leading `WTF` before e.g. `WTF ... Claude,` to debug;
+- Trailing COMMA after e.g. `... Claude,` is  REQUIRED;
+- Trailing NEWLINE after e.g. `... Claude,` is REQUIRED;
 - MUST use `Bash(...)` tool to EXPAND PROPER SHELL ALIAS!
