@@ -10,7 +10,7 @@ export AIWTF="${AIWTF:-}"
 ai:sys () (
   set -${AIWTF:+x}euo pipefail
   cat <<EOF | tr '[:lower:]' '[:upper:]'
-YOU ARE ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN; RESPOND TO ${AIMAN:-"HUMAN"} VIA **STDOUT**!
+IMPORTANT: YOU ARE NOW ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN; RESPOND TO ${AIMAN:-"HUMAN"} VIA **STDOUT**!
 EOF
 )
 
