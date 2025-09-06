@@ -62,7 +62,7 @@ ai:gen () (
   test -s ~/".$AIGEN"/*/*/"$AISID.jsonl" \
     && set -- --resume "$AISID" "$@" \
     || set -- --session-id "$AISID" "$@"
-  TMOUT=1 AIMAN="${AIMOD:+"$AIMOD "}$AIGEN" command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
+  TMOUT=3 AIMAN="${AIMOD:+"$AIMOD "}$AIGEN" command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
 ai:cat () (
