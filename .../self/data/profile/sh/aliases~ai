@@ -6,6 +6,13 @@ export AIGEN="${AIGEN:-claude}"
 export AIMOD="${AIMOD:-}"
 export AIWTF="${AIWTF:-}"
 
+ai:sys () (
+  set -${AIWTF:+x}euo pipefail
+  cat <<EOF | tr '[:lower:]' '[:upper:]'
+YOUR AI PARTNER PROTOCOL MONIKER IS NOW ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN.
+EOF
+)
+
 ai:sid () (
   set -${AIWTF:+x}euo pipefail
   if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl"; then
@@ -46,9 +53,9 @@ ai:gen () (
   esac
   AISID=$(ai:sid)
   test -s ~/".$AIGEN"/*/*/"$AISID.jsonl" \
-    && set -- "$@" --resume "$AISID" \
-    || set -- "$@" --session-id "$AISID"
-  command "$AIGEN" "$@"
+    && set -- --resume "$AISID" "$@" \
+    || set -- --session-id "$AISID" "$@"
+  command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
 ai:cat () (
@@ -75,14 +82,20 @@ alias "Customer= AIMOD=customer "
 alias "Engineer= AIMOD=engineer "
 alias "Architect= AIMOD=architect "
 
-alias "Assistant,= ai:cat << '-- '"
-alias "Agent,= ai:cat << '-- '"
-alias "AI,= ai:cat << '-- '"
-
 claude () { AIGEN=claude ai:gen "$@"; }
 
 alias "Opus= AIMOD=opus "
 alias "Sonnet= AIMOD=sonnet "
 alias "Haiku= AIMOD=haiku "
 
-alias "Claude,= AIGEN=claude ai:cat << '-- '"
+if test "$CLAUDECODE" = "1"; then
+  alias "Claude,= AIGEN=claude ai:cat << ' < /dev/null'"
+  alias "Assistant,= ai:cat << ' < /dev/null'"
+  alias "Agent,= ai:cat << ' < /dev/null'"
+  alias "AI,= ai:cat << ' < /dev/null'"
+else
+  alias "Claude,= AIGEN=claude ai:cat << '-- '"
+  alias "Assistant,= ai:cat << '-- '"
+  alias "Agent,= ai:cat << '-- '"
+  alias "AI,= ai:cat << '-- '"
+fi

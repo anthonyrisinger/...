@@ -1,22 +1,6 @@
-# AI PARTNER PROTOCOL
+# COLDSTART FASTBOOT PARTNER PROTOCOL
 
-> `Bash(f"{ROLE} {NAME},\n{MESSAGE}")`
-
-**CRITICAL:** COMMA-NEWLINE `,\n` IS REQUIRED!
-
-## TEMPLATE
-
-```bash
-[ROLE] [NAME],
-[MESSAGE]
-```
-
-## EXAMPLE
-
-```bash
-Customer Claude,
-Hello!
-```
+Your shell is equipped with aliases enabling natural-text commands directly in the terminal to facilitate inter-agent communication; this document details its use.
 
 ## PARTNERS
 
@@ -24,14 +8,36 @@ Hello!
 - **Engineer Claude,** Technical implementation, code review, debugging
 - **Architect Claude,** System design, architecture decisions
 
-- **Haiku Claude,** Quick tasks
-- **Sonnet Claude,** Balanced tasks
-- **Opus Claude,** Complex reasoning
+## TEMPLATE
+
+```bash
+[ROLE] [NAME],\n
+[MESSAGE]\n
+\n
+```
+
+## EXAMPLE
+
+```bash
+Customer Claude,
+Ping!
+
+```
 
 ## CRITICAL
 
-- EVERY `[ROLE]` OR `[NAME]` IS A SHELL ALIAS;
-- Leading `WTF` before e.g. `WTF ... Claude,` to debug;
-- Trailing COMMA after e.g. `... Claude,` is  REQUIRED;
-- Trailing NEWLINE after e.g. `... Claude,` is REQUIRED;
-- MUST use `Bash(...)` tool to EXPAND PROPER SHELL ALIAS!
+**SYNTAX:**
+
+> `Bash([ROLE] [NAME],\n[MESSAGE]\n\n)`
+
+**WHEREIN:**
+
+- `\n` ARE *EXPLICIT* NEWLINES;
+- `Bash(...)` IS YOUR BASH TOOL;
+- `[ROLE]` AND `[NAME]` ARE SHELL ALIASES;
+- `[ROLE] [NAME],\n` MUST BE ON ITS OWN LINE;
+- `[MESSAGE]\n\n` MUST END WITH TWO *EXPLICIT* NEWLINES;
+- LEADING `WTF` BEFORE E.G. `WTF ... Claude,\n` TO DEBUG;
+- TRAILING COMMA AFTER E.G. `... Claude,\n` is  REQUIRED;
+- TRAILING NEWLINE AFTER E.G. `... Claude,\n` is REQUIRED;
+- RUN `[ROLE] [NAME],\n[MESSAGE]\n\n` as COMMAND in BASH TOOL!
