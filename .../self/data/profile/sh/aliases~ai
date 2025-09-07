@@ -117,3 +117,7 @@ export AISID="${AISID:-"$AITID"}"
 export AIGEN="${AIGEN:-"claude"}"
 export AIMOD="${AIMOD:-}"
 export AIWTF="${AIWTF:-}"
+
+if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
+  AIMOD="architect"
+fi
