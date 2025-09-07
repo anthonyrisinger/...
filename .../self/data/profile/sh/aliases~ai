@@ -1,11 +1,16 @@
 #!/bin/sh
 
+# Aliases and functions for AI interaction via partner protocol.
+
+# Generate current identity tags.
 ai:tag:1 () { echo "${AIGEN-}" ;}
 ai:tag:2 () { echo "${AIMOD-}~${AIGEN-}"; }
 ai:tag:3 () { echo "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 
+# List all relevant environment variables.
 ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
+# Standard system prompt for all calls.
 ai:sys () (
   set -${AIWTF:+x}euo pipefail
   cat <<EOF | tr '~[:lower:]' ' [:upper:]'
@@ -24,6 +29,7 @@ TRUST YOURSELF AND YOUR OWN GOOD JUDGMENT TO RESPOND APPROPRIATELY!
 EOF
 )
 
+# Determine current session ID, forking or starting new as needed.
 ai:sid () (
   set -${AIWTF:+x}euo pipefail
   if test "$AITAG" = "$(ai:tag:3)"; then
@@ -57,6 +63,7 @@ ai:sid () (
   fi
 )
 
+# Non-streamed chat with full interactive output.
 ai:gen () (
   set -${AIWTF:+x}euo pipefail
   case $(ai:tag:2) in
@@ -74,6 +81,7 @@ ai:gen () (
   TMOUT=3 AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
+# Streamed chat with inline tool-use markers.
 ai:cat () (
   set -${AIWTF:+x}euo pipefail
   if ! AISID=$(ai:sid); then
@@ -94,11 +102,14 @@ ai:cat () (
   )
 )
 
+# Automatically re-link to current session.
 Claude () { AISID=$(ai:sid) AIGEN=claude ai:gen "$@"; }
 claude () { AISID=$(ai:sid) AIGEN=claude ai:gen "$@"; }
 
+# Debugging alias.
 alias "WTF= AIWTF=x "
 
+# Dynamic modifiers for roles.
 alias "Customer= AIMOD=customer "
 alias "Engineer= AIMOD=engineer "
 alias "Architect= AIMOD=architect "
@@ -106,6 +117,7 @@ alias "Haiku= AIMOD=haiku "
 alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
 
+# Heredoc aliases for interactive use.
 alias "Claude,= AIGEN=claude ai:cat << '${AITID-}'"
 alias "Assistant,= ai:cat << '${AITID-}'"
 alias "Agent,= ai:cat << '${AITID-}'"
@@ -114,11 +126,11 @@ alias "AI,= ai:cat << '${AITID-}'"
 # MUST be first! Differentiates first call (empty) from all nested calls.
 export AITAG="${AITAG:-"$(ai:tag:3)"}"
 
-# Unique per conversation thread; persists across sessions if AISID matches.
+# Unique per conversation thread; persists across calls.
 export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
 export AISID="${AISID:-"$AITID"}"
 
-# AI model to use; default is claude.
+# AI model to use; default is 'claude'.
 export AIGEN="${AIGEN:-"claude"}"
 export AIMOD="${AIMOD:-}"
 
@@ -126,5 +138,6 @@ export AIMOD="${AIMOD:-}"
 export AIWTF="${AIWTF:-}"
 
 if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
+  # Undifferentiated role claimed by Copilot in VSCode.
   AIMOD="architect"
 fi
