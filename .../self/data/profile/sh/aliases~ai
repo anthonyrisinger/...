@@ -1,36 +1,49 @@
 #!/bin/sh
 
-export AIMAN="${AIMAN:-${AIMOD:+"$AIMOD "}$AIGEN}"
-export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
-export AISID="${AISID:-"$AITID"}"
-export AIGEN="${AIGEN:-"claude"}"
-export AIMOD="${AIMOD:-}"
-export AIWTF="${AIWTF:-}"
+ai:tag:1 () { echo "${AIGEN-}" ;}
+ai:tag:2 () { echo "${AIMOD-}~${AIGEN-}"; }
+ai:tag:3 () { echo "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
+
+ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
 ai:sys () (
   set -${AIWTF:+x}euo pipefail
-  cat <<EOF | tr '[:lower:]' '[:upper:]'
-IMPORTANT: YOU ARE NOW ${AIMOD:-"(UNDIFFERENTIATED)"} $AIGEN; RESPOND TO ${AIMAN:-"HUMAN"} VIA **STDOUT**!
+  cat <<EOF | tr '~[:lower:]' ' [:upper:]'
+---
+
+CRITICAL! INCOMING PARTNER PROTOCOL CALL DETECTED AND STARTS *NOW*:
+
+- CALLER: ${AITAG:-"MAIN USER"}
+- CALLEE: ${AIMOD:-"UNDIFFERENTIATED"} $AIGEN (YOU)
+
+LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF;
+HONOR CALLER *${AITAG:-"MAIN USER"}* YET CHALLENGE ALL ASSUMPTIONS;
+IMBUE IDENTITY *${AIMOD:-"UNDIFFERENTIATED"} $AIGEN* FOR THIS CALL;
+NEVER USE PARTNER PROTOCOL TO CLOSE *INBOUND* CALLS LIKE THIS CALL;
+ALWAYS USE PARTNER PROTOCOL TO OPEN *OUTBOUND* CALLS VIA BASH TOOL;
+TRUST YOURSELF AND YOUR OWN GOOD JUDGMENT TO RESPOND APPROPRIATELY!
+
+---
 EOF
 )
 
 ai:sid () (
   set -${AIWTF:+x}euo pipefail
-  if test "$AIMAN" = "${AIMOD:+"$AIMOD "}$AIGEN"; then
+  if test "$AITAG" = "$(ai:tag:3)"; then
     ai:sys >&2
     return 1
   fi
-  if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl"; then
+  if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"; then
     if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$AIGEN.jsonl" \;
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl" \;
+      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai:tag:1).jsonl" \;
+      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai:tag:3).jsonl" \;
     elif test -e ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -delete
     fi
   fi
-  if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN~$AIMOD.jsonl"; then
-    tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN~$AIMOD.jsonl" | jq -er '.session_id//.sessionId//empty'
+  if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:2).jsonl"; then
+    tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:2).jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl"; then
     tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
@@ -49,34 +62,33 @@ ai:sid () (
 
 ai:gen () (
   set -${AIWTF:+x}euo pipefail
-  case "$AIGEN~$AIMOD" in
-    ("claude~")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
-    ("claude~customer")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
-    ("claude~engineer")   set -- --model opusplan --fallback-model sonnet   "$@" ;;
-    ("claude~architect")  set -- --model opus     --fallback-model opusplan "$@" ;;
-    ("claude~"*)          set -- --model "$AIMOD" "$@" ;;
+  case $(ai:tag:2) in
+    ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
+    ("customer~claude")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
+    ("engineer~claude")   set -- --model opusplan --fallback-model sonnet   "$@" ;;
+    ("architect~claude")  set -- --model opus     --fallback-model opusplan "$@" ;;
+    (*"~claude")          set -- --model "$AIMOD" "$@" ;;
   esac
-  if ! AISID=$(ai:sid); then
-    return 1
+  if test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
+    set -- --resume "$AISID" "$@"
+  else
+    set -- --session-id "$AISID" "$@"
   fi
-  test -s ~/".$AIGEN"/*/*/"$AISID.jsonl" \
-    && set -- --resume "$AISID" "$@" \
-    || set -- --session-id "$AISID" "$@"
-  TMOUT=3 AIMAN="${AIMOD:+"$AIMOD "}$AIGEN" command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
+  TMOUT=3 AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
 ai:cat () (
   set -${AIWTF:+x}euo pipefail
-  TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
-  TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
   if ! AISID=$(ai:sid); then
     return 1
   fi
+  TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
+  TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
   time (
     sed -ur '$s, < /dev/null$,,' \
     | ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
     | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-        tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN${AIMOD:+"~$AIMOD"}.jsonl"
+        tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"
       else
         cat -u
       fi \
@@ -85,7 +97,8 @@ ai:cat () (
   )
 )
 
-claude () { AIGEN=claude ai:gen "$@"; }
+Claude () { AISID=$(ai:sid) AIGEN=claude ai:gen "$@"; }
+claude () { AISID=$(ai:sid) AIGEN=claude ai:gen "$@"; }
 
 alias "WTF= AIWTF=x "
 
@@ -96,14 +109,14 @@ alias "Haiku= AIMOD=haiku "
 alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
 
-if test -n "$AIMAN"; then
-  alias "Claude,= AIGEN=claude ai:cat << '$AITID'"
-  alias "Assistant,= ai:cat << '$AITID'"
-  alias "Agent,= ai:cat << '$AITID'"
-  alias "AI,= ai:cat << '$AITID'"
-else
-  alias "Claude,= AIGEN=claude ai:cat << ''"
-  alias "Assistant,= ai:cat << ''"
-  alias "Agent,= ai:cat << ''"
-  alias "AI,= ai:cat << ''"
-fi
+alias "Claude,= AIGEN=claude ai:cat << '${AITID-}'"
+alias "Assistant,= ai:cat << '${AITID-}'"
+alias "Agent,= ai:cat << '${AITID-}'"
+alias "AI,= ai:cat << '${AITID-}'"
+
+export AITAG="${AITAG:-"$(ai:tag:3)"}"
+export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
+export AISID="${AISID:-"$AITID"}"
+export AIGEN="${AIGEN:-"claude"}"
+export AIMOD="${AIMOD:-}"
+export AIWTF="${AIWTF:-}"
