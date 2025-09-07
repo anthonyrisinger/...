@@ -111,11 +111,18 @@ alias "Assistant,= ai:cat << '${AITID-}'"
 alias "Agent,= ai:cat << '${AITID-}'"
 alias "AI,= ai:cat << '${AITID-}'"
 
+# MUST be first! Differentiates first call (empty) from all nested calls.
 export AITAG="${AITAG:-"$(ai:tag:3)"}"
+
+# Unique per conversation thread; persists across sessions if AISID matches.
 export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
 export AISID="${AISID:-"$AITID"}"
+
+# AI model to use; default is claude.
 export AIGEN="${AIGEN:-"claude"}"
 export AIMOD="${AIMOD:-}"
+
+# If set, enables debugging output.
 export AIWTF="${AIWTF:-}"
 
 if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
