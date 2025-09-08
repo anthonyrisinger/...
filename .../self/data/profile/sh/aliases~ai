@@ -80,6 +80,7 @@ ai:gen () (
   else
     set -- --session-id "$AISID" "$@"
   fi
+  # System prompt MUST be generated before tag changes.
   TMOUT=3 AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 )
 
