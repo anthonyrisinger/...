@@ -88,19 +88,37 @@ ai:cat () (
   if ! AISID=$(ai:sid); then
     return 1
   fi
+  cat \
+  | ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
+  | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
+      tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"
+    else
+      cat -u
+    fi \
+  | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
+  | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n(TODO: TOOLS RAN HERE)\\n\\n,g'
+)
+
+ai:ask () (
+  set -${AIWTF:+x}euo pipefail
   TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
   TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
-  time (
-    sed -ur '$s, < /dev/null$,,' \
-    | ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
-    | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-        tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"
-      else
-        cat -u
-      fi \
-    | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
-    | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n(TODO: TOOLS RAN HERE)\\n\\n,g'
-  )
+  (
+    if test -n "$AIMOD"; then
+      echo -n "$(tr '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
+    fi
+    echo -e "$(tr '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
+    cat \
+    | sed -ur '$s, < /dev/null$,,'
+    echo -ne "\nThank you,\n\n-"
+    paste -d '\0' \
+      <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c1 | tr '[a-z]' '[A-Z]') \
+      <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c2- | tr '[A-Z]' '[a-z]') \
+      | tr '\n' ' ' \
+      | sed 's, $,,'
+    echo
+  ) \
+  | time ai:cat "$@"
 )
 
 # Automatically re-link to current session.
@@ -119,10 +137,10 @@ alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
 
 # Heredoc aliases for interactive use.
-alias "Claude,= AIGEN=claude ai:cat << '${AITID-}'"
-alias "Assistant,= ai:cat << '${AITID-}'"
-alias "Agent,= ai:cat << '${AITID-}'"
-alias "AI,= ai:cat << '${AITID-}'"
+alias "Claude,= AIGEN=claude ai:ask << '${AITID-}'"
+alias "Assistant,= ai:ask << '${AITID-}'"
+alias "Agent,= ai:ask << '${AITID-}'"
+alias "AI,= ai:ask << '${AITID-}'"
 
 # MUST be first! Differentiates first call (empty) from all nested calls.
 export AITAG="${AITAG:-"$(ai:tag:3)"}"
