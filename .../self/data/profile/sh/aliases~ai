@@ -3,9 +3,9 @@
 # Aliases and functions for AI interaction via partner protocol.
 
 # Generate current identity tags.
-ai:tag:1 () { echo "${AIGEN-}" ;}
-ai:tag:2 () { echo "${AIMOD-}~${AIGEN-}"; }
-ai:tag:3 () { echo "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
+ai:tag:1 () { echo -n "${AIGEN-}" ;}
+ai:tag:2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
+ai:tag:3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 
 # List all relevant environment variables.
 ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
