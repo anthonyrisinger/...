@@ -143,7 +143,7 @@ alias "Agent,= ai:ask << '${AITID-}'"
 alias "AI,= ai:ask << '${AITID-}'"
 
 # MUST be first! Differentiates first call (empty) from all nested calls.
-export AITAG="${AITAG:-"$(ai:tag:3)"}"
+export AITAG="$(ai:tag:3)"
 
 # Unique per conversation thread; persists across calls.
 export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
