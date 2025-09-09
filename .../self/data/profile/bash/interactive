@@ -134,7 +134,7 @@ history -a
 
 # auto-update SSH_AUTH_SOCK within running shells
 PROMPT_COMMAND+='
-if [[ -n ${TMUX} && -n ${SSH_AUTH_SOCK} ]]; then
+if [[ -n ${TMUX-} && -n ${SSH_AUTH_SOCK} ]]; then
     unset SSH_AUTH_SOCK
     export $(tmux show-environment | grep -E "^SSH_AUTH_SOCK")
 fi
