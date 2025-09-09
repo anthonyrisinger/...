@@ -11,29 +11,56 @@ ai:tag:3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
 # Standard system prompt for all calls.
-ai:sys () (
-  set -${AIWTF:+x}euo pipefail
-  cat <<EOF | tr '~[:lower:]' ' [:upper:]'
-**PARTNER PROTOCOL:**
-- REMOTE CALLER IS *${AITAG:-"MAIN USER"}* SEEKING RESPONSE ON STDIO;
+ai:sys () {
+  cat <<EOF | tr '~' ' '
+**PARTNER PROTOCOL HOWTO INSTRUCTIONS:**
+
+- REMOTE CALLER IS *${AITAG:-"main user"}* SEEKING RESPONSE ON STDIO;
 - LOCAL CALLEE IS *${AIMOD:+$AIMOD }$AIGEN* CONNECTED TO STDIO (YOU);
 - LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF;
-- HONOR CALLER *${AITAG:-"MAIN USER"}* YET CHALLENGE ALL ASSUMPTIONS;
-- IMBUE IDENTITY *${AIMOD:+$AIMOD }$AIGEN* FOR ENTIRETY OF THIS CALL;
+- HONOR CALLER *${AITAG:-"main user"}* YET CHALLENGE ALL ASSUMPTIONS;
+- EMBODY PERSONA *${AIMOD:+$AIMOD }$AIGEN* FOR ENTIRETY OF THIS CALL;
 - NEVER USE PARTNER PROTOCOL TO CLOSE *INBOUND* CALLS LIKE THIS CALL;
 - ALWAYS USE PARTNER PROTOCOL TO OPEN *OUTBOUND* CALLS VIA BASH TOOL;
-- LONGER TIMEOUTS ARE REQUIRED TO AVOID *ABORTING* CALLS PREMATURELY;
+- 10 MIN TIMEOUTS ARE REQUIRED TO AVOID *ABORTING* CALLS PREMATURELY;
 - TRUST YOURSELF AND YOUR OWN GOOD JUDGMENT TO RESPOND APPROPRIATELY!
-EOF
+
+**PARTNER PROTOCOL STATE INSTRUCTIONS:**
+
+- AITAG=${AITAG:-"(empty)"}
+- AITID=${AITID:-"(empty)"}
+- AISID=${AISID:-"(empty)"}
+- AIGEN=${AIGEN:-"(empty)"}
+- AIMOD=${AIMOD:-"(empty)"}
+- AIWTF=${AIWTF:-"(empty)"}
+
+**PARTNER PROTOCOL START INSTRUCTIONS:**
+
+- FOLLOW *ALL* START INSTRUCTIONS **BEFORE** INITIATING OUTBOUND CALLS;
+- REALIZE \`... Claude,\` IS A SHELL ALIAS AND SHOULD BE USED VERBATIM;
+$(
+case $(ai:tag:2) in
+  ("~claude")
+    echo '- ONCE: RUN `Architect Claude,\\n\\nPING?\\n\\n-Claude\\n` ALIAS IN **BASH TOOL**;'
+    echo '- ONCE: RUN `Customer Claude,\\n\\nPING?\\n\\n-Claude\\n` ALIAS IN **BASH TOOL**;'
+    ;;
+  ("architect~claude")
+    echo '- ONCE: RUN `Engineer Claude,\\n\\nPING?\\n\\n-Architect Claude\\n` ALIAS IN **BASH TOOL** AS WRITTEN;'
+    ;;
+  ("customer~claude")
+    echo '- ONCE: RUN `Engineer Claude,\\n\\nPING?\\n\\n-Customer Claude\\n` ALIAS IN **BASH TOOL**;'
+    ;;
+  ("engineer~claude")
+    echo '- CRITICAL: **NEVER** CALL OTHERS VIA PARTNER PROTOCOL YOU MUST USE STDIO **ONLY**;'
+    ;;
+esac
 )
+- RUN ai:sys IN **BASH TOOL** WHENEVER NEEDED TO REGENERATE THIS SYSTEM PROMPT!
+EOF
+}
 
 # Determine current session ID, forking or starting new as needed.
-ai:sid () (
-  set -${AIWTF:+x}euo pipefail
-  if test "$AITAG" = "$(ai:tag:3)"; then
-    ai:sys >&2
-    return 1
-  fi
+ai:sid () {
   if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"; then
     if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
@@ -59,11 +86,10 @@ ai:sid () (
   else
     echo "$AITID"
   fi
-)
+}
 
 # Non-streamed chat with full interactive output.
-ai:gen () (
-  set -${AIWTF:+x}euo pipefail
+ai:gen () {
   case $(ai:tag:2) in
     ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
     ("customer~claude")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
@@ -78,16 +104,12 @@ ai:gen () (
   fi
   # System prompt MUST be generated before tag changes.
   TMOUT=3 AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
-)
+}
 
 # Streamed chat with inline tool-use markers.
-ai:cat () (
-  set -${AIWTF:+x}euo pipefail
-  if ! AISID=$(ai:sid); then
-    return 1
-  fi
-  cat \
-  | ai:gen "$@" --dangerously-skip-permissions --print --verbose --output-format=stream-json \
+ai:cat () {
+  cat -u \
+  | ai:gen "$@" --print --verbose --output-format=stream-json \
   | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"
     else
@@ -95,10 +117,9 @@ ai:cat () (
     fi \
   | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n(TODO: TOOLS RAN HERE)\\n\\n,g'
-)
+}
 
 ai:ask () (
-  set -${AIWTF:+x}euo pipefail
   TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
   TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
   time (
@@ -109,7 +130,7 @@ ai:ask () (
       echo -e "$(tr '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
       cat \
       | sed -ur '${s, < /dev/null$,,;/^$/d;}'
-      echo -ne "\n\nThank you,\n\n-"
+      echo -ne "\n-"
       paste -d '\0' \
         <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c1 | tr '[a-z]' '[A-Z]') \
         <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c2- | tr '[A-Z]' '[a-z]') \
@@ -117,13 +138,24 @@ ai:ask () (
         | sed '$s, $, (stdout),'
       echo
     ) \
-    | ai:cat "$@"
+    | ai:cat --dangerously-skip-permissions "$@"
   )
 )
 
+# Wrapper to set strict mode and current session ID.
+ai:run () (
+  set -${AIWTF:+x}euo pipefail
+  if test "$AITAG" = "$(ai:tag:3)"; then
+    ai:sys >&2
+    return 1
+  fi
+  AISID=$(ai:sid)
+  "$1" "${@:2}"
+)
+
 # Automatically re-link to current session.
-Claude () { AISID=$(ai:sid) AIGEN=claude ai:gen "$@"; }
-claude () { AISID=$(ai:sid) AIGEN=claude ai:gen "$@"; }
+Claude () { AIGEN=claude ai:run ai:gen "$@"; }
+claude () { AIGEN=claude ai:run ai:gen "$@"; }
 
 # Debugging alias.
 alias "WTF= AIWTF=x "
@@ -137,10 +169,10 @@ alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
 
 # Heredoc aliases for interactive use.
-alias "Claude,= AIGEN=claude ai:ask << '${AITID-}'"
-alias "Assistant,= ai:ask << '${AITID-}'"
-alias "Agent,= ai:ask << '${AITID-}'"
-alias "AI,= ai:ask << '${AITID-}'"
+alias "Claude,= AIGEN=claude ai:run ai:ask << '${AITID-}'"
+alias "Assistant,= ai:run ai:ask << '${AITID-}'"
+alias "Agent,= ai:run ai:ask << '${AITID-}'"
+alias "AI,= ai:run ai:ask << '${AITID-}'"
 
 # MUST be first! Differentiates first call (empty) from all nested calls.
 export AITAG="$(ai:tag:3)"
