@@ -14,9 +14,9 @@ ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 ai:sys () (
   set -${AIWTF:+x}euo pipefail
   cat <<EOF | tr '~[:lower:]' ' [:upper:]'
-CRITICAL! INCOMING PARTNER PROTOCOL CALL DETECTED AND STARTS *NOW*:
+**CRITICAL!** ${AITAG:-"MAIN USER"} IS CALLING YOU ${AIMOD:-"UNDIFFERENTIATED"} $AIGEN:
 
-- CALLER: ${AITAG:-"MAIN USER"}
+- CALLER: ${AITAG:-"MAIN USER"} (THEM)
 - CALLEE: ${AIMOD:-"UNDIFFERENTIATED"} $AIGEN (YOU)
 
 LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF;
@@ -109,13 +109,13 @@ ai:ask () (
     fi
     echo -e "$(tr '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
     cat \
-    | sed -ur '$s, < /dev/null$,,'
-    echo -ne "\nThank you,\n\n-"
+    | sed -ur '${s, < /dev/null$,,;/^$/d;}'
+    echo -ne "\n\nThank you,\n\n-"
     paste -d '\0' \
       <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c1 | tr '[a-z]' '[A-Z]') \
       <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c2- | tr '[A-Z]' '[a-z]') \
       | tr '\n' ' ' \
-      | sed 's, $,,'
+      | sed '$s, $, (stdout),'
     echo
   ) \
   | time ai:cat "$@"
