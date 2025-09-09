@@ -101,22 +101,24 @@ ai:ask () (
   set -${AIWTF:+x}euo pipefail
   TIMEFORMAT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %3lRs / $AITID"
   TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
-  (
-    if test -n "$AIMOD"; then
-      echo -n "$(tr '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
-    fi
-    echo -e "$(tr '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
-    cat \
-    | sed -ur '${s, < /dev/null$,,;/^$/d;}'
-    echo -ne "\n\nThank you,\n\n-"
-    paste -d '\0' \
-      <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c1 | tr '[a-z]' '[A-Z]') \
-      <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c2- | tr '[A-Z]' '[a-z]') \
-      | tr '\n' ' ' \
-      | sed '$s, $, (stdout),'
-    echo
-  ) \
-  | time ai:cat "$@"
+  time (
+    (
+      if test -n "$AIMOD"; then
+        echo -n "$(tr '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
+      fi
+      echo -e "$(tr '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
+      cat \
+      | sed -ur '${s, < /dev/null$,,;/^$/d;}'
+      echo -ne "\n\nThank you,\n\n-"
+      paste -d '\0' \
+        <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c1 | tr '[a-z]' '[A-Z]') \
+        <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c2- | tr '[A-Z]' '[a-z]') \
+        | tr '\n' ' ' \
+        | sed '$s, $, (stdout),'
+      echo
+    ) \
+    | ai:cat "$@"
+  )
 )
 
 # Automatically re-link to current session.
