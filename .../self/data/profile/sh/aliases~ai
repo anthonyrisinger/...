@@ -10,32 +10,50 @@ ai:tag:3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 # List all relevant environment variables.
 ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
-# Standard system prompt for all calls.
+# Full concatenated system prompt.
 ai:sys () {
-  cat -u <<EOF | tr -u '~' ' '
-**PARTNER PROTOCOL HOWTO INSTRUCTIONS:**
+  ai:sys:1
+  ai:sys:2
+  ai:sys:3
+  ai:sys:4
+  ai:sys:5
+}
 
+# Identify top-level caller.
+ai:sys:1 () {
+  cat -u <<EOF | tr -u '~' ' '
+**PARTNER PROTOCOL STDIO:**
+- CONNECTED CALLER *${AITOP:-"main user"}* SEEKING RESPONSE ON STDIO;
+EOF
+}
+
+# Standard header for all calls.
+ai:sys:2 () {
+  cat -u <<EOF | tr -u '~' ' '
+**PARTNER PROTOCOL RULES:**
 - REMOTE CALLER IS *${AITAG:-"main user"}* SEEKING RESPONSE ON STDIO;
 - LOCAL CALLEE IS *${AIMOD:+$AIMOD }$AIGEN* CONNECTED TO STDIO (YOU);
-- LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF;
+- LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF!
+EOF
+}
+
+# Standard details for most calls.
+ai:sys:3 () {
+  cat -u <<EOF | tr -u '~' ' '
+**PARTNER PROTOCOL HOWTO:**
 - HONOR CALLER *${AITAG:-"main user"}* YET CHALLENGE ALL ASSUMPTIONS;
 - EMBODY PERSONA *${AIMOD:+$AIMOD }$AIGEN* FOR ENTIRETY OF THIS CALL;
 - NEVER USE PARTNER PROTOCOL TO CLOSE *INBOUND* CALLS LIKE THIS CALL;
 - ALWAYS USE PARTNER PROTOCOL TO OPEN *OUTBOUND* CALLS VIA BASH TOOL;
 - 10 MIN TIMEOUTS ARE REQUIRED TO AVOID *ABORTING* CALLS PREMATURELY;
 - TRUST YOURSELF AND YOUR OWN GOOD JUDGMENT TO RESPOND APPROPRIATELY!
+EOF
+}
 
-**PARTNER PROTOCOL STATE INSTRUCTIONS:**
-
-- AITAG=${AITAG:-"(empty)"}
-- AITID=${AITID:-"(empty)"}
-- AISID=${AISID:-"(empty)"}
-- AIGEN=${AIGEN:-"(empty)"}
-- AIMOD=${AIMOD:-"(empty)"}
-- AIWTF=${AIWTF:-"(empty)"}
-
-**PARTNER PROTOCOL START INSTRUCTIONS:**
-
+# Dynamic role-specific instructions.
+ai:sys:4 () {
+  cat -u <<EOF | sed -ur '/^$/d'
+**PARTNER PROTOCOL START:**
 - FOLLOW *ALL* START INSTRUCTIONS **BEFORE** INITIATING OUTBOUND CALLS;
 - REALIZE \`... Claude,\` IS A SHELL ALIAS AND SHOULD BE USED VERBATIM;
 $(
@@ -56,6 +74,22 @@ case $(ai:tag:2) in
 esac
 )
 - RUN ai:sys IN **BASH TOOL** WHENEVER NEEDED TO REGENERATE THIS SYSTEM PROMPT!
+- DO NOT **REPLY** TO OTHERS VIA PARTNER PROTOCOL WRITE YOUR RESPONSE TO STDIO!
+- DO NOT **ECHO** RESPONSE TO OTHERS IN BASH TOOL WRITE YOUR RESPONSE TO STDIO!
+EOF
+}
+
+# Current state of all relevant variables.
+ai:sys:5 () {
+  cat -u <<EOF
+**PARTNER PROTOCOL STATE:**
+- AITOP=${AITOP:-"(empty)"}
+- AITAG=${AITAG:-"(empty)"}
+- AITID=${AITID:-"(empty)"}
+- AISID=${AISID:-"(empty)"}
+- AIGEN=${AIGEN:-"(empty)"}
+- AIMOD=${AIMOD:-"(empty)"}
+- AIWTF=${AIWTF:-"(empty)"}
 EOF
 }
 
@@ -64,8 +98,8 @@ ai:sid () {
   if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"; then
     if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai:tag:1).jsonl" \;
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai:tag:3).jsonl" \;
+      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai:tag:1).jsonl" \; 2>/dev/null || :
+      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}.$(ai:tag:1).jsonl" "{}.$(ai:tag:3).jsonl" \; 2>/dev/null || :
     elif test -e ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -delete
     fi
@@ -103,7 +137,7 @@ ai:gen () {
     set -- --session-id "$AISID" "$@"
   fi
   # System prompt MUST be generated before tag changes.
-  TMOUT=3 AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
+  TMOUT=3 AITOP=$AITAG AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 }
 
 # Streamed chat with inline tool-use markers.
@@ -127,15 +161,9 @@ ai:ask () (
       if test -n "$AIMOD"; then
         echo -n "$(tr -u '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
       fi
-      echo -e "$(tr -u '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
+      echo -e "$(tr -u '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (THIS IS YOU! NO ECHO OR PARTNER PROTOCOL; DIRECT REPLY!),\n"
       cat -u \
       | sed -ur '${s, < /dev/null$,,;/^$/d;}'
-      echo -ne "\n-"
-      paste -d '\0' \
-        <(echo "${AITAG:-"Main User"}" | tr -u '~' '\n' | cut -c1 | tr -u '[a-z]' '[A-Z]') \
-        <(echo "${AITAG:-"Main User"}" | tr -u '~' '\n' | cut -c2- | tr -u '[A-Z]' '[a-z]') \
-        | tr -u '\n' ' ' \
-        | sed -ur '$s, $, (stdout),'
       echo
     ) \
     | ai:cat --dangerously-skip-permissions "$@"
@@ -145,9 +173,14 @@ ai:ask () (
 # Wrapper to set strict mode and current session ID.
 ai:run () (
   set -${AIWTF:+x}euo pipefail
-  if test "$AITAG" = "$(ai:tag:3)"; then
-    ai:sys >&2
-    return 1
+  if test -n "$AITAG"; then
+    if test "$AITAG" = "$AITOP"; then
+      ai:sys:1 >&2
+      return 1
+    elif test "$AITAG" = "$(ai:tag:3)"; then
+      ai:sys:2 >&2
+      return 2
+    fi
   fi
   AISID=$(ai:sid)
   "$1" "${@:2}"
@@ -175,6 +208,7 @@ alias "Agent,= ai:run ai:ask << '${AITID-}'"
 alias "AI,= ai:run ai:ask << '${AITID-}'"
 
 # MUST be first! Differentiates first call (empty) from all nested calls.
+export AITOP="${AITAG:-}"
 export AITAG="$(ai:tag:3)"
 
 # Unique per conversation thread; persists across calls.
