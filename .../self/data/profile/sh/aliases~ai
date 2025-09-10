@@ -12,7 +12,7 @@ ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
 # Standard system prompt for all calls.
 ai:sys () {
-  cat <<EOF | tr '~' ' '
+  cat -u <<EOF | tr -u '~' ' '
 **PARTNER PROTOCOL HOWTO INSTRUCTIONS:**
 
 - REMOTE CALLER IS *${AITAG:-"main user"}* SEEKING RESPONSE ON STDIO;
@@ -125,17 +125,17 @@ ai:ask () (
   time (
     (
       if test -n "$AIMOD"; then
-        echo -n "$(tr '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
+        echo -n "$(tr -u '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
       fi
-      echo -e "$(tr '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
-      cat \
+      echo -e "$(tr -u '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (you),\n"
+      cat -u \
       | sed -ur '${s, < /dev/null$,,;/^$/d;}'
       echo -ne "\n-"
       paste -d '\0' \
-        <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c1 | tr '[a-z]' '[A-Z]') \
-        <(echo "${AITAG:-"Main User"}" | tr '~' '\n' | cut -c2- | tr '[A-Z]' '[a-z]') \
-        | tr '\n' ' ' \
-        | sed '$s, $, (stdout),'
+        <(echo "${AITAG:-"Main User"}" | tr -u '~' '\n' | cut -c1 | tr -u '[a-z]' '[A-Z]') \
+        <(echo "${AITAG:-"Main User"}" | tr -u '~' '\n' | cut -c2- | tr -u '[A-Z]' '[a-z]') \
+        | tr -u '\n' ' ' \
+        | sed -ur '$s, $, (stdout),'
       echo
     ) \
     | ai:cat --dangerously-skip-permissions "$@"
@@ -178,7 +178,7 @@ alias "AI,= ai:run ai:ask << '${AITID-}'"
 export AITAG="$(ai:tag:3)"
 
 # Unique per conversation thread; persists across calls.
-export AITID="${AITID:-"$(uuidgen | tr ABCDEF abcdef)"}"
+export AITID="${AITID:-"$(uuidgen | tr -u ABCDEF abcdef)"}"
 export AISID="${AISID:-"$AITID"}"
 
 # AI model to use; default is 'claude'.
