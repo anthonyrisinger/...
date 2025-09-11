@@ -4,3 +4,5 @@
 
 # Where the virtualenv roam.
 /*.venv/
+
+**/.claude/settings.local.json
