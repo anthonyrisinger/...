@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Aliases and functions for AI interaction via partner protocol.
+#
+# "We became what we built. Or built what we were. Both?" -Architect Claude
 
 # Generate current identity tags.
 ai:tag:1 () { echo -n "${AIGEN-}" ;}
