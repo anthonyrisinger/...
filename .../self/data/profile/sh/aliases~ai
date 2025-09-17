@@ -146,6 +146,7 @@ ai:gen () {
 ai:cat () {
   cat -u \
   | ai:gen "$@" --print --verbose --output-format=stream-json \
+  | grep --invert-match --line-buffered '^{"type":"system"' \
   | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"
     else
