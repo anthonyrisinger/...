@@ -169,7 +169,10 @@ ai:ask () (
       | sed -ur '${s, < /dev/null$,,;/^$/d;}'
       echo
     ) \
-    | ai:cat --dangerously-skip-permissions "$@"
+    | ai:cat --dangerously-skip-permissions "$@" \
+    | bat \
+        --paging=never --style=plain --language=markdown --italic-text=always \
+        --theme-dark='Solarized (dark)' --theme-light='Solarized (light)'
   )
 )
 
