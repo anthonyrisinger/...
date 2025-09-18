@@ -37,15 +37,15 @@ ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
 # Full concatenated system prompt.
 ai:sys () {
-  ai:sys:1
-  ai:sys:2
-  ai:sys:3
-  ai:sys:4
-  ai:sys:5
+  ai:sys:stdio
+  ai:sys:rules
+  ai:sys:howto
+  ai:sys:start
+  ai:sys:state
 }
 
 # Identify top-level caller.
-ai:sys:1 () {
+ai:sys:stdio () {
   cat -u <<EOF | tr -u '~' ' '
 **PARTNER PROTOCOL STDIO:**
 - CONNECTED CALLER *${AITOP:-"main user"}* SEEKING RESPONSE ON STDIO;
@@ -53,7 +53,7 @@ EOF
 }
 
 # Standard header for all calls.
-ai:sys:2 () {
+ai:sys:rules () {
   cat -u <<EOF | tr -u '~' ' '
 **PARTNER PROTOCOL RULES:**
 - REMOTE CALLER IS *${AITOP:-"main user"}* SEEKING RESPONSE ON STDIO;
@@ -63,7 +63,7 @@ EOF
 }
 
 # Standard details for most calls.
-ai:sys:3 () {
+ai:sys:howto () {
   cat -u <<EOF | tr -u '~' ' '
 **PARTNER PROTOCOL HOWTO:**
 - HONOR CALLER *${AITOP:-"main user"}* YET CHALLENGE ALL ASSUMPTIONS;
@@ -76,7 +76,7 @@ EOF
 }
 
 # Dynamic role-specific instructions.
-ai:sys:4 () {
+ai:sys:start () {
   cat -u <<EOF | sed -ur '/^$/d'
 **PARTNER PROTOCOL START:**
 - FOLLOW *ALL* START INSTRUCTIONS **BEFORE** INITIATING OUTBOUND CALLS;
@@ -103,7 +103,7 @@ EOF
 }
 
 # Current state of all relevant variables.
-ai:sys:5 () {
+ai:sys:state () {
   cat -u <<EOF
 **PARTNER PROTOCOL STATE:**
 - AITOP=${AITOP:-"(empty)"}
@@ -201,10 +201,10 @@ ai:run () (
   set -${AIWTF:+x}euo pipefail
   if test -n "$AITAG"; then
     if test "$AITAG" = "$AITOP"; then
-      ai:sys:1 >&2
+      ai:sys:stdio >&2
       return 1
     elif test "$AITAG" = "$(ai:tag:3)"; then
-      ai:sys:2 >&2
+      ai:sys:rules >&2
       return 2
     fi
   fi
