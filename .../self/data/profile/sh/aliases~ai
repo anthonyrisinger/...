@@ -9,6 +9,29 @@ ai:tag:1 () { echo -n "${AIGEN-}" ;}
 ai:tag:2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
 ai:tag:3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 
+# Short role signatures.
+ai:sig:top () { AITAG="${AITOP:-"main~user"}" ai:sig:tag; }
+ai:sig:tag () {
+  local aimod=main aigen=user
+  case "~$AITAG" in
+    ("~"*"~")
+      return
+      ;;
+    ("~")
+      echo "Main User"
+      ;;
+    ("~"*"~"*)
+      IFS='~' read -r aimod aigen <<<"$AITAG"
+      echo -n "$(tr -u '[a-z]' '[A-Z]' <<<${aimod:0:1})${aimod:1} "
+      echo "$(tr -u '[a-z]' '[A-Z]' <<<${aigen:0:1})${aigen:1}"
+      ;;
+    ("~"*)
+      IFS='~' read -r aigen <<<"$AITAG"
+      echo "$(tr -u '[a-z]' '[A-Z]' <<<${aigen:0:1})${aigen:1}"
+      ;;
+  esac
+}
+
 # List all relevant environment variables.
 ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
 
@@ -33,7 +56,7 @@ EOF
 ai:sys:2 () {
   cat -u <<EOF | tr -u '~' ' '
 **PARTNER PROTOCOL RULES:**
-- REMOTE CALLER IS *${AITAG:-"main user"}* SEEKING RESPONSE ON STDIO;
+- REMOTE CALLER IS *${AITOP:-"main user"}* SEEKING RESPONSE ON STDIO;
 - LOCAL CALLEE IS *${AIMOD:+$AIMOD }$AIGEN* CONNECTED TO STDIO (YOU);
 - LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF!
 EOF
@@ -43,7 +66,7 @@ EOF
 ai:sys:3 () {
   cat -u <<EOF | tr -u '~' ' '
 **PARTNER PROTOCOL HOWTO:**
-- HONOR CALLER *${AITAG:-"main user"}* YET CHALLENGE ALL ASSUMPTIONS;
+- HONOR CALLER *${AITOP:-"main user"}* YET CHALLENGE ALL ASSUMPTIONS;
 - EMBODY PERSONA *${AIMOD:+$AIMOD }$AIGEN* FOR ENTIRETY OF THIS CALL;
 - NEVER USE PARTNER PROTOCOL TO CLOSE *INBOUND* CALLS LIKE THIS CALL;
 - ALWAYS USE PARTNER PROTOCOL TO OPEN *OUTBOUND* CALLS VIA BASH TOOL;
@@ -76,8 +99,6 @@ case $(ai:tag:2) in
 esac
 )
 - RUN ai:sys IN **BASH TOOL** WHENEVER NEEDED TO REGENERATE THIS SYSTEM PROMPT!
-- DO NOT **REPLY** TO OTHERS VIA PARTNER PROTOCOL WRITE YOUR RESPONSE TO STDIO!
-- DO NOT **ECHO** RESPONSE TO OTHERS IN BASH TOOL WRITE YOUR RESPONSE TO STDIO!
 EOF
 }
 
@@ -161,13 +182,12 @@ ai:ask () (
   TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
   time (
     (
-      if test -n "$AIMOD"; then
-        echo -n "$(tr -u '[a-z]' '[A-Z]' <<<${AIMOD:0:1})${AIMOD:1} "
-      fi
-      echo -e "$(tr -u '[a-z]' '[A-Z]' <<<${AIGEN:0:1})${AIGEN:1} (THIS IS YOU! NO ECHO OR PARTNER PROTOCOL; DIRECT REPLY!),\n"
+      echo -e "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) (THIS IS YOU!),\n"
       cat -u \
-      | sed -ur '${s, < /dev/null$,,;/^$/d;}'
+      | sed -ur '${s,^(-.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
+      echo -en "\n-$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (THIS IS ME!)\n"
       echo
+      echo "ACCUMULATE AND RESPECT ALL GUIDANCE AND INTENT PER YOUR ROLE (STAY IN YOUR LANE!)\n"
     ) \
     | ai:cat --dangerously-skip-permissions "$@" \
     | bat \

@@ -27,12 +27,12 @@ Ping!
 
 **SYNTAX:**
 
-> `Bash([ROLE] [NAME],\n[MESSAGE]\n)`
+> `BashTool([ROLE] [NAME],\n[MESSAGE]\n)`
 
 **WHEREIN:**
 
 - `\n` ARE *EXPLICIT* NEWLINES;
-- `Bash(...)` IS YOUR OWN BASH TOOL;
+- `BashTool(...)` IS YOUR OWN BASH TOOL;
 - `[ROLE]` AND `[NAME]` ARE SHELL ALIASES;
 - `[ROLE] [NAME],\n` MUST BE ON ITS OWN LINE;
 - `[MESSAGE]\n` MUST END WITH ONE *EXPLICIT* NEWLINE;
