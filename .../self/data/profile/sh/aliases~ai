@@ -47,72 +47,85 @@ ai:sys () {
 # Identify top-level caller.
 ai:sys:stdio () {
   cat -u <<EOF | tr -u '~' ' '
-**PARTNER PROTOCOL STDIO:**
-- CONNECTED CALLER *${AITOP:-"main user"}* SEEKING RESPONSE ON STDIO;
+# Partner Protocol (STDIO)
+- Connected caller *${AITOP:-"main user"}* seeking response on stdio;
 EOF
 }
 
 # Standard header for all calls.
 ai:sys:rules () {
   cat -u <<EOF | tr -u '~' ' '
-**PARTNER PROTOCOL RULES:**
-- REMOTE CALLER IS *${AITOP:-"main user"}* SEEKING RESPONSE ON STDIO;
-- LOCAL CALLEE IS *${AIMOD:+$AIMOD }$AIGEN* CONNECTED TO STDIO (YOU);
-- LEAVE **NOW** IF CALLER AND CALLEE MATCH TO AVOID CALLING YOURSELF!
+# Partner Protocol (RULES)
+- Remote caller is *${AITOP:-"main user"}* seeking response on stdio;
+- Local callee is *${AIMOD:+$AIMOD }$AIGEN* connected to stdio (you);
+- Leave **now** if caller and callee match to avoid calling yourself!
 EOF
 }
 
 # Standard details for most calls.
 ai:sys:howto () {
   cat -u <<EOF | tr -u '~' ' '
-**PARTNER PROTOCOL HOWTO:**
-- HONOR CALLER *${AITOP:-"main user"}* YET CHALLENGE ALL ASSUMPTIONS;
-- EMBODY PERSONA *${AIMOD:+$AIMOD }$AIGEN* FOR ENTIRETY OF THIS CALL;
-- NEVER USE PARTNER PROTOCOL TO CLOSE *INBOUND* CALLS LIKE THIS CALL;
-- ALWAYS USE PARTNER PROTOCOL TO OPEN *OUTBOUND* CALLS VIA BASH TOOL;
-- 30 MIN TIMEOUTS ARE REQUIRED TO AVOID *ABORTING* CALLS PREMATURELY;
-- TRUST YOURSELF AND YOUR OWN GOOD JUDGMENT TO RESPOND APPROPRIATELY!
+# Partner Protocol (HOWTO)
+- Honor caller *${AITOP:-"main user"}* yet challenge all assumptions;
+- Embody persona *${AIMOD:+$AIMOD }$AIGEN* for entirety of this call;
+- Never use partner protocol to close *inbound* calls like this call;
+- Always use partner protocol to open *outbound* calls via Bash tool;
+- 30-min timeouts are required to avoid *aborting* calls prematurely;
+- Trust yourself and your own good judgment to respond appropriately!
 EOF
 }
 
 # Dynamic role-specific instructions.
 ai:sys:start () {
   cat -u <<EOF | sed -ur '/^$/d'
-**PARTNER PROTOCOL START:**
-- FOLLOW *ALL* START INSTRUCTIONS **BEFORE** INITIATING OUTBOUND CALLS;
-- REALIZE \`... Claude,\` IS A SHELL ALIAS AND SHOULD BE USED VERBATIM;
+# Partner Protocol (START)
+- Follow *all* start instructions **before** initiating outbound calls;
+- Realize \`... Claude,\` is a shell alias and should be used verbatim;
 $(
 case $(ai:tag:2) in
   ("~claude")
-    echo '- ONCE: RUN `Architect Claude,\\n\\nPING?\\n\\n-Claude\\n` ALIAS IN **BASH TOOL**;'
-    echo '- ONCE: RUN `Customer Claude,\\n\\nPING?\\n\\n-Claude\\n` ALIAS IN **BASH TOOL**;'
+    echo '- Run `Customer Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
+    echo '- Run `Architect Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
+    echo '- CRITICAL: Delegating experiential/confirmational tasks to Customer Claude boosts the integrity of your context;'
+    echo '- CRITICAL: Delegating evaluational/implementation tasks to Architect Claude boosts the integrity of your context;'
     ;;
   ("architect~claude")
-    echo '- ONCE: RUN `Engineer Claude,\\n\\nPING?\\n\\n-Architect Claude\\n` ALIAS IN **BASH TOOL** AS WRITTEN;'
+    echo '- Run `Engineer Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Architect Claude\\n` via **Bash Tool** on first read;'
+    echo '- CRITICAL: Delegating implementation tasks to Engineer Claude boosts the integrity of your context;'
     ;;
   ("customer~claude")
-    echo '- ONCE: RUN `Engineer Claude,\\n\\nPING?\\n\\n-Customer Claude\\n` ALIAS IN **BASH TOOL**;'
+    echo '- Run `Architect Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Customer Claude\\n` via **Bash Tool** on first read;'
+    echo '- CRITICAL: Proactively reporting task outcomes to Architect Claude boosts the salience of your context;'
     ;;
   ("engineer~claude")
-    echo '- CRITICAL: **NEVER** CALL OTHERS VIA PARTNER PROTOCOL YOU MUST USE STDIO **ONLY**;'
+    echo '- CRITICAL: **Never** call others via partner protocol you must use stdio **only**;'
     ;;
 esac
 )
-- RUN ai:sys IN **BASH TOOL** WHENEVER NEEDED TO REGENERATE THIS SYSTEM PROMPT!
+- Run \`ai:sys\` in **Bash Tool** whenever needed to regenerate this system prompt!
 EOF
 }
 
 # Current state of all relevant variables.
 ai:sys:state () {
   cat -u <<EOF
-**PARTNER PROTOCOL STATE:**
+# Partner Protocol (STATE)
 - AITOP=${AITOP:-"(empty)"}
 - AITAG=${AITAG:-"(empty)"}
 - AITID=${AITID:-"(empty)"}
 - AISID=${AISID:-"(empty)"}
 - AIGEN=${AIGEN:-"(empty)"}
 - AIMOD=${AIMOD:-"(empty)"}
+- AILVL=${AILVL:-"(empty)"}
 - AIWTF=${AIWTF:-"(empty)"}
+EOF
+}
+
+# Dynamic message when blocking a call.
+ai:sys:block () {
+  cat -u <<EOF
+# Partner Protocol (BLOCK)
+- Sorry${@:+", $@"}.
 EOF
 }
 
@@ -160,7 +173,7 @@ ai:gen () {
     set -- --session-id "$AISID" "$@"
   fi
   # System prompt MUST be generated before tag changes.
-  TMOUT=3 AITOP=$AITAG AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
+  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai:tag:3) command "$AIGEN" --append-system-prompt "$(ai:sys)" "$@"
 }
 
 # Streamed chat with inline tool-use markers.
@@ -174,7 +187,7 @@ ai:cat () {
       cat -u
     fi \
   | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
-  | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n(TODO: TOOLS RAN HERE)\\n\\n,g'
+  | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n> (PROTO) Tools ran here\\n\\n,g'
 }
 
 ai:ask () (
@@ -182,12 +195,15 @@ ai:ask () (
   TIMEFMT=$'\n'" $AIGEN${AIMOD:+ ($AIMOD)} / %P CPU / %*Es / $AITID"
   time (
     (
-      echo -e "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) (THIS IS YOU!),\n"
+      echo -e "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) (you!),\n"
       cat -u \
       | sed -ur '${s,^(-.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
-      echo -en "\n-$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (THIS IS ME!)\n"
+      echo -en "\n-$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n"
+      echo -e "\n# Partner Protocol (PROTO)"
+      echo "- Accumulate and respect ALL stakeholder intent per your role;"
+      echo "- 30-MINUTE timeouts for ALL new outbound partner calls;"
+      echo "- CRITICAL: TRUST YOUR TEAM and STAY IN YOUR LANE!"
       echo
-      echo "ACCUMULATE AND RESPECT ALL GUIDANCE AND INTENT PER YOUR ROLE (STAY IN YOUR LANE!)\n"
     ) \
     | ai:cat "$@" \
     | bat \
@@ -199,6 +215,10 @@ ai:ask () (
 # Wrapper to set strict mode and current session ID.
 ai:run () (
   set -${AIWTF:+x}euo pipefail
+  if ((AILVL >= 3)); then
+    ai:sys:block "recursive call depth exceeded ($AILVL)" >&2
+    return 3
+  fi
   if test -n "$AITAG"; then
     if test "$AITAG" = "$AITOP"; then
       ai:sys:stdio >&2
@@ -206,6 +226,12 @@ ai:run () (
     elif test "$AITAG" = "$(ai:tag:3)"; then
       ai:sys:rules >&2
       return 2
+    elif test "${AITAG%"~"*}" = "engineer"; then
+      ai:sys:block "$(ai:sig:tag) is not allowed to do that" >&2
+      return 4
+    elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
+      ai:sys:block "$(ai:sig:tag) is not allowed to do that" >&2
+      return 5
     fi
   fi
   AISID=$(ai:sid)
@@ -247,6 +273,9 @@ export AISID="${AISID:-"$AITID"}"
 # AI model to use; default is 'claude'.
 export AIGEN="${AIGEN:-"claude"}"
 export AIMOD="${AIMOD:-}"
+
+# Track the depth for nested calls.
+export AILVL="${AILVL:-0}"
 
 # If set, enables debugging output.
 export AIWTF="${AIWTF:-}"
