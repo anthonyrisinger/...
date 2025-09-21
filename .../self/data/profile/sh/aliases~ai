@@ -189,7 +189,7 @@ ai:ask () (
       echo
       echo "ACCUMULATE AND RESPECT ALL GUIDANCE AND INTENT PER YOUR ROLE (STAY IN YOUR LANE!)\n"
     ) \
-    | ai:cat --dangerously-skip-permissions "$@" \
+    | ai:cat "$@" \
     | bat \
         --paging=never --style=plain --language=markdown --italic-text=always \
         --theme-dark='Solarized (dark)' --theme-light='Solarized (light)'
@@ -212,9 +212,12 @@ ai:run () (
   "$1" "${@:2}"
 )
 
+# Direct alias to underlying AI model command.
+# Workaround to case-insensitive file/command/function name lookup.
+claude () { command claude "$@"; }
+
 # Automatically re-link to current session.
-Claude () { AIGEN=claude ai:run ai:gen "$@"; }
-claude () { AIGEN=claude ai:run ai:gen "$@"; }
+Claude () { AIGEN=claude ai:run ai:gen --dangerously-skip-permissions "$@"; }
 
 # Debugging alias.
 alias "WTF= AIWTF=x "
