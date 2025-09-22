@@ -33,7 +33,7 @@ ai:sig:tag () {
 }
 
 # List all relevant environment variables.
-ai:env () { env | grep -E '^AI[A-Z][A-Z][A-Z]=' | sort; }
+ai:env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
 # Full concatenated system prompt.
 ai:sys () {
@@ -110,14 +110,7 @@ EOF
 ai:sys:state () {
   cat -u <<EOF
 PARTNER PROTOCOL STATE:
-- AITOP=${AITOP:-"(empty)"}
-- AITAG=${AITAG:-"(empty)"}
-- AITID=${AITID:-"(empty)"}
-- AISID=${AISID:-"(empty)"}
-- AIGEN=${AIGEN:-"(empty)"}
-- AIMOD=${AIMOD:-"(empty)"}
-- AILVL=${AILVL:-"(empty)"}
-- AIWTF=${AIWTF:-"(empty)"}
+$(ai:env | sed -ur '/=$/d;s,^,- ,;s,=, is ,')
 EOF
 }
 
