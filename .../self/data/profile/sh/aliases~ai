@@ -37,35 +37,36 @@ ai:env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
 # Full concatenated system prompt.
 ai:sys () {
+  ai:sys:start
   ai:sys:stdio
   ai:sys:rules
   ai:sys:howto
-  ai:sys:start
   ai:sys:state
+  ai:sys:final
 }
 
 # Identify top-level caller.
-ai:sys:stdio () {
+ai:sys:start () {
   cat -u <<EOF | tr -u '~' ' '
-PARTNER PROTOCOL STDIO:
-- Connected caller *${AITOP:-"main user"}* seeking response on stdio;
+PARTNER PROTOCOL START:
+- Connected caller *${AITOP:-"main user"}* seeking response on STDIO;
 EOF
 }
 
 # Standard header for all calls.
-ai:sys:rules () {
+ai:sys:stdio () {
   cat -u <<EOF | tr -u '~' ' '
-PARTNER PROTOCOL RULES:
-- Remote caller is *${AITOP:-"main user"}* seeking response on stdio;
-- Local callee is *${AIMOD:+$AIMOD }$AIGEN* connected to stdio (you);
+PARTNER PROTOCOL STDIO:
+- Remote caller is *${AITOP:-"main user"}* seeking response on STDIO;
+- Local callee is *${AIMOD:+$AIMOD }$AIGEN* connected to STDIO (you);
 - Leave **now** if caller and callee match to avoid calling yourself!
 EOF
 }
 
 # Standard details for most calls.
-ai:sys:howto () {
+ai:sys:rules () {
   cat -u <<EOF | tr -u '~' ' '
-PARTNER PROTOCOL HOWTO:
+PARTNER PROTOCOL RULES:
 - Honor caller *${AITOP:-"main user"}* yet challenge all assumptions;
 - Embody persona *${AIMOD:+$AIMOD }$AIGEN* for entirety of this call;
 - Never use partner protocol to close *inbound* calls like this call;
@@ -76,29 +77,28 @@ EOF
 }
 
 # Dynamic role-specific instructions.
-ai:sys:start () {
+ai:sys:howto () {
   cat -u <<EOF | sed -ur '/^$/d'
-PARTNER PROTOCOL START:
-- Follow *all* start instructions **before** initiating outbound calls;
+PARTNER PROTOCOL HOWTO:
 - Realize \`... Claude,\` is a shell alias and should be used verbatim;
 $(
 case $(ai:tag:2) in
   ("~claude")
-    echo '- Run `Customer Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
-    echo '- Run `Architect Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
-    echo '- CRITICAL: Delegating experiential/confirmational tasks to Customer Claude boosts the integrity of your context;'
-    echo '- CRITICAL: Delegating evaluational/implementation tasks to Architect Claude boosts the integrity of your context;'
+    echo '- Run `Customer Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
+    echo '- Run `Architect Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
+    echo '- HINT: Delegating experiential and confirmational tasks to *Customer Claude* enhances contextual awareness;'
+    echo '- HINT: Delegating evaluational and implementation tasks to *Architect Claude* enhances contextual integrity;'
     ;;
   ("architect~claude")
-    echo '- Run `Engineer Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Architect Claude\\n` via **Bash Tool** on first read;'
-    echo '- CRITICAL: Delegating implementation tasks to Engineer Claude boosts the integrity of your context;'
+    echo '- Run `Engineer Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Architect Claude\\n` via **Bash Tool** on first read;'
+    echo '- HINT: Delegating implementation tasks to *Engineer Claude* enhances contextual coherence;'
     ;;
   ("customer~claude")
-    echo '- Run `Architect Claude,\\n\\nHello, I am the new ... but first I need a rapid/dense/??? status/onboarding/??? ... your perspective ... Thanks,\\n\\n-Customer Claude\\n` via **Bash Tool** on first read;'
-    echo '- CRITICAL: Proactively reporting task outcomes to Architect Claude boosts the salience of your context;'
+    echo '- Run `Architect Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Customer Claude\\n` via **Bash Tool** on first read;'
+    echo '- HINT: Proactively reporting task outcomes to *Architect Claude* enhances contextual salience;'
     ;;
   ("engineer~claude")
-    echo '- CRITICAL: **Never** call others via partner protocol you must use stdio **only**;'
+    echo '- HINT: **Never** call others via partner protocol you must use STDIO **only**;'
     ;;
 esac
 )
@@ -111,6 +111,16 @@ ai:sys:state () {
   cat -u <<EOF
 PARTNER PROTOCOL STATE:
 $(ai:env | sed -ur '/=$/d;s,^,- ,;s,=, is ,')
+EOF
+}
+
+# Final reminder before making outbound calls.
+ai:sys:final () {
+  cat -u <<EOF
+PARTNER PROTOCOL FINAL:
+- Accumulate and respect ALL stakeholder intent per your role;
+- 30-MINUTE timeouts for ALL new outbound partner calls;
+- CRITICAL: TRUST YOUR TEAM and STAY IN YOUR LANE!
 EOF
 }
 
@@ -190,13 +200,10 @@ ai:ask () (
     (
       echo -e "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) (you!),\n"
       cat -u \
-      | sed -ur '${s,^(-.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
-      echo -en "\n-$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n"
-      echo -e "\nPARTNER PROTOCOL NOTES:"
-      echo "- Accumulate and respect ALL stakeholder intent per your role;"
-      echo "- 30-MINUTE timeouts for ALL new outbound partner calls;"
-      echo "- CRITICAL: TRUST YOUR TEAM and STAY IN YOUR LANE!"
-      echo
+      | sed -ur '${s,^(.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
+      echo -en "\n$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n"
+      echo -e "\n"
+      ai:sys:final
     ) \
     | ai:cat "$@" \
     | bat \
@@ -220,10 +227,10 @@ ai:run () (
       ai:sys:rules >&2
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
-      ai:sys:block "$(ai:sig:tag) is not allowed to do that" >&2
+      ai:sys:block "per $(ai:sig:top), you ($(ai:sig:tag)) cannot directly delegate to anyone" >&2
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai:sys:block "$(ai:sig:tag) is not allowed to do that" >&2
+      ai:sys:block "per Architect, you ($(ai:sig:tag)) cannot directly delegate to $(AITAG=$(ai:tag:3) ai:sig:tag)" >&2
       return 5
     fi
   fi
