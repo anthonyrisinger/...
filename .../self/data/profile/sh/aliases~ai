@@ -22,12 +22,12 @@ ai:sig:tag () {
       ;;
     ("~"*"~"*)
       IFS='~' read -r aimod aigen <<<"$AITAG"
-      echo -n "$(tr -u '[a-z]' '[A-Z]' <<<${aimod:0:1})${aimod:1} "
-      echo "$(tr -u '[a-z]' '[A-Z]' <<<${aigen:0:1})${aigen:1}"
+      echo -n "$(tr -u 'a-z' 'A-Z' <<<${aimod:0:1})${aimod:1} "
+      echo "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
       ;;
     ("~"*)
       IFS='~' read -r aigen <<<"$AITAG"
-      echo "$(tr -u '[a-z]' '[A-Z]' <<<${aigen:0:1})${aigen:1}"
+      echo "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
       ;;
   esac
 }
@@ -267,7 +267,7 @@ export AITOP="${AITAG:-}"
 export AITAG="$(ai:tag:3)"
 
 # Unique per conversation thread; persists across calls.
-export AITID="${AITID:-"$(uuidgen | tr -u ABCDEF abcdef)"}"
+export AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
 export AISID="${AISID:-"$AITID"}"
 
 # AI model to use; default is 'claude'.
