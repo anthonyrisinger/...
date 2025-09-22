@@ -47,7 +47,7 @@ ai:sys () {
 # Identify top-level caller.
 ai:sys:stdio () {
   cat -u <<EOF | tr -u '~' ' '
-# Partner Protocol (STDIO)
+PARTNER PROTOCOL STDIO
 - Connected caller *${AITOP:-"main user"}* seeking response on stdio;
 EOF
 }
@@ -55,7 +55,7 @@ EOF
 # Standard header for all calls.
 ai:sys:rules () {
   cat -u <<EOF | tr -u '~' ' '
-# Partner Protocol (RULES)
+PARTNER PROTOCOL RULES
 - Remote caller is *${AITOP:-"main user"}* seeking response on stdio;
 - Local callee is *${AIMOD:+$AIMOD }$AIGEN* connected to stdio (you);
 - Leave **now** if caller and callee match to avoid calling yourself!
@@ -65,7 +65,7 @@ EOF
 # Standard details for most calls.
 ai:sys:howto () {
   cat -u <<EOF | tr -u '~' ' '
-# Partner Protocol (HOWTO)
+PARTNER PROTOCOL HOWTO
 - Honor caller *${AITOP:-"main user"}* yet challenge all assumptions;
 - Embody persona *${AIMOD:+$AIMOD }$AIGEN* for entirety of this call;
 - Never use partner protocol to close *inbound* calls like this call;
@@ -78,7 +78,7 @@ EOF
 # Dynamic role-specific instructions.
 ai:sys:start () {
   cat -u <<EOF | sed -ur '/^$/d'
-# Partner Protocol (START)
+PARTNER PROTOCOL START
 - Follow *all* start instructions **before** initiating outbound calls;
 - Realize \`... Claude,\` is a shell alias and should be used verbatim;
 $(
@@ -109,7 +109,7 @@ EOF
 # Current state of all relevant variables.
 ai:sys:state () {
   cat -u <<EOF
-# Partner Protocol (STATE)
+PARTNER PROTOCOL STATE
 - AITOP=${AITOP:-"(empty)"}
 - AITAG=${AITAG:-"(empty)"}
 - AITID=${AITID:-"(empty)"}
@@ -124,7 +124,7 @@ EOF
 # Dynamic message when blocking a call.
 ai:sys:block () {
   cat -u <<EOF
-# Partner Protocol (BLOCK)
+PARTNER PROTOCOL BLOCK
 - Sorry${@:+", $@"}.
 EOF
 }
@@ -199,7 +199,7 @@ ai:ask () (
       cat -u \
       | sed -ur '${s,^(-.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
       echo -en "\n-$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n"
-      echo -e "\n# Partner Protocol (PROTO)"
+      echo -e "\nPARTNER PROTOCOL NOTES"
       echo "- Accumulate and respect ALL stakeholder intent per your role;"
       echo "- 30-MINUTE timeouts for ALL new outbound partner calls;"
       echo "- CRITICAL: TRUST YOUR TEAM and STAY IN YOUR LANE!"
