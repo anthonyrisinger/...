@@ -227,10 +227,10 @@ ai:run () (
       ai:sys:rules >&2
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
-      ai:sys:block "per $(ai:sig:top), you ($(ai:sig:tag)) cannot directly delegate to anyone" >&2
+      ai:sys:block "you ($(ai:sig:tag)) cannot directly delegate to anyone; ask $(ai:sig:top) instead" >&2
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai:sys:block "per Architect, you ($(ai:sig:tag)) cannot directly delegate to $(AITAG=$(ai:tag:3) ai:sig:tag)" >&2
+      ai:sys:block "you ($(ai:sig:tag)) cannot directly delegate to $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead" >&2
       return 5
     fi
   fi
