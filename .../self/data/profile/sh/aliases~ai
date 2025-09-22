@@ -213,20 +213,16 @@ ai:run () (
   if test -n "$AITAG"; then
     if test "$AITAG" = "$AITOP"; then
       ai:sys:block "you ($(ai:sig:tag)) cannot call yourself; ask $(ai:sig:top) instead" >&2
-      ai:sys:start >&2
       return 1
     elif test "$AITAG" = "$(ai:tag:3)"; then
       # TODO: How is this different from above?
       ai:sys:block "you ($(ai:sig:tag)) cannot call your own role; ask $(ai:sig:top) instead" >&2
-      ai:sys:rules >&2
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
       ai:sys:block "you ($(ai:sig:tag)) cannot call anyone; ask $(ai:sig:top) instead" >&2
-      ai:sys:howto >&2
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
       ai:sys:block "you ($(ai:sig:tag)) cannot call $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead" >&2
-      ai:sys:howto >&2
       return 5
     fi
   fi
