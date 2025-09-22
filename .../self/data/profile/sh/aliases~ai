@@ -115,10 +115,10 @@ PARTNER PROTOCOL FINAL:
 EOF
 }
 
-# Dynamic message when blocking a call.
-ai:sys:block () {
+# Dynamic message on error.
+ai:sys:error () {
   cat -u <<EOF
-PARTNER PROTOCOL BLOCK:
+PARTNER PROTOCOL ERROR:
 - Sorry${@:+", $@"}.
 EOF
 }
@@ -207,22 +207,22 @@ ai:ask () (
 ai:run () (
   set -${AIWTF:+x}euo pipefail
   if ((AILVL >= 3)); then
-    ai:sys:block "recursive call depth exceeded ($AILVL)" >&2
+    ai:sys:error "recursive call depth exceeded ($AILVL)" >&2
     return 3
   fi
   if test -n "$AITAG"; then
     if test "$AITAG" = "$AITOP"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot call yourself; ask $(ai:sig:top) instead" >&2
+      ai:sys:error "you ($(ai:sig:tag)) cannot call yourself; ask $(ai:sig:top) instead" >&2
       return 1
     elif test "$AITAG" = "$(ai:tag:3)"; then
       # TODO: How is this different from above?
-      ai:sys:block "you ($(ai:sig:tag)) cannot call your own role; ask $(ai:sig:top) instead" >&2
+      ai:sys:error "you ($(ai:sig:tag)) cannot call your own role; ask $(ai:sig:top) instead" >&2
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot call anyone; ask $(ai:sig:top) instead" >&2
+      ai:sys:error "you ($(ai:sig:tag)) cannot call anyone; ask $(ai:sig:top) instead" >&2
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot call $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead" >&2
+      ai:sys:error "you ($(ai:sig:tag)) cannot call $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead" >&2
       return 5
     fi
   fi
