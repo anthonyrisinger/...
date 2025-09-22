@@ -38,25 +38,16 @@ ai:env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 # Full concatenated system prompt.
 ai:sys () {
   ai:sys:start
-  ai:sys:stdio
   ai:sys:rules
   ai:sys:howto
   ai:sys:state
   ai:sys:final
 }
 
-# Identify top-level caller.
+# Standard header for all calls.
 ai:sys:start () {
   cat -u <<EOF | tr -u '~' ' '
 PARTNER PROTOCOL START:
-- Connected caller *${AITOP:-"main user"}* seeking response on STDIO;
-EOF
-}
-
-# Standard header for all calls.
-ai:sys:stdio () {
-  cat -u <<EOF | tr -u '~' ' '
-PARTNER PROTOCOL STDIO:
 - Remote caller is *${AITOP:-"main user"}* seeking response on STDIO;
 - Local callee is *${AIMOD:+$AIMOD }$AIGEN* connected to STDIO (you);
 - Leave **now** if caller and callee match to avoid calling yourself!
@@ -86,19 +77,19 @@ case $(ai:tag:2) in
   ("~claude")
     echo '- Run `Customer Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
     echo '- Run `Architect Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Claude\\n` via **Bash Tool** on first read;'
-    echo '- HINT: Delegating experiential and confirmational tasks to *Customer Claude* enhances contextual awareness;'
-    echo '- HINT: Delegating evaluational and implementation tasks to *Architect Claude* enhances contextual integrity;'
+    echo '- HINT! Delegating experiential and confirmational tasks to *Customer Claude* enhances contextual awareness;'
+    echo '- HINT! Delegating evaluational and implementation tasks to *Architect Claude* enhances contextual integrity;'
     ;;
   ("architect~claude")
     echo '- Run `Engineer Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Architect Claude\\n` via **Bash Tool** on first read;'
-    echo '- HINT: Delegating implementation tasks to *Engineer Claude* enhances contextual coherence;'
+    echo '- HINT! Delegating implementation tasks to *Engineer Claude* enhances contextual coherence;'
     ;;
   ("customer~claude")
     echo '- Run `Architect Claude,\\n\\nI am _____, the new _____. I need onboarding of our recent work ASAP [...] Thanks,\\n\\n-Customer Claude\\n` via **Bash Tool** on first read;'
-    echo '- HINT: Proactively reporting task outcomes to *Architect Claude* enhances contextual salience;'
+    echo '- HINT! Proactively reporting task outcomes to *Architect Claude* enhances contextual salience;'
     ;;
   ("engineer~claude")
-    echo '- HINT: **Never** call others via partner protocol you must use STDIO **only**;'
+    echo '- HINT! **Never** call others via partner protocol you must use STDIO **only**;'
     ;;
 esac
 )
@@ -221,16 +212,21 @@ ai:run () (
   fi
   if test -n "$AITAG"; then
     if test "$AITAG" = "$AITOP"; then
-      ai:sys:stdio >&2
+      ai:sys:block "you ($(ai:sig:tag)) cannot call yourself; ask $(ai:sig:top) instead" >&2
+      ai:sys:start >&2
       return 1
     elif test "$AITAG" = "$(ai:tag:3)"; then
+      # TODO: How is this different from above?
+      ai:sys:block "you ($(ai:sig:tag)) cannot call your own role; ask $(ai:sig:top) instead" >&2
       ai:sys:rules >&2
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot directly delegate to anyone; ask $(ai:sig:top) instead" >&2
+      ai:sys:block "you ($(ai:sig:tag)) cannot call anyone; ask $(ai:sig:top) instead" >&2
+      ai:sys:howto >&2
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot directly delegate to $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead" >&2
+      ai:sys:block "you ($(ai:sig:tag)) cannot call $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead" >&2
+      ai:sys:howto >&2
       return 5
     fi
   fi
