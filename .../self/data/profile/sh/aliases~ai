@@ -184,7 +184,7 @@ ai:ask () (
       echo -e "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) (you!),\n"
       cat -u \
       | sed -ur '${s,^(.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
-      echo -en "\n$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n"
+      echo -en "\n-- \n\n$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n"
       echo -e "\n"
       ai:sys:final
     ) \
