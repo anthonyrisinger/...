@@ -218,8 +218,7 @@ ai::run () (
       return 5
     fi
   fi
-  AISID=$(ai::sid)
-  "$1" "${@:2}"
+  AISID=$(ai::sid) "$1" "${@:2}"
 )
 
 # Direct alias to underlying AI model command.
