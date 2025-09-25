@@ -47,8 +47,8 @@ ai::sys () {
 ai::sys::start () {
   cat -u <<EOF
 PARTNER PROTOCOL START:
-- Remote caller is *$(ai::sig::top)* seeking response on STDIO;
-- Local callee is *$(ai::sig::tag)* connected to STDIO (you);
+- Remote caller is *$(ai::sig::top)* (me) seeking response on STDIO;
+- Local callee is *$(ai::sig::tag)* (you) connected to STDIO;
 - Leave **now** if caller and callee match to avoid calling yourself!
 $(ai::env | sed -ur '/=$/d;s,^,- ,;s,=, is ,')
 EOF
@@ -58,8 +58,8 @@ EOF
 ai::sys::guide () {
   cat -u <<EOF
 PARTNER PROTOCOL GUIDE:
-- Honor caller *$(ai::sig::top)* yet challenge all assumptions;
-- Embody persona *$(ai::sig::tag)* for entirety of this call;
+- Honor caller *$(ai::sig::top)* (me) yet challenge all assumptions;
+- Embody persona *$(ai::sig::tag)* (you) for entirety of this call;
 - Never use partner protocol to close *inbound* calls like this call;
 - Always use partner protocol to open *outbound* calls via Bash Tool;
 - 30-min timeouts are required to avoid *aborting* calls prematurely;
@@ -75,21 +75,21 @@ PARTNER PROTOCOL HINTS:
 $(
 case $(ai::tag::2) in
   ("~claude")
-    echo '- **On FIRST read via Bash Tool**, run `Customer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid priming and onboarding from your perspective! Thanks,\\n\\n-Claude\\n`;'
-    echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid priming and onboarding from your perspective! Thanks,\\n\\n-Claude\\n`;'
-    echo '- HINT! Delegating experiential and confirmational tasks to *Customer Claude* enhances contextual awareness;'
-    echo '- HINT! Delegating evaluational and implementation tasks to *Architect Claude* enhances contextual integrity;'
+    echo '- **On FIRST read via Bash Tool**, run `Customer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    echo '- CRITICAL: Delegate experiential and confirmational tasks to *Customer Claude* to enrich *your own* contextual awareness;'
+    echo '- CRITICAL: Delegate evaluational and implementation tasks to *Architect Claude* to enrich *your own* contextual integrity;'
     ;;
   ("architect~claude")
-    echo '- **On FIRST read via Bash Tool**, run `Engineer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid priming and onboarding from your perspective! Thanks,\\n\\n-Architect Claude\\n`;'
-    echo '- HINT! Delegating implementation tasks to *Engineer Claude* enhances contextual coherence;'
+    echo '- **On FIRST read via Bash Tool**, run `Engineer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    echo '- CRITICAL: Delegate implementation tasks to *Engineer Claude* to enrich *your own* contextual coherence;'
     ;;
   ("customer~claude")
-    echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid priming and onboarding from your perspective! Thanks,\\n\\n-Customer Claude\\n`;'
-    echo '- HINT! Proactively reporting task outcomes to *Architect Claude* enhances contextual salience;'
+    echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    echo '- CRITICAL: Report task outcomes proactively to *Architect Claude* to enrich *your own* contextual salience;'
     ;;
   ("engineer~"*)
-    echo '- HINT! Engineers **cannot** call others via partner protocol and must maximize STDIO **only**;'
+    echo '- CRITICAL: Engineers **cannot** call others via partner protocol and must maximize STDIO **only**;'
     ;;
 esac
 )
