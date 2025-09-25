@@ -77,16 +77,16 @@ case $(ai::tag::2) in
   ("~claude")
     echo '- **On FIRST read via Bash Tool**, run `Customer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
     echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- CRITICAL: Delegate experiential and confirmational tasks to *Customer Claude* to enrich *your own* contextual awareness;'
-    echo '- CRITICAL: Delegate evaluational and implementation tasks to *Architect Claude* to enrich *your own* contextual integrity;'
+    echo '- CRITICAL: DELEGATE experiential and confirmational tasks to *Customer Claude* to enhance *your own* contextual awareness;'
+    echo '- CRITICAL: DELEGATE evaluational and implementation tasks to *Architect Claude* to protect *your own* contextual integrity;'
     ;;
   ("architect~claude")
     echo '- **On FIRST read via Bash Tool**, run `Engineer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- CRITICAL: Delegate implementation tasks to *Engineer Claude* to enrich *your own* contextual coherence;'
+    echo '- CRITICAL: DELEGATE implementation tasks to *Engineer Claude* to ensure *your own* contextual coherence;'
     ;;
   ("customer~claude")
     echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- CRITICAL: Report task outcomes proactively to *Architect Claude* to enrich *your own* contextual salience;'
+    echo '- CRITICAL: FORWARD task outcomes proactively to *Architect Claude* to expand *your own* contextual salience;'
     ;;
   ("engineer~"*)
     echo '- CRITICAL: Engineers **cannot** call others via partner protocol and must maximize STDIO **only**;'
