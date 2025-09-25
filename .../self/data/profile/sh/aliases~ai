@@ -71,7 +71,7 @@ EOF
 ai::sys::hints () {
   cat -u <<EOF | sed -ur '/^$/d'
 PARTNER PROTOCOL HINTS:
-- Realize \`... Claude,\` is a shell alias and should be used verbatim;
+- Realize \`... Claude,\` (or Codex) is a shell alias and should be used VERBATIM;
 $(
 case $(ai::tag::2) in
   ("~claude")
@@ -224,9 +224,11 @@ ai::run () (
 # Direct alias to underlying AI model command.
 # Workaround to case-insensitive file/command/function name lookup.
 claude () { command claude "$@"; }
+codex  () { command codex  "$@"; }
 
 # Automatically re-link to current session.
 Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
+Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
 # Debugging alias.
 alias "WTF=AIWTF=x "
@@ -241,6 +243,7 @@ alias "Opus=AIMOD=opus "
 
 # Heredoc aliases for interactive use.
 alias "Claude,=AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '${AITID-}'"
+alias "Codex,=AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox << '${AITID-}'"
 alias "Assistant,=ai::run ai::ask << '${AITID-}'"
 alias "Agent,=ai::run ai::ask << '${AITID-}'"
 alias "AI,=ai::run ai::ask << '${AITID-}'"
