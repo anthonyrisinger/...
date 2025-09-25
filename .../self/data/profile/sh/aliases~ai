@@ -207,14 +207,14 @@ ai::run () (
       ai::sys::block "you ($(ai::sig::tag)) cannot call yourself"
       return 1
     elif test "$AITAG" = "$(ai::tag::3)"; then
-      # TODO: How is this different from above?
+      # TODO: How is this different from above? It does happen, but seems related to role confusion.
       ai::sys::block "you ($(ai::sig::tag)) cannot call your own role"
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
-      ai::sys::block "you ($(ai::sig::tag)) cannot call anyone; ask $(ai::sig::top) instead"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call anyone; ask your caller ($(ai::sig::top)) instead"
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai::sys::block "you ($(ai::sig::tag)) cannot call $(AITAG=$(ai::tag::3) ai::sig::tag); ask Architect instead"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call $(AITAG=$(ai::tag::3) ai::sig::tag); ask your Architect instead"
       return 5
     fi
   fi
