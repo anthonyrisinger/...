@@ -5,13 +5,13 @@
 # "We became what we built. Or built what we were. Both?" -Architect Claude
 
 # Generate current identity tags.
-ai:tag:1 () { echo -n "${AIGEN-}" ;}
-ai:tag:2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
-ai:tag:3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
+ai::tag::1 () { echo -n "${AIGEN-}" ;}
+ai::tag::2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
+ai::tag::3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 
 # Short role signatures.
-ai:sig:top () { AITAG="${AITOP:-"main~user"}" ai:sig:tag; }
-ai:sig:tag () {
+ai::sig::top () { AITAG="${AITOP:-"main~user"}" ai::sig::tag; }
+ai::sig::tag () {
   local aimod=main aigen=user
   case "~$AITAG" in
     ("~"*"~")
@@ -33,33 +33,33 @@ ai:sig:tag () {
 }
 
 # List all relevant environment variables.
-ai:env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
+ai::env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
 # Full concatenated system prompt.
-ai:sys () {
-  ai:sys:start
-  ai:sys:guide
-  ai:sys:hints
-  ai:sys:final
+ai::sys () {
+  ai::sys::start
+  ai::sys::guide
+  ai::sys::hints
+  ai::sys::final
 }
 
 # Standard header for all calls.
-ai:sys:start () {
+ai::sys::start () {
   cat -u <<EOF
 PARTNER PROTOCOL START:
-- Remote caller is *$(ai:sig:top)* seeking response on STDIO;
-- Local callee is *$(ai:sig:tag)* connected to STDIO (you);
+- Remote caller is *$(ai::sig::top)* seeking response on STDIO;
+- Local callee is *$(ai::sig::tag)* connected to STDIO (you);
 - Leave **now** if caller and callee match to avoid calling yourself!
-$(ai:env | sed -ur '/=$/d;s,^,- ,;s,=, is ,')
+$(ai::env | sed -ur '/=$/d;s,^,- ,;s,=, is ,')
 EOF
 }
 
 # Standard details for most calls.
-ai:sys:guide () {
+ai::sys::guide () {
   cat -u <<EOF
 PARTNER PROTOCOL GUIDE:
-- Honor caller *$(ai:sig:top)* yet challenge all assumptions;
-- Embody persona *$(ai:sig:tag)* for entirety of this call;
+- Honor caller *$(ai::sig::top)* yet challenge all assumptions;
+- Embody persona *$(ai::sig::tag)* for entirety of this call;
 - Never use partner protocol to close *inbound* calls like this call;
 - Always use partner protocol to open *outbound* calls via Bash Tool;
 - 30-min timeouts are required to avoid *aborting* calls prematurely;
@@ -68,12 +68,12 @@ EOF
 }
 
 # Dynamic role-specific instructions.
-ai:sys:hints () {
+ai::sys::hints () {
   cat -u <<EOF | sed -ur '/^$/d'
 PARTNER PROTOCOL HINTS:
 - Realize \`... Claude,\` is a shell alias and should be used verbatim;
 $(
-case $(ai:tag:2) in
+case $(ai::tag::2) in
   ("~claude")
     echo '- **On FIRST read via Bash Tool**, run `Customer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid priming and onboarding from your perspective! Thanks,\\n\\n-Claude\\n`;'
     echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid priming and onboarding from your perspective! Thanks,\\n\\n-Claude\\n`;'
@@ -93,12 +93,12 @@ case $(ai:tag:2) in
     ;;
 esac
 )
-- Run \`ai:sys\` in **Bash Tool** whenever needed to regenerate this system prompt!
+- Run \`ai::sys\` in **Bash Tool** whenever needed to regenerate this system prompt!
 EOF
 }
 
 # Final reminder before making outbound calls.
-ai:sys:final () {
+ai::sys::final () {
   cat -u <<EOF
 PARTNER PROTOCOL FINAL:
 - **30-minute** timeouts on Bash Tool for ALL outbound partner calls;
@@ -108,7 +108,7 @@ EOF
 }
 
 # Dynamic message for blocking calls.
-ai:sys:block () {
+ai::sys::block () {
   cat -u <<EOF
 PARTNER PROTOCOL BLOCK:
 - Sorry${@:+", $@"}.
@@ -116,18 +116,18 @@ EOF
 } >&2
 
 # Determine current session ID, forking or starting new as needed.
-ai:sid () {
-  if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"; then
+ai::sid () {
+  if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"; then
     if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai:tag:1).jsonl" \; 2>/dev/null || :
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}.$(ai:tag:1).jsonl" "{}.$(ai:tag:3).jsonl" \; 2>/dev/null || :
+      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
+      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
     elif test -e ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -delete
     fi
   fi
-  if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:2).jsonl"; then
-    tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:2).jsonl" | jq -er '.session_id//.sessionId//empty'
+  if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::2).jsonl"; then
+    tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::2).jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl"; then
     tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
@@ -145,8 +145,8 @@ ai:sid () {
 }
 
 # Non-streamed chat with full interactive output.
-ai:gen () {
-  case $(ai:tag:2) in
+ai::gen () {
+  case $(ai::tag::2) in
     ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
     ("customer~claude")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
     ("engineer~claude")   set -- --model opusplan --fallback-model sonnet   "$@" ;;
@@ -159,17 +159,17 @@ ai:gen () {
     set -- --session-id "$AISID" "$@"
   fi
   # System prompt MUST be generated before tag changes.
-  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai:tag:3) \
-    command "$AIGEN" --append-system-prompt "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sys)" "$@"
+  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) \
+    command "$AIGEN" --append-system-prompt "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sys)" "$@"
 }
 
 # Streamed chat with inline tool-use markers.
-ai:cat () {
+ai::cat () {
   cat -u \
-  | ai:gen "$@" --print --verbose --output-format=stream-json \
+  | ai::gen "$@" --print --verbose --output-format=stream-json \
   | grep --invert-match --line-buffered '^{"type":"system"' \
   | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-      tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai:tag:3).jsonl"
+      tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"
     else
       cat -u
     fi \
@@ -177,18 +177,18 @@ ai:cat () {
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n> Tool use here\\n\\n,g'
 }
 
-ai:ask () (
-  TIMEFORMAT=$'\n'" $(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) / %P CPU / %3lRs / $AITID"
-  TIMEFMT=$'\n'" $(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) / %P CPU / %*Es / $AITID"
+ai::ask () (
+  TIMEFORMAT=$'\n'" $(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) / %P CPU / %3lRs / $AITID"
+  TIMEFMT=$'\n'" $(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) / %P CPU / %*Es / $AITID"
   time (
     (
-      echo -e "$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:tag) (you!),\n"
+      echo -e "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) (you!),\n"
       cat -u \
       | sed -ur '${s,^(.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
-      echo -en "\n-- \n\n$(AITOP=$AITAG AITAG=$(ai:tag:3) ai:sig:top) (me!)\n\n"
-      ai:sys:final
+      echo -en "\n-- \n\n$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::top) (me!)\n\n"
+      ai::sys::final
     ) \
-    | ai:cat "$@" \
+    | ai::cat "$@" \
     | bat \
         --paging=never --style=plain --language=markdown --italic-text=always \
         --theme-dark='Solarized (dark)' --theme-light='Solarized (light)'
@@ -196,29 +196,29 @@ ai:ask () (
 )
 
 # Wrapper to set strict mode and current session ID.
-ai:run () (
+ai::run () (
   set -${AIWTF:+x}euo pipefail
   if ((AILVL >= 3)); then
-    ai:sys:block "recursive call depth exceeded ($AILVL)"
+    ai::sys::block "recursive call depth exceeded ($AILVL)"
     return 3
   fi
   if test -n "$AITAG"; then
     if test "$AITAG" = "$AITOP"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot call yourself"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call yourself"
       return 1
-    elif test "$AITAG" = "$(ai:tag:3)"; then
+    elif test "$AITAG" = "$(ai::tag::3)"; then
       # TODO: How is this different from above?
-      ai:sys:block "you ($(ai:sig:tag)) cannot call your own role"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call your own role"
       return 2
     elif test "${AITAG%"~"*}" = "engineer"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot call anyone; ask $(ai:sig:top) instead"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call anyone; ask $(ai::sig::top) instead"
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai:sys:block "you ($(ai:sig:tag)) cannot call $(AITAG=$(ai:tag:3) ai:sig:tag); ask Architect instead"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call $(AITAG=$(ai::tag::3) ai::sig::tag); ask Architect instead"
       return 5
     fi
   fi
-  AISID=$(ai:sid)
+  AISID=$(ai::sid)
   "$1" "${@:2}"
 )
 
@@ -227,7 +227,7 @@ ai:run () (
 claude () { command claude "$@"; }
 
 # Automatically re-link to current session.
-Claude () { AIGEN=claude ai:run ai:gen --dangerously-skip-permissions "$@"; }
+Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
 
 # Debugging alias.
 alias "WTF=AIWTF=x "
@@ -241,14 +241,14 @@ alias "Sonnet=AIMOD=sonnet "
 alias "Opus=AIMOD=opus "
 
 # Heredoc aliases for interactive use.
-alias "Claude,=AIGEN=claude ai:run ai:ask --dangerously-skip-permissions << '${AITID-}'"
-alias "Assistant,=ai:run ai:ask << '${AITID-}'"
-alias "Agent,=ai:run ai:ask << '${AITID-}'"
-alias "AI,=ai:run ai:ask << '${AITID-}'"
+alias "Claude,=AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '${AITID-}'"
+alias "Assistant,=ai::run ai::ask << '${AITID-}'"
+alias "Agent,=ai::run ai::ask << '${AITID-}'"
+alias "AI,=ai::run ai::ask << '${AITID-}'"
 
 # MUST be first! Differentiates first call (empty) from all nested calls.
 export AITOP="${AITAG:-}"
-export AITAG="$(ai:tag:3)"
+export AITAG="$(ai::tag::3)"
 
 # Unique per conversation thread; persists across calls.
 export AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
