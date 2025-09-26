@@ -1,5 +1,8 @@
 #!/bin/bash
 
+[[ -r ${ELLIPSIS}data/profile/sh/interactive ]] &&
+    . ${ELLIPSIS}data/profile/sh/interactive
+
 [[ ${TERM} == dumb ]] &&
     return 0
 
@@ -143,5 +146,7 @@ fi
 PS1=$(_ps1)
 PS2='    '
 
+[[ -f ${ELLIPSIS}data/profile/sh/aliases ]] &&
+    . ${ELLIPSIS}data/profile/sh/aliases
 [[ -r ${ELLIPSIS}data/profile/bash/aliases ]] &&
     . ${ELLIPSIS}data/profile/bash/aliases

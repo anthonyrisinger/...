@@ -77,3 +77,6 @@ region () {
 eic-ssh () {
   TERM=xterm-256color command eic-ssh $@
 }
+
+[[ -f ${ELLIPSIS}data/profile/sh/aliases~ai ]] &&
+    . ${ELLIPSIS}data/profile/sh/aliases~ai

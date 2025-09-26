@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+[[ -r ${ELLIPSIS}data/profile/sh/interactive ]] &&
+    . ${ELLIPSIS}data/profile/sh/interactive
+
 [[ ${TERM} == dumb ]] &&
     return 0
 
@@ -90,7 +93,7 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 [[ -r ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/key-bindings.zsh ]] &&
   . ${ELLIPSIS}data/profile/vim/plugged/fzf/shell/key-bindings.zsh
 
-unalias run-help
+unalias run-help 2>/dev/null
 autoload run-help
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
@@ -114,5 +117,7 @@ NULLCMD=:
 PROMPT=$(_ps1)
 PS2='    '
 
+[[ -f ${ELLIPSIS}data/profile/sh/aliases ]] &&
+    . ${ELLIPSIS}data/profile/sh/aliases
 [[ -r ${ELLIPSIS}data/profile/zsh/aliases ]] &&
     . ${ELLIPSIS}data/profile/zsh/aliases

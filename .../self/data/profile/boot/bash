@@ -109,4 +109,8 @@ case $- in
     # Interactive.
     . ${ELLIPSIS}data/profile/bash/interactive
     ;;
+  (*)
+    # Non-interactive, unless CODEX_SANDBOX.
+    [[ -z $CODEX_SANDBOX ]] || . ${ELLIPSIS}data/profile/bash/interactive
+    ;;
 esac

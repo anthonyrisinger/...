@@ -103,3 +103,14 @@ case $? in
     exec -l $ZSH_ARGZERO "${@}"
     ;;
 esac
+
+case $- in
+  (*i*)
+    # Interactive.
+    . ${ELLIPSIS}data/profile/zsh/interactive
+    ;;
+  (*)
+    # Non-interactive, unless CODEX_SANDBOX.
+    [[ -z $CODEX_SANDBOX ]] || . ${ELLIPSIS}data/profile/zsh/interactive
+    ;;
+esac
