@@ -178,11 +178,14 @@ ai:codex:gen () {
   esac
   mkdir -p ~/".$AIGEN/AITID/$AITID"
   if test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
+    jq -Rc '{id:"0",msg:{type:"agent_message",message:.}}' \
+      ~/".$AIGEN/AITID/$AITID/$AITID.jsonl" > ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"
     set -- resume "$AISID" "$@"
+  else
+    set -- "$@" --output-last-message ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"
   fi
   # System prompt MUST be generated before tag changes.
-  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@" \
-  && echo "$AISID" > ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"
+  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@"
 }
 
 # Non-streamed chat with full interactive output for Claude.
