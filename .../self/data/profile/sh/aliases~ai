@@ -110,18 +110,21 @@ PARTNER PROTOCOL FINAL:
 EOF
 }
 
-# Dynamic message for blocking calls.
-ai::sys::block () {
+# Dynamic message for errors.
+ai::sys::error () {
   cat -u <<EOF
-PARTNER PROTOCOL BLOCK:
+PARTNER PROTOCOL ${AIERR:-"ERROR"}:
 - Sorry${@:+", $@"}.
 EOF
 } >&2
 
+# Dynamic message for blocking calls.
+ai::sys::block () { AIERR="BLOCK" ai::sys::error "$@"; }
+
 # Determine current session ID based on selected AI model.
 ai::sid () {
   if ! command -v "ai:${AIGEN}:sid" >/dev/null 2>&1; then
-    echo >&2 "ERROR: AI model session identifier command '$AIGEN' not found."
+    ai:sys:error "no '$AIGEN' model session identifier command found"
     return 1
   fi
   "ai:${AIGEN}:sid" "$@"
@@ -164,13 +167,13 @@ ai:claude:sid () {
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl"; then
     tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
-    echo >&2 "WARNING: No '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'."
+    ai:sys:error "no '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'"
     echo "$AISID"
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-    echo >&2 "WARNING: No '$AISID.jsonl' session found; forking base session '$AITID.jsonl'."
+    ai:sys:error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
     echo "$AITID"
   elif test "$AITID" != "$AISID"; then
-    echo >&2 "WARNING: No '$AITID.jsonl' session found; starting new session '$AISID.jsonl'."
+    ai:sys:error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
     echo "$AISID"
   else
     echo "$AITID"
@@ -180,7 +183,7 @@ ai:claude:sid () {
 # Non-streamed chat with full interactive output for selected AI model.
 ai::gen () {
   if ! command -v "ai:${AIGEN}:gen" >/dev/null 2>&1; then
-    echo >&2 "ERROR: AI model generation identifier command '$AIGEN' not found."
+    ai:sys:error "no '$AIGEN' model generation identifier command found"
     return 1
   fi
   "ai:${AIGEN}:gen" "$@"
@@ -229,7 +232,7 @@ ai:claude:gen () {
 # Streamed chat with inline tool-use markers for selected AI model.
 ai::cat () {
   if ! command -v "ai:${AIGEN}:cat" >/dev/null 2>&1; then
-    echo >&2 "ERROR: AI model streamed chat command '$AIGEN' not found."
+    ai:sys:error "nI model streamed chat command '$AIGEN' not found"
     return 1
   fi
   cat -u \
