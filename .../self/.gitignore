@@ -2,3 +2,5 @@
 run/
 var/cache/*/*
 !.git*
+
+.DS_Store
