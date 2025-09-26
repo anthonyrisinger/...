@@ -14,7 +14,7 @@ export TERM="${TERM:-dumb}"
     return 0
 
 HISTCONTROL=ignoreboth:erasedups
-HISTFILE=${ELLIPSIS}var/cache/${0##*[-/]}/history${VSCODE_INJECTION:+.vscode}
+HISTFILE=${ELLIPSIS}var/cache/${ZSH_NAME:-${0##*[-/]}}/history${VSCODE_INJECTION:+.vscode}
 HISTFILESIZE=10000000
 HISTIGNORE='[bf]g:[bf]g :exit:exit :cognito:cognito :incognito:incognito '
 HISTORY_IGNORE='([bf]g|[bf]g |exit|exit |cognito|cognito |incognito|incognito )'
