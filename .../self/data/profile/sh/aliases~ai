@@ -201,7 +201,10 @@ ai:codex:gen () {
     set -- "$@" --output-last-message ~/".$AIGEN/AITID/$AITID/$AITID.txt"
   fi
   # System prompt MUST be generated before tag changes.
-  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@"
+  (
+    exec 2> >(sed -ur '1{/^Reading prompt from stdin/d;}' >&2)
+    TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@"
+  )
 }
 
 # Non-streamed chat with full interactive output for Claude.
