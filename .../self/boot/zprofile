@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+if env | grep -q '^CODEX'; then
+    # Hack to pull in aliases
+    set -i
+fi
+
 [[ -f ~/.../self/data/profile/boot/sh ]] &&
     . ~/.../self/data/profile/boot/sh
 [[ -f ~/.../self/data/profile/boot/zsh ]] &&
