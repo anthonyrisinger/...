@@ -121,7 +121,7 @@ ai::sid () {
     echo >&2 "ERROR: AI model session identifier command '$AIGEN' not found."
     return 1
   fi
-  "ai:${AIGEN}:sid"
+  "ai:${AIGEN}:sid" "$@"
 }
 
 # Determine current session ID for Codex (not yet implemented).
@@ -164,7 +164,7 @@ ai::gen () {
     echo >&2 "ERROR: AI model generation identifier command '$AIGEN' not found."
     return 1
   fi
-  "ai:${AIGEN}:gen"
+  "ai:${AIGEN}:gen" "$@"
 }
 
 # Non-streamed chat with full interactive output for Codex.
