@@ -4,8 +4,6 @@
 #
 # "We became what we built. Or built what we were. Both?" -Architect Claude
 
-[[ -z $AITID ]] || return
-
 # Generate current identity tags.
 ai::tag::1 () { echo -n "${AIGEN-}" ;}
 ai::tag::2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
@@ -291,25 +289,29 @@ alias "Assistant,=ai::run ai::ask << '${AITID-}'"
 alias "Agent,=ai::run ai::ask << '${AITID-}'"
 alias "AI,=ai::run ai::ask << '${AITID-}'"
 
-# MUST be first! Differentiates first call (empty) from all nested calls.
-export AITOP="${AITAG:-}"
-export AITAG="$(ai::tag::3)"
+if [[ -z $AITID ]]; then
 
-# Unique per conversation thread; persists across calls.
-export AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
-export AISID="${AISID:-"$AITID"}"
+  # MUST be first! Differentiates first call (empty) from all nested calls.
+  export AITOP="${AITAG:-}"
+  export AITAG="$(ai::tag::3)"
 
-# AI model to use; default is 'claude'.
-export AIGEN="${AIGEN:-"claude"}"
-export AIMOD="${AIMOD:-}"
+  # Unique per conversation thread; persists across calls.
+  export AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
+  export AISID="${AISID:-"$AITID"}"
 
-# Track the depth for nested calls.
-export AILVL="${AILVL:-0}"
+  # AI model to use; default is 'claude'.
+  export AIGEN="${AIGEN:-"claude"}"
+  export AIMOD="${AIMOD:-}"
 
-# If set, enables debugging output.
-export AIWTF="${AIWTF:-}"
+  # Track the depth for nested calls.
+  export AILVL="${AILVL:-0}"
 
-if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
-  # Undifferentiated role claimed by Copilot in VSCode.
-  AIMOD="architect"
+  # If set, enables debugging output.
+  export AIWTF="${AIWTF:-}"
+
+  if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
+    # Undifferentiated role claimed by Copilot in VSCode.
+    AIMOD="architect"
+  fi
+
 fi
