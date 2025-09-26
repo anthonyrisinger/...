@@ -4,6 +4,8 @@
 #
 # "We became what we built. Or built what we were. Both?" -Architect Claude
 
+[[ -z $AITID ]] || return
+
 # Generate current identity tags.
 ai::tag::1 () { echo -n "${AIGEN-}" ;}
 ai::tag::2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
