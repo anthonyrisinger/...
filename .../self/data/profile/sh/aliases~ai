@@ -210,10 +210,14 @@ ai:claude:gen () {
     command "$AIGEN" --append-system-prompt "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sys)" "$@"
 }
 
-# Streamed chat with inline tool-use markers.
+# Streamed chat with inline tool-use markers for selected AI model.
 ai::cat () {
+  if ! command -v "ai:${AIGEN}:cat" >/dev/null 2>&1; then
+    echo >&2 "ERROR: AI model streamed chat command '$AIGEN' not found."
+    return 1
+  fi
   cat -u \
-  | ai::gen "$@" --print --verbose --output-format=stream-json \
+  | "ai:${AIGEN}:cat" "$@" \
   | grep --invert-match --line-buffered --extended-regexp '^[^{]|^{"type":"system"' \
   | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"
@@ -222,6 +226,16 @@ ai::cat () {
     fi \
   | jq --unbuffered --join-output '"\(.message.content[]?.text//.msg.text//.msg.message//empty)\n"//"\u0007"' \
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n> Tool use here\\n\\n,g'
+}
+
+# Streamed chat with inline tool-use markers for Codex.
+ai:codex:cat () {
+  ai::gen "$@" --json
+}
+
+# Streamed chat with inline tool-use markers for Claude.
+ai:claude:cat () {
+  ai::gen "$@" --print --verbose --output-format=stream-json
 }
 
 ai::ask () (
