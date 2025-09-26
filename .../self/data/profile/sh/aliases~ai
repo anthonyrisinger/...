@@ -224,7 +224,7 @@ ai::cat () {
     else
       cat -u
     fi \
-  | jq --unbuffered --join-output '"\(.message.content[]?.text//.msg.text//.msg.message//empty)\n"//"\u0007"' \
+  | jq --unbuffered --join-output '"\(.message.content[]?.text//"\(.msg.text//empty)\n"//.msg.message//empty)\n"//"\u0007"' \
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n> Tool use here\\n\\n,g'
 }
 
