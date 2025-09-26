@@ -181,16 +181,8 @@ ai:codex:gen () {
     set -- resume "$AISID" "$@"
   fi
   # System prompt MUST be generated before tag changes.
-  (
-    if ! test -s ~/".$AIGEN/AITID/$AITID/$AISID.jsonl"; then
-      echo "$AISID" > ~/".$AIGEN/AITID/$AITID/$AISID.jsonl"
-      AITOP=$AITAG AITAG=$(ai::tag::3) ai::sys
-      echo -e "\n---\n"
-    fi
-    cat -u
-  ) \
-  | TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) \
-    command "$AIGEN" "$@"
+  TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@" \
+  && echo "$AISID" > ~/".$AIGEN/AITID/$AITID/$AISID.jsonl"
 }
 
 # Non-streamed chat with full interactive output for Claude.
