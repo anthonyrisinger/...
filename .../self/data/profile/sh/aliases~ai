@@ -208,13 +208,13 @@ ai:claude:gen () {
 ai::cat () {
   cat -u \
   | ai::gen "$@" --print --verbose --output-format=stream-json \
-  | grep --invert-match --line-buffered '^{"type":"system"' \
+  | grep --invert-match --line-buffered --extended-regexp '^[^{]|^{"type":"system"' \
   | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"
     else
       cat -u
     fi \
-  | jq --unbuffered --join-output '"\(.message.content[]?.text//empty)\n"//"\u0007"' \
+  | jq --unbuffered --join-output '"\(.message.content[]?.text//.msg.text//.msg.message//empty)\n"//"\u0007"' \
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n> Tool use here\\n\\n,g'
 }
 
