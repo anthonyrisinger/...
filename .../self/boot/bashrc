@@ -1,13 +1,6 @@
 #!/bin/bash
 
-if env | grep -q '^CODEX'; then
-    # Hack to pull in aliases
-    set -i
-fi
-
-[[ $- == *i* ]] &&
-    [[ -f ~/.../self/data/profile/sh/interactive ]] &&
+[[ -f ~/.../self/data/profile/sh/interactive ]] &&
     . ~/.../self/data/profile/sh/interactive
-[[ $- == *i* ]] &&
-    [[ -f ~/.../self/data/profile/bash/interactive ]] &&
+[[ -f ~/.../self/data/profile/bash/interactive ]] &&
     . ~/.../self/data/profile/bash/interactive
