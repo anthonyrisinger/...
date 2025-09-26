@@ -32,6 +32,9 @@ ai::sig::tag () {
   esac
 }
 
+# Unique EOF marker for heredoc aliases.
+ai::eof () { [[ $AILVL -eq 0 ]] || echo "${AITID:-}"; }
+
 # List all relevant environment variables.
 ai::env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
@@ -286,11 +289,11 @@ alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
 
 # Heredoc aliases for interactive use.
-alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '${AITID-}'"
-alias "Codex,= AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox exec --skip-git-repo-check << '${AITID-}'"
-alias "Assistant,= ai::run ai::ask << '${AITID-}'"
-alias "Agent,= ai::run ai::ask << '${AITID-}'"
-alias "AI,= ai::run ai::ask << '${AITID-}'"
+alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$(ai::eof)'"
+alias "Codex,= AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox exec --skip-git-repo-check << '$(ai::eof)'"
+alias "Assistant,= ai::run ai::ask << '$(ai::eof)'"
+alias "Agent,= ai::run ai::ask << '$(ai::eof)'"
+alias "AI,= ai::run ai::ask << '$(ai::eof)'"
 
 if [[ -z $AITID ]]; then
 
