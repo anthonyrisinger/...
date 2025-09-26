@@ -129,6 +129,22 @@ ai::sid () {
 
 # Determine current session ID for Codex (not yet implemented).
 ai:codex:sid () {
+  mkdir -p ~/".$AIGEN/AITID/$AITID"
+  if ! test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl.$(ai::tag::3).jsonl"; then
+    if ! test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
+      if test -s ~/".$AIGEN/AITID/$AITID/$AITID.txt"; then
+        jq -Rc '{id:"0",msg:{type:"agent_message",message:.}}' \
+          ~/".$AIGEN/AITID/$AITID/$AITID.txt" > ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"
+      fi
+    fi
+    if test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
+      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"* -empty -delete
+      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
+      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
+    elif test -e ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
+      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"* -delete
+    fi
+  fi
   echo '--last'
 }
 
@@ -179,13 +195,10 @@ ai:codex:gen () {
     ("architect~codex")  set -- --model gpt-5-codex -c model_reasoning_effort=high "$@" ;;
     (*"~codex")          set -- --model "$AIMOD" "$@" ;;
   esac
-  mkdir -p ~/".$AIGEN/AITID/$AITID"
   if test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
-    jq -Rc '{id:"0",msg:{type:"agent_message",message:.}}' \
-      ~/".$AIGEN/AITID/$AITID/$AITID.jsonl" > ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"
-    set -- resume "$AISID" "$@"
+    set -- "$@" resume "$AISID"
   else
-    set -- "$@" --output-last-message ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"
+    set -- "$@" --output-last-message ~/".$AIGEN/AITID/$AITID/$AITID.txt"
   fi
   # System prompt MUST be generated before tag changes.
   TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@"
