@@ -308,7 +308,7 @@ codex  () { command codex  "$@"; }
 
 # Automatically re-link to current session.
 Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
-Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox --sandbox=danger-full-access "$@"; }
+Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
 # Debugging alias.
 alias "WTF= AIWTF=x "
@@ -323,7 +323,7 @@ alias "Opus= AIMOD=opus "
 
 # Heredoc aliases for interactive use.
 alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$(ai::eof)'"
-alias "Codex,= AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox --sandbox=danger-full-access exec --skip-git-repo-check << '$(ai::eof)'"
+alias "Codex,= AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check << '$(ai::eof)'"
 alias "Assistant,= ai::run ai::ask << '$(ai::eof)'"
 alias "Agent,= ai::run ai::ask << '$(ai::eof)'"
 alias "AI,= ai::run ai::ask << '$(ai::eof)'"
