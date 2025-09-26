@@ -115,8 +115,22 @@ PARTNER PROTOCOL BLOCK:
 EOF
 } >&2
 
-# Determine current session ID, forking or starting new as needed.
+# Determine current session ID based on selected AI model.
 ai::sid () {
+  if ! command -v "ai:${AIGEN}:sid" >/dev/null 2>&1; then
+    echo >&2 "ERROR: AI model session identifier command '$AIGEN' not found."
+    return 1
+  fi
+  "ai:${AIGEN}:sid"
+}
+
+# Determine current session ID for Codex (not yet implemented).
+ai:codex:sid () {
+  echo '--last'
+}
+
+# Determine current session ID for Claude.
+ai:claude:sid () {
   if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"; then
     if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
       find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
@@ -144,8 +158,45 @@ ai::sid () {
   fi
 }
 
-# Non-streamed chat with full interactive output.
+# Non-streamed chat with full interactive output for selected AI model.
 ai::gen () {
+  if ! command -v "ai:${AIGEN}:gen" >/dev/null 2>&1; then
+    echo >&2 "ERROR: AI model generation identifier command '$AIGEN' not found."
+    return 1
+  fi
+  "ai:${AIGEN}:gen"
+}
+
+# Non-streamed chat with full interactive output for Codex.
+ai:codex:gen () {
+  case $(ai::tag::2) in
+    ("~codex")           set -- --model gpt-5-codex -c model_reasoning_effort=medium "$@" ;;
+    ("customer~codex")   set -- --model gpt-5-codex -c model_reasoning_effort=low    "$@" ;;
+    ("engineer~codex")   set -- --model gpt-5-codex -c model_reasoning_effort=medium "$@" ;;
+    ("architect~codex")  set -- --model gpt-5-codex -c model_reasoning_effort=high "$@" ;;
+    (*"~codex")          set -- --model "$AIMOD" "$@" ;;
+  esac
+  mkdir -p ~/".$AIGEN/AITID/$AITID"
+  if test -s ~/".$AIGEN/AITID/$AISID.jsonl"; then
+    set -- exec --skip-git-repo-check resume "$AISID" "$@"
+  else
+    set -- exec --skip-git-repo-check "$@"
+  fi
+  # System prompt MUST be generated before tag changes.
+  (
+    if ! test -s ~/".$AIGEN/AITID/$AISID.jsonl"; then
+      echo "$AISID" > ~/".$AIGEN/AITID/$AISID.jsonl"
+      AITOP=$AITAG AITAG=$(ai::tag::3) ai::sys
+      echo -e "\n---\n"
+    fi
+    cat -u
+  ) \
+  | TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) \
+    command "$AIGEN" "$@"
+}
+
+# Non-streamed chat with full interactive output for Claude.
+ai:claude:gen () {
   case $(ai::tag::2) in
     ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
     ("customer~claude")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
