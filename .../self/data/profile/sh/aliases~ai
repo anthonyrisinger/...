@@ -275,19 +275,19 @@ Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandb
 alias "WTF=AIWTF=x "
 
 # Dynamic modifiers for roles.
-alias "Customer=AIMOD=customer "
-alias "Engineer=AIMOD=engineer "
-alias "Architect=AIMOD=architect "
-alias "Haiku=AIMOD=haiku "
-alias "Sonnet=AIMOD=sonnet "
-alias "Opus=AIMOD=opus "
+alias "Customer= AIMOD=customer "
+alias "Engineer= AIMOD=engineer "
+alias "Architect= AIMOD=architect "
+alias "Haiku= AIMOD=haiku "
+alias "Sonnet= AIMOD=sonnet "
+alias "Opus= AIMOD=opus "
 
 # Heredoc aliases for interactive use.
-alias "Claude,=AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '${AITID-}'"
-alias "Codex,=AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox exec --skip-git-repo-check << '${AITID-}'"
-alias "Assistant,=ai::run ai::ask << '${AITID-}'"
-alias "Agent,=ai::run ai::ask << '${AITID-}'"
-alias "AI,=ai::run ai::ask << '${AITID-}'"
+alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '${AITID-}'"
+alias "Codex,= AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox exec --skip-git-repo-check << '${AITID-}'"
+alias "Assistant,= ai::run ai::ask << '${AITID-}'"
+alias "Agent,= ai::run ai::ask << '${AITID-}'"
+alias "AI,= ai::run ai::ask << '${AITID-}'"
 
 if [[ -z $AITID ]]; then
 
