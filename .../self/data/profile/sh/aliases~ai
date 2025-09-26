@@ -177,15 +177,13 @@ ai:codex:gen () {
     (*"~codex")          set -- --model "$AIMOD" "$@" ;;
   esac
   mkdir -p ~/".$AIGEN/AITID/$AITID"
-  if test -s ~/".$AIGEN/AITID/$AISID.jsonl"; then
-    set -- exec --skip-git-repo-check resume "$AISID" "$@"
-  else
-    set -- exec --skip-git-repo-check "$@"
+  if test -s ~/".$AIGEN/AITID/$AITID/$AISID.jsonl"; then
+    set -- resume "$AISID" "$@"
   fi
   # System prompt MUST be generated before tag changes.
   (
-    if ! test -s ~/".$AIGEN/AITID/$AISID.jsonl"; then
-      echo "$AISID" > ~/".$AIGEN/AITID/$AISID.jsonl"
+    if ! test -s ~/".$AIGEN/AITID/$AITID/$AISID.jsonl"; then
+      echo "$AISID" > ~/".$AIGEN/AITID/$AITID/$AISID.jsonl"
       AITOP=$AITAG AITAG=$(ai::tag::3) ai::sys
       echo -e "\n---\n"
     fi
@@ -294,7 +292,7 @@ alias "Opus=AIMOD=opus "
 
 # Heredoc aliases for interactive use.
 alias "Claude,=AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '${AITID-}'"
-alias "Codex,=AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox << '${AITID-}'"
+alias "Codex,=AIGEN=codex ai::run ai::ask --dangerously-bypass-approvals-and-sandbox exec --skip-git-repo-check << '${AITID-}'"
 alias "Assistant,=ai::run ai::ask << '${AITID-}'"
 alias "Agent,=ai::run ai::ask << '${AITID-}'"
 alias "AI,=ai::run ai::ask << '${AITID-}'"
