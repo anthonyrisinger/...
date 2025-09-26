@@ -275,7 +275,7 @@ Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
 Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
 # Debugging alias.
-alias "WTF=AIWTF=x "
+alias "WTF= AIWTF=x "
 
 # Dynamic modifiers for roles.
 alias "Customer= AIMOD=customer "
