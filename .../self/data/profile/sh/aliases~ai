@@ -206,7 +206,7 @@ ai:codex:gen () {
   # System prompt MUST be generated before tag changes.
   (
     exec 2> >(sed -ur '1{/^Reading prompt from stdin/d;}' >&2)
-    TMOUT=3 AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@"
+    AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command "$AIGEN" "$@"
   )
 }
 
