@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC3001,SC3003,SC3011,SC3033,SC3043,SC3057
 
 # Aliases and functions for AI interaction via partner protocol.
 #
@@ -22,12 +23,12 @@ ai::sig::tag () {
       ;;
     ("~"*"~"*)
       IFS='~' read -r aimod aigen <<<"$AITAG"
-      printf '%s ' "$(tr -u 'a-z' 'A-Z' <<<${aimod:0:1})${aimod:1}"
-      printf '%s' "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
+      printf '%s ' "$(tr -u '[:lower:]' '[:upper:]' <<<"${aimod:0:1}")${aimod:1}"
+      printf '%s' "$(tr -u '[:lower:]' '[:upper:]' <<<"${aigen:0:1}")${aigen:1}"
       ;;
     ("~"*)
       IFS='~' read -r aigen <<<"$AITAG"
-      printf '%s' "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
+      printf '%s' "$(tr -u '[:lower:]' '[:upper:]' <<<"${aigen:0:1}")${aigen:1}"
       ;;
   esac
 }
@@ -124,7 +125,7 @@ ai::sid () {
     ai:sys:error "no '$AIGEN' model session identifier command found"
     return 1
   fi
-  "ai:${AIGEN}:sid" "$@"
+  "ai:${AIGEN}:sid"
 }
 
 # Determine current session ID for Codex (not yet implemented).
@@ -275,7 +276,7 @@ ai::ask () (
 # Wrapper to set strict mode and current session ID.
 ai::run () (
   set -${AIWTF:+x}euo pipefail
-  if ((AILVL >= 3)); then
+  if [ "$AILVL" -ge 3 ]; then
     ai::sys::block "recursive call depth exceeded ($AILVL)"
     return 3
   fi
@@ -295,7 +296,7 @@ ai::run () (
       return 5
     fi
   fi
-  AISID=$(ai::sid) "$1" "${@:2}"
+  AISID=$(ai::sid) "$@"
 )
 
 # Direct alias to underlying AI model command.
@@ -307,14 +308,14 @@ codex  () { command codex  "$@"; }
 Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
 Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
-if [[ -z $AITID ]]; then
+if [ -z "$AITID" ]; then
 
   # MUST be first! Differentiates first call (empty) from all nested calls.
   AITOP="${AITAG:-}"
   AITAG="$(ai::tag::3)"
 
   # Unique per conversation thread; persists across calls.
-  AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
+  AITID="${AITID:-"$(uuidgen | tr -u '[:upper:]' '[:lower:]')"}"
   AISID="${AISID:-"$AITID"}"
 
   # AI model to use; default is 'claude'.
