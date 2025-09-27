@@ -276,7 +276,7 @@ ai::ask () (
 # Wrapper to set strict mode and current session ID.
 ai::run () (
   set -${AIWTF:+x}euo pipefail
-  if [ "$AILVL" -ge 3 ]; then
+  if test "$AILVL" -ge 3; then
     ai::sys::block "recursive call depth exceeded ($AILVL)"
     return 3
   fi
@@ -308,7 +308,7 @@ codex  () { command codex  "$@"; }
 Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
 Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
-if [ -z "$AITID" ]; then
+if test -z "$AITID"; then
 
   # MUST be first! Differentiates first call (empty) from all nested calls.
   AITOP="${AITAG:-}"
@@ -336,7 +336,7 @@ if [ -z "$AITID" ]; then
 fi
 
 # Unique EOF marker for heredoc aliases.
-AIEOF=$([ "$AILVL" = 0 ] || echo "${AITID:-}")
+AIEOF=$(test "$AILVL" = 0 || echo "${AITID:-}")
 
 # Heredoc aliases for interactive use.
 # shellcheck disable=SC2139
