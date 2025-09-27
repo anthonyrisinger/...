@@ -232,7 +232,7 @@ ai:claude:gen () {
 # Streamed chat with inline tool-use markers for selected AI model.
 ai::cat () {
   if ! command -v "ai:${AIGEN}:cat" >/dev/null 2>&1; then
-    ai:sys:error "nI model streamed chat command '$AIGEN' not found"
+    ai:sys:error "no '$AIGEN' model streamed chat command found"
     return 1
   fi
   cat -u \
