@@ -122,7 +122,7 @@ ai::sys::block () { AIERR="BLOCK" ai::sys::error "$@"; }
 # Determine current session ID based on selected AI model.
 ai::sid () {
   if ! command -v "ai:${AIGEN}:sid" >/dev/null 2>&1; then
-    ai:sys:error "no '$AIGEN' model session identifier command found"
+    ai::sys::error "no '$AIGEN' model session identifier command found"
     return 1
   fi
   "ai:${AIGEN}:sid"
@@ -165,13 +165,13 @@ ai:claude:sid () {
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl"; then
     tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
-    ai:sys:error "no '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'"
+    ai::sys::error "no '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'"
     printf '%s' "$AISID"
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-    ai:sys:error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
+    ai::sys::error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
     printf '%s' "$AITID"
   elif test -n "$AISID"; then
-    ai:sys:error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
+    ai::sys::error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
     printf '%s' "$AISID"
   else
     printf '%s' "$AITID"
@@ -181,7 +181,7 @@ ai:claude:sid () {
 # Non-streamed chat with full interactive output for selected AI model.
 ai::gen () {
   if ! command -v "ai:${AIGEN}:gen" >/dev/null 2>&1; then
-    ai:sys:error "no '$AIGEN' model generation identifier command found"
+    ai::sys::error "no '$AIGEN' model generation identifier command found"
     return 1
   fi
   "ai:${AIGEN}:gen" "$@"
@@ -230,7 +230,7 @@ ai:claude:gen () {
 # Streamed chat for selected AI model.
 ai::cat () {
   if ! command -v "ai:${AIGEN}:cat" >/dev/null 2>&1; then
-    ai:sys:error "no '$AIGEN' model streamed chat command found"
+    ai::sys::error "no '$AIGEN' model streamed chat command found"
     return 1
   fi
   cat -u \
