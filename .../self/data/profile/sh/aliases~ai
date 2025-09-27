@@ -218,7 +218,7 @@ ai:claude:gen () {
     (*"~claude")          set -- --model "$AIMOD" "$@" ;;
   esac
   if test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
-    set -- --resume "$AISID" "$@"
+    set -- --resume "$AISID" --fork-session "$@"
   else
     set -- --session-id "$AISID" "$@"
   fi
