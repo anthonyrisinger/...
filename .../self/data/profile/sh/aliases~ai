@@ -263,7 +263,7 @@ ai::ask () (
   time (
     (
       printf '%s (you!),\n\n' "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag)"
-      cat -u \
+      { cat -u; echo; } \
       | sed -ur '${s,(^.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
       printf '\n-- \n\n%s (me!)\n\n' "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::top)"
       ai::sys::final
