@@ -170,7 +170,7 @@ ai:claude:sid () {
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
     ai:sys:error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
     printf '%s' "$AITID"
-  elif test "$AITID" != "$AISID"; then
+  elif test -n "$AISID"; then
     ai:sys:error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
     printf '%s' "$AISID"
   else
