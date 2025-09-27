@@ -292,7 +292,7 @@ ai::run () (
       ai::sys::block "you ($(ai::sig::tag)) cannot call anyone; ask your caller ($(ai::sig::top)) instead"
       return 4
     elif test "${AITAG##*[~]}" = "$AITAG" -a "$AIMOD" = "engineer"; then
-      ai::sys::block "you ($(ai::sig::tag)) cannot call $(AITAG=$(ai::tag::3) ai::sig::tag); ask your Architect instead"
+      ai::sys::block "you ($(ai::sig::tag)) cannot call $(AITAG=$(ai::tag::3) ai::sig::tag); ask your team instead"
       return 5
     fi
   fi
