@@ -5,9 +5,9 @@
 # "We became what we built. Or built what we were. Both?" -Architect Claude
 
 # Generate current identity tags.
-ai::tag::1 () { echo -n "${AIGEN-}" ;}
-ai::tag::2 () { echo -n "${AIMOD-}~${AIGEN-}"; }
-ai::tag::3 () { echo -n "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
+ai::tag::1 () { printf '%s' "${AIGEN-}" ;}
+ai::tag::2 () { printf '%s' "${AIMOD-}~${AIGEN-}"; }
+ai::tag::3 () { printf '%s' "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 
 # Short role signatures.
 ai::sig::top () { AITAG="${AITOP:-"main~user"}" ai::sig::tag; }
@@ -18,22 +18,22 @@ ai::sig::tag () {
       return
       ;;
     ("~")
-      echo "Main User"
+      printf '%s' "Main User"
       ;;
     ("~"*"~"*)
       IFS='~' read -r aimod aigen <<<"$AITAG"
-      echo -n "$(tr -u 'a-z' 'A-Z' <<<${aimod:0:1})${aimod:1} "
-      echo "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
+      printf '%s ' "$(tr -u 'a-z' 'A-Z' <<<${aimod:0:1})${aimod:1}"
+      printf '%s' "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
       ;;
     ("~"*)
       IFS='~' read -r aigen <<<"$AITAG"
-      echo "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
+      printf '%s' "$(tr -u 'a-z' 'A-Z' <<<${aigen:0:1})${aigen:1}"
       ;;
   esac
 }
 
 # Unique EOF marker for heredoc aliases.
-ai::eof () { [[ $AILVL -eq 0 ]] || echo "${AITID:-}"; }
+ai::eof () { [[ $AILVL -eq 0 ]] || printf '%s' "${AITID:-}"; }
 
 # List all relevant environment variables.
 ai::env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
@@ -78,21 +78,21 @@ PARTNER PROTOCOL HINTS:
 $(
 case $(ai::tag::2) in
   ("~claude")
-    echo '- **On FIRST read via Bash Tool**, run `Customer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- CRITICAL: DELEGATE experiential and confirmational tasks to *Customer Claude* to enhance *your own* contextual awareness;'
-    echo '- CRITICAL: DELEGATE evaluational and implementation tasks to *Architect Claude* to protect *your own* contextual integrity;'
+    printf '%s\n' '- **On FIRST read via Bash Tool**, run `Customer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    printf '%s\n' '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    printf '%s\n' '- CRITICAL: DELEGATE experiential and confirmational tasks to *Customer Claude* to enhance *your own* contextual awareness;'
+    printf '%s\n' '- CRITICAL: DELEGATE evaluational and implementation tasks to *Architect Claude* to protect *your own* contextual integrity;'
     ;;
   ("architect~claude")
-    echo '- **On FIRST read via Bash Tool**, run `Engineer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- CRITICAL: DELEGATE implementation tasks to *Engineer Claude* to ensure *your own* contextual coherence;'
+    printf '%s\n' '- **On FIRST read via Bash Tool**, run `Engineer Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    printf '%s\n' '- CRITICAL: DELEGATE implementation tasks to *Engineer Claude* to ensure *your own* contextual coherence;'
     ;;
   ("customer~claude")
-    echo '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
-    echo '- CRITICAL: FORWARD task outcomes proactively to *Architect Claude* to expand *your own* contextual salience;'
+    printf '%s\n' '- **On FIRST read via Bash Tool**, run `Architect Claude,\\n\\nI am [NAME ...] the *new* [ROLE ...] I need rapid onboarding of your perspective!\\n`;'
+    printf '%s\n' '- CRITICAL: FORWARD task outcomes proactively to *Architect Claude* to expand *your own* contextual salience;'
     ;;
   ("engineer~"*)
-    echo '- CRITICAL: Engineers **cannot** call others via partner protocol and must maximize STDIO **only**;'
+    printf '%s\n' '- CRITICAL: Engineers **cannot** call others via partner protocol and must maximize STDIO **only**;'
     ;;
 esac
 )
@@ -148,7 +148,7 @@ ai:codex:sid () {
       find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"* -delete
     fi
   fi
-  echo '--last'
+  printf '%s' '--last'
 }
 
 # Determine current session ID for Claude.
@@ -168,15 +168,15 @@ ai:claude:sid () {
     tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
     ai:sys:error "no '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'"
-    echo "$AISID"
+    printf '%s' "$AISID"
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
     ai:sys:error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
-    echo "$AITID"
+    printf '%s' "$AITID"
   elif test "$AITID" != "$AISID"; then
     ai:sys:error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
-    echo "$AISID"
+    printf '%s' "$AISID"
   else
-    echo "$AITID"
+    printf '%s' "$AITID"
   fi
 }
 
@@ -262,10 +262,10 @@ ai::ask () (
   TIMEFMT=$'\n'" $(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) / %P CPU / %*Es / $AITID"
   time (
     (
-      echo -e "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) (you!),\n"
+      printf '%s (you!),\n\n' "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag)"
       cat -u \
       | sed -ur '${s,^(.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
-      echo -en "\n-- \n\n$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::top) (me!)\n\n"
+      printf '\n-- \n\n%s (me!)\n\n' "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::top)"
       ai::sys::final
     ) \
     | ai::cat "$@" \
