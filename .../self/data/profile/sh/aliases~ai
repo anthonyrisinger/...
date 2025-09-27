@@ -299,15 +299,6 @@ ai::run () (
   AISID=$(ai::sid) "$@"
 )
 
-# Direct alias to underlying AI model command.
-# Workaround to case-insensitive file/command/function name lookup.
-claude () { command claude "$@"; }
-codex  () { command codex  "$@"; }
-
-# Automatically re-link to current session.
-Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
-Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
-
 if test -z "$AITID"; then
 
   # MUST be first! Differentiates first call (empty) from all nested calls.
@@ -337,6 +328,15 @@ fi
 
 # Unique EOF marker for heredoc aliases.
 AIEOF=$(test "$AILVL" = 0 || echo "${AITID:-}")
+
+# Direct alias to underlying AI model command.
+# Workaround to case-insensitive file/command/function name lookup.
+claude () { command claude "$@"; }
+codex  () { command codex  "$@"; }
+
+# Automatically re-link to current session.
+Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
+Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
 # Heredoc aliases for interactive use.
 # shellcheck disable=SC2139
