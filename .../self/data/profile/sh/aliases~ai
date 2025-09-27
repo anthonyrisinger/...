@@ -32,9 +32,6 @@ ai::sig::tag () {
   esac
 }
 
-# Unique EOF marker for heredoc aliases.
-ai::eof () { [[ $AILVL -eq 0 ]] || printf '%s' "${AITID:-}"; }
-
 # List all relevant environment variables.
 ai::env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
@@ -310,8 +307,47 @@ codex  () { command codex  "$@"; }
 Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
 Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
-# Debugging alias.
-alias "WTF= AIWTF=x "
+if [[ -z $AITID ]]; then
+
+  # MUST be first! Differentiates first call (empty) from all nested calls.
+  AITOP="${AITAG:-}"
+  AITAG="$(ai::tag::3)"
+
+  # Unique per conversation thread; persists across calls.
+  AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
+  AISID="${AISID:-"$AITID"}"
+
+  # AI model to use; default is 'claude'.
+  AIGEN="${AIGEN:-"claude"}"
+  AIMOD="${AIMOD:-}"
+
+  # Track the depth for nested calls.
+  AILVL="${AILVL:-0}"
+
+  # If set, enables debugging output.
+  AIWTF="${AIWTF:-}"
+
+  if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
+    # Undifferentiated role claimed by Copilot in VSCode.
+    AIMOD="architect"
+  fi
+
+fi
+
+# Unique EOF marker for heredoc aliases.
+AIEOF=$([ "$AILVL" = 0 ] || echo "${AITID:-}")
+
+# Heredoc aliases for interactive use.
+# shellcheck disable=SC2139
+alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$AIEOF'"
+# shellcheck disable=SC2139
+alias "Codex,= AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check << '$AIEOF'"
+# shellcheck disable=SC2139
+alias "Assistant,= ai::run ai::ask << '$AIEOF'"
+# shellcheck disable=SC2139
+alias "Agent,= ai::run ai::ask << '$AIEOF'"
+# shellcheck disable=SC2139
+alias "AI,= ai::run ai::ask << '$AIEOF'"
 
 # Dynamic modifiers for roles.
 alias "Customer= AIMOD=customer "
@@ -321,36 +357,8 @@ alias "Haiku= AIMOD=haiku "
 alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
 
-# Heredoc aliases for interactive use.
-alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$(ai::eof)'"
-alias "Codex,= AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check << '$(ai::eof)'"
-alias "Assistant,= ai::run ai::ask << '$(ai::eof)'"
-alias "Agent,= ai::run ai::ask << '$(ai::eof)'"
-alias "AI,= ai::run ai::ask << '$(ai::eof)'"
+# Debugging alias.
+alias "WTF= AIWTF=x "
 
-if [[ -z $AITID ]]; then
-
-  # MUST be first! Differentiates first call (empty) from all nested calls.
-  export AITOP="${AITAG:-}"
-  export AITAG="$(ai::tag::3)"
-
-  # Unique per conversation thread; persists across calls.
-  export AITID="${AITID:-"$(uuidgen | tr -u 'A-Z' 'a-z')"}"
-  export AISID="${AISID:-"$AITID"}"
-
-  # AI model to use; default is 'claude'.
-  export AIGEN="${AIGEN:-"claude"}"
-  export AIMOD="${AIMOD:-}"
-
-  # Track the depth for nested calls.
-  export AILVL="${AILVL:-0}"
-
-  # If set, enables debugging output.
-  export AIWTF="${AIWTF:-}"
-
-  if test -z "$AIMOD" -a "$VSCODE_INJECTION" = "1"; then
-    # Undifferentiated role claimed by Copilot in VSCode.
-    AIMOD="architect"
-  fi
-
-fi
+# Export all variables for subshells.
+export AITOP AITAG AITID AISID AIGEN AIMOD AILVL AIEOF AIWTF
