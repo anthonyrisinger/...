@@ -339,18 +339,19 @@ AIEOF=$(test "$AILVL" = 0 || echo "${AITID:-}")
 claude () { command claude "$@"; }
 codex  () { command codex  "$@"; }
 
-# Automatically re-link to current session.
-Claude () { if test -t 0 -a -t 1; then Claude::1; else Claude::2; fi; }
-Claude::1 () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
-Claude::2 () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions --print "$@"; }
+# Primary entry points for Claude.
+Claude () { if test -t 0 -a -t 1; then Claude::gen "$@"; else Claude::ask "$@"; fi; }
+Claude::gen () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
+Claude::ask () { AIGEN=claude ai::run ai::ask --dangerously-skip-permissions "$@"; }
 
-Codex () { if test -t 0 -a -t 1; then Codex::1; else Codex::2; fi; }
-Codex::1 () { AIGEN=codex ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
-Codex::2 () { AIGEN=codex ai::run ai::gen exec --dangerously-bypass-approvals-and-sandbox "$@"; }
+# Primary entry points for Codex.
+Codex () { if test -t 0 -a -t 1; then Codex::gen "$@"; else Codex::ask "$@"; fi; }
+Codex::gen () { AIGEN=codex ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
+Codex::ask () { AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check "$@"; }
 
 # Heredoc aliases for interactive use.
-alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$AIEOF'"
-alias "Codex,= AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check << '$AIEOF'"
+alias "Claude,= Claude << '$AIEOF'"
+alias "Codex,= Codex << '$AIEOF'"
 alias "Assistant,= ai::run ai::ask << '$AIEOF'"
 alias "Agent,= ai::run ai::ask << '$AIEOF'"
 alias "AI,= ai::run ai::ask << '$AIEOF'"
