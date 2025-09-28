@@ -32,6 +32,8 @@
 	<false/>
 	<key>Default Bookmark Guid</key>
 	<string>FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</string>
+	<key>Default Browser Profile Guid</key>
+	<string>C0F6114D-4339-4BF1-959B-CDA2BE305FE7</string>
 	<key>DefaultTabStopWidth</key>
 	<integer>8</integer>
 	<key>DimBackgroundWindows</key>
@@ -930,6 +932,8 @@
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
+	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewPreferredModeKey</key>
