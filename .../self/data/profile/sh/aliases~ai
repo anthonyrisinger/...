@@ -218,7 +218,12 @@ ai:claude:gen () {
     (*"~claude")          set -- --model "$AIMOD" "$@" ;;
   esac
   if test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
-    set -- --resume "$AISID" --fork-session "$@"
+    if test -n "$AIMOD" -a "$AISID" = "$AITID"; then
+      # Fork on differentiated calls to the original session.
+      # The next call will detect the new session and resume.
+      set -- --fork-session "$@"
+    fi
+    set -- --resume "$AISID" "$@"
   else
     set -- --session-id "$AISID" "$@"
   fi
