@@ -178,7 +178,7 @@ ai:claude:sid () {
   fi
 }
 
-# Non-streamed chat with full interactive output for selected AI model.
+# Generative chat for selected AI model.
 ai::gen () {
   if ! command -v "ai:${AIGEN}:gen" >/dev/null 2>&1; then
     ai::sys::error "no '$AIGEN' model generation identifier command found"
@@ -187,7 +187,7 @@ ai::gen () {
   "ai:${AIGEN}:gen" "$@"
 }
 
-# Non-streamed chat with full interactive output for Codex.
+# Generative chat for Codex.
 ai:codex:gen () {
   case $(ai::tag::2) in
     ("~codex")           set -- --model gpt-5-codex -c model_reasoning_effort=medium "$@" ;;
@@ -208,7 +208,7 @@ ai:codex:gen () {
   )
 }
 
-# Non-streamed chat with full interactive output for Claude.
+# Generative chat for Claude.
 ai:claude:gen () {
   case $(ai::tag::2) in
     ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
