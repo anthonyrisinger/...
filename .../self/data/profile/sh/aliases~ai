@@ -214,7 +214,7 @@ ai:codex:gen () {
 # shellcheck disable=SC2097,SC2098
 ai:claude:gen () {
   case $(ai::tag::2) in
-    ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
+    ("~claude")           set -- --model sonnet   --fallback-model opusplan "$@" ;;
     ("customer~claude")   set -- --model sonnet   --fallback-model haiku    "$@" ;;
     ("engineer~claude")   set -- --model opusplan --fallback-model sonnet   "$@" ;;
     ("architect~claude")  set -- --model opus     --fallback-model opusplan "$@" ;;
