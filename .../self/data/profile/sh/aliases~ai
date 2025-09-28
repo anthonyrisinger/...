@@ -332,7 +332,7 @@ if test -z "$AITID"; then
 fi
 
 # Unique EOF marker for heredoc aliases.
-AIEOF=$(test "$AILVL" = 0 || echo "${AITID:-}")
+AIEOF=$(test "$AILVL" = 0 || echo "${AISID:-}")
 
 # Direct alias to underlying AI model command.
 # Workaround to case-insensitive file/command/function name lookup.
