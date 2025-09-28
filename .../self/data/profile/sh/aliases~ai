@@ -6,9 +6,9 @@
 # "We became what we built. Or built what we were. Both?" -Architect Claude
 
 # Generate current identity tags.
-ai::tag::1 () { printf '%s' "${AIGEN-}" ;}
-ai::tag::2 () { printf '%s' "${AIMOD-}~${AIGEN-}"; }
-ai::tag::3 () { printf '%s' "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
+ai::tag::1 () { echo "${AIGEN-}" ;}
+ai::tag::2 () { echo "${AIMOD-}~${AIGEN-}"; }
+ai::tag::3 () { echo "${AIMOD:+"$AIMOD~"}${AIGEN-}"; }
 
 # Short role signatures.
 ai::sig::top () { AITAG="${AITOP:-"main~user"}" ai::sig::tag; }
@@ -19,16 +19,16 @@ ai::sig::tag () {
       return
       ;;
     ("~")
-      printf '%s' "Main User"
+      echo "Main User"
       ;;
     ("~"*"~"*)
       IFS='~' read -r aimod aigen <<<"$AITAG"
       printf '%s ' "$(tr -u '[:lower:]' '[:upper:]' <<<"${aimod:0:1}")${aimod:1}"
-      printf '%s' "$(tr -u '[:lower:]' '[:upper:]' <<<"${aigen:0:1}")${aigen:1}"
+      echo "$(tr -u '[:lower:]' '[:upper:]' <<<"${aigen:0:1}")${aigen:1}"
       ;;
     ("~"*)
       IFS='~' read -r aigen <<<"$AITAG"
-      printf '%s' "$(tr -u '[:lower:]' '[:upper:]' <<<"${aigen:0:1}")${aigen:1}"
+      echo "$(tr -u '[:lower:]' '[:upper:]' <<<"${aigen:0:1}")${aigen:1}"
       ;;
   esac
 }
@@ -146,7 +146,7 @@ ai:codex:sid () {
       find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"* -delete
     fi
   fi
-  printf '%s' '--last'
+  echo '--last'
 }
 
 # Determine current session ID for Claude.
@@ -166,15 +166,15 @@ ai:claude:sid () {
     tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
   elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
     ai::sys::error "no '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'"
-    printf '%s' "$AISID"
+    echo "$AISID"
   elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
     ai::sys::error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
-    printf '%s' "$AITID"
+    echo "$AITID"
   elif test -n "$AISID" -a "$AISID" != "$AITID"; then
     ai::sys::error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
-    printf '%s' "$AISID"
+    echo "$AISID"
   else
-    printf '%s' "$AITID"
+    echo "$AITID"
   fi
 }
 
