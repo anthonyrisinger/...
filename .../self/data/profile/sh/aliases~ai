@@ -36,6 +36,18 @@ ai::sig::tag () {
 # List all relevant environment variables.
 ai::env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
+# Directory for current session data.
+ai::dir () { echo ~/".aigen/$AIGEN/$AITID"; }
+
+# File prefix for current session data.
+ai::pre () { echo "$(ai::dir)/$AITID"; }
+
+# Log files for current session data.
+ai::log::0 () { echo "$(ai::pre).jsonl"; }
+ai::log::1 () { echo "$(ai::pre).jsonl.$(ai::tag::1).jsonl"; }
+ai::log::2 () { echo "$(ai::pre).jsonl.$(ai::tag::2).jsonl"; }
+ai::log::3 () { echo "$(ai::pre).jsonl.$(ai::tag::3).jsonl"; }
+
 # Full concatenated system prompt.
 ai::sys () {
   ai::sys::start
@@ -126,55 +138,52 @@ ai::sid () {
     ai::sys::error "no '$AIGEN' model session identifier command found"
     return 1
   fi
+  mkdir -p "$(ai::dir)"
   "ai:${AIGEN}:sid"
+  # Automatically deleted on next call if still empty.
+  touch "$(ai::log::3)"
 }
 
-# Determine current session ID for Codex (not yet implemented).
+# Determine current session ID for Codex.
 ai:codex:sid () {
-  mkdir -p ~/".$AIGEN/AITID/$AITID"
-  if ! test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl.$(ai::tag::3).jsonl"; then
-    if ! test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
-      if test -s ~/".$AIGEN/AITID/$AITID/$AITID.txt"; then
-        jq -Rc '{id:"0",msg:{type:"agent_message",message:.}}' \
-          ~/".$AIGEN/AITID/$AITID/$AITID.txt" > ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"
+  if ! test -s "$(ai::log::3)"; then
+    if ! test -s "$(ai::log::0)"; then
+      if test -s "$(ai::pre).txt"; then
+        jq -Rc '{session_id:"0",id:"0",msg:{type:"agent_message",message:.}}' \
+          "$(ai::pre).txt" > "$(ai::log::0)"
       fi
     fi
-    if test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
-      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"* -empty -delete
-      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
-      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
-    elif test -e ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
-      find ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"* -delete
+    if test -s "$(ai::log::0)"; then
+      find "$(ai::log::0)"* -empty -delete
+      find "$(ai::log::0)" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
+      find "$(ai::log::0)" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
+    elif test -e "$(ai::log::0)"; then
+      find "$(ai::log::0)"* -delete
     fi
   fi
+  # TODO: Not yet implemented.
   echo '--last'
 }
 
 # Determine current session ID for Claude.
 ai:claude:sid () {
-  if ! test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"; then
-    if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -empty -delete
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
-    elif test -e ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-      find ~/".$AIGEN"/*/*/"$AITID.jsonl"* -delete
+  if ! test -s "$(ai::log::3)"; then
+    if test -s "$(ai::log::0)"; then
+      find "$(ai::log::0)"* -empty -delete
+      find "$(ai::log::0)" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
+      find "$(ai::log::0)" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
+    elif test -e "$(ai::log::0)"; then
+      find "$(ai::log::0)"* -delete
     fi
   fi
-  if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::2).jsonl"; then
-    tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::2).jsonl" | jq -er '.session_id//.sessionId//empty'
-  elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl"; then
-    tail -n1 ~/".$AIGEN"/*/*/"$AITID.jsonl.$AIGEN.jsonl" | jq -er '.session_id//.sessionId//empty'
-  elif test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
-    ai::sys::error "no '$AITID.jsonl.*' sessions found; using old session '$AISID.jsonl'"
-    echo "$AISID"
-  elif test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-    ai::sys::error "no '$AISID.jsonl' session found; forking base session '$AITID.jsonl'"
-    echo "$AITID"
-  elif test -n "$AISID" -a "$AISID" != "$AITID"; then
-    ai::sys::error "no '$AITID.jsonl' session found; starting new session '$AISID.jsonl'"
-    echo "$AISID"
+  if test -s "$(ai::log::2)"; then
+    # Differentiated role resuming existing session.
+    tail -n1 "$(ai::log::2)" | jq -er '.session_id//.sessionId//empty'
+  elif test -z "$AIMOD" -a -s "$(ai::log::1)"; then
+    # Undifferentiated role resuming existing session.
+    tail -n1 "$(ai::log::1)" | jq -er '.session_id//.sessionId//empty'
   else
+    # Resumes or forks original session as necessary.
     echo "$AITID"
   fi
 }
@@ -198,10 +207,10 @@ ai:codex:gen () {
     ("architect~codex")  set -- --model gpt-5-codex -c model_reasoning_effort=high "$@" ;;
     (*"~codex")          set -- --model "$AIMOD" "$@" ;;
   esac
-  if test -s ~/".$AIGEN/AITID/$AITID/$AITID.jsonl"; then
+  if test -s "$(ai::log::3)"; then
     set -- "$@" resume "$AISID"
   else
-    set -- "$@" --output-last-message ~/".$AIGEN/AITID/$AITID/$AITID.txt"
+    set -- "$@" --output-last-message "$(ai::pre).txt"
   fi
   # System prompt MUST be generated before tag changes.
   (
@@ -220,15 +229,27 @@ ai:claude:gen () {
     ("architect~claude")  set -- --model opus     --fallback-model opusplan "$@" ;;
     (*"~claude")          set -- --model "$AIMOD" "$@" ;;
   esac
-  if test -s ~/".$AIGEN"/*/*/"$AISID.jsonl"; then
-    if test -n "$AIMOD" -a "$AISID" = "$AITID"; then
-      # Fork on differentiated calls to the original session.
-      # The next call will detect the new session and resume.
-      set -- --fork-session "$@"
-    fi
+  if test -s "$(ai::log::2)"; then
+    # Differentiated role with established session.
     set -- --resume "$AISID" "$@"
+  elif test -s "$(ai::log::3)"; then
+    # Undifferentiated role with established session or fresh fork of the same with still-empty session.
+    if test -e "$(ai::log::2)"; then
+      # Fork on differentiated calls to the established session.
+      # The next call will detect the new session and resume.
+      set -- --resume "$AISID" --fork-session "$@"
+    else
+      set -- --resume "$AISID" "$@"
+    fi
   else
-    set -- --session-id "$AISID" "$@"
+    # Any role with unestablished session or fresh fork of the same with still-empty session.
+    if test -e "$(ai::log::2)"; then
+      # Fork on differentiated calls to the unestablished session.
+      # The next call will detect the new session and resume.
+      set -- --session-id "$(uuidgen | tr -u '[:upper:]' '[:lower:]')" "$@"
+    else
+      set -- --session-id "$AISID" "$@"
+    fi
   fi
   # System prompt MUST be generated before tag changes.
   AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) \
@@ -243,24 +264,21 @@ ai::cat () {
   fi
   cat -u \
   | "ai:${AIGEN}:cat" "$@" \
-  | grep --invert-match --line-buffered --extended-regexp '^[^{]|^{"type":"system"' \
-  | if test -s ~/".$AIGEN"/*/*/"$AITID.jsonl"; then
-      tee -a ~/".$AIGEN"/*/*/"$AITID.jsonl.$(ai::tag::3).jsonl"
-    else
-      cat -u
-    fi \
+  | tee -a "$(ai::log::3)" \
   | jq --unbuffered --join-output '"\(.message.content[]?.text//.msg.message//empty)\n"//"\u0007"' \
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n,g'
 }
 
 # Streamed chat for Codex.
 ai:codex:cat () {
-  ai::gen "$@" --json
+  ai::gen "$@" --json \
+  | jq --unbuffered --raw-input --compact-output 'fromjson|.session_id|="00000000-0000-0000-0000-000000000000"'
 }
 
 # Streamed chat for Claude.
 ai:claude:cat () {
-  ai::gen "$@" --print --verbose --output-format=stream-json
+  ai::gen "$@" --print --verbose --output-format=stream-json \
+  | jq --unbuffered --raw-input --compact-output 'fromjson|select(.session_id)'
 }
 
 # Wrapper for streamed chat sessions.
