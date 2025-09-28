@@ -69,6 +69,7 @@ EOF
 }
 
 # Dynamic role-specific instructions.
+# shellcheck disable=SC2016
 ai::sys::hints () {
   cat -u <<EOF | sed -ur '/^$/d'
 PARTNER PROTOCOL HINTS:
@@ -188,6 +189,7 @@ ai::gen () {
 }
 
 # Generative chat for Codex.
+# shellcheck disable=SC2097,SC2098
 ai:codex:gen () {
   case $(ai::tag::2) in
     ("~codex")           set -- --model gpt-5-codex -c model_reasoning_effort=medium "$@" ;;
@@ -209,6 +211,7 @@ ai:codex:gen () {
 }
 
 # Generative chat for Claude.
+# shellcheck disable=SC2097,SC2098
 ai:claude:gen () {
   case $(ai::tag::2) in
     ("~claude")           set -- --model opusplan --fallback-model sonnet   "$@" ;;
@@ -260,14 +263,19 @@ ai:claude:cat () {
   ai::gen "$@" --print --verbose --output-format=stream-json
 }
 
+# Wrapper for streamed chat sessions.
+# shellcheck disable=SC2097,SC2098
 ai::ask () (
-  TIMEFORMAT=$'\n'" $(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) / %P CPU / %3lRs / $AITID"
+  # zsh uses TIMEFMT
+  # shellcheck disable=SC2034
   TIMEFMT=$'\n'" $(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) / %P CPU / %*Es / $AITID"
+  TIMEFORMAT=$'\n'" $(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag) / %P CPU / %3lRs / $AITID"
+  # shellcheck disable=SC2177
   time (
     (
       printf '%s (you!),\n\n' "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::tag)"
       { cat -u; echo; } \
-      | sed -ur '1{/^$/d;};${s,(^.*Claude)?([)]? < /dev/null)?$,,;/^$/d;}'
+      | sed -ur "1{/^\$/d;};\${s,(^.*Claude)?([)]? < /dev/null)?\$,,;/^\$/d;}"
       printf '\n-- \n\n%s (me!)\n\n' "$(AITOP=$AITAG AITAG=$(ai::tag::3) ai::sig::top)"
       ai::sys::final
     ) \
