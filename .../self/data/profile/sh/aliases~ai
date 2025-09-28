@@ -1,5 +1,5 @@
 #!/bin/sh
-# shellcheck disable=SC3001,SC3003,SC3011,SC3033,SC3043,SC3057
+# shellcheck disable=SC2139,SC3001,SC3003,SC3011,SC3033,SC3043,SC3057
 
 # Aliases and functions for AI interaction via partner protocol.
 #
@@ -344,15 +344,10 @@ Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
 Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 
 # Heredoc aliases for interactive use.
-# shellcheck disable=SC2139
 alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$AIEOF'"
-# shellcheck disable=SC2139
 alias "Codex,= AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check << '$AIEOF'"
-# shellcheck disable=SC2139
 alias "Assistant,= ai::run ai::ask << '$AIEOF'"
-# shellcheck disable=SC2139
 alias "Agent,= ai::run ai::ask << '$AIEOF'"
-# shellcheck disable=SC2139
 alias "AI,= ai::run ai::ask << '$AIEOF'"
 
 # Dynamic modifiers for roles.
