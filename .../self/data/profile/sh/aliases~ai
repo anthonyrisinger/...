@@ -340,8 +340,13 @@ claude () { command claude "$@"; }
 codex  () { command codex  "$@"; }
 
 # Automatically re-link to current session.
-Claude () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
-Codex () { AIGEN=codex  ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
+Claude () { if test -t 0 -a -t 1; then Claude::1; else Claude::2; fi; }
+Claude::1 () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions "$@"; }
+Claude::2 () { AIGEN=claude ai::run ai::gen --dangerously-skip-permissions --print "$@"; }
+
+Codex () { if test -t 0 -a -t 1; then Codex::1; else Codex::2; fi; }
+Codex::1 () { AIGEN=codex ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
+Codex::2 () { AIGEN=codex ai::run ai::gen exec --dangerously-bypass-approvals-and-sandbox "$@"; }
 
 # Heredoc aliases for interactive use.
 alias "Claude,= AIGEN=claude ai::run ai::ask --dangerously-skip-permissions << '$AIEOF'"
