@@ -345,12 +345,16 @@ Codex () { if test -t 0 -a -t 1; then Codex::gen "$@"; else Codex::ask "$@"; fi;
 Codex::gen () { AIGEN=codex ai::run ai::gen --dangerously-bypass-approvals-and-sandbox "$@"; }
 Codex::ask () { AIGEN=codex ai::run ai::ask exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check "$@"; }
 
+# AI sometimes tries to reply via this.
+User () { ai::sys::block "use stdout instead"; }
+
 # Heredoc aliases for interactive use.
 alias "Claude,= Claude << '$AIEOF'"
 alias "Codex,= Codex << '$AIEOF'"
 alias "Assistant,= ai::run ai::ask << '$AIEOF'"
 alias "Agent,= ai::run ai::ask << '$AIEOF'"
 alias "AI,= ai::run ai::ask << '$AIEOF'"
+alias "User,= User << '$AIEOF'"
 
 # Dynamic modifiers for roles.
 alias "Customer= AIMOD=customer "
@@ -359,6 +363,7 @@ alias "Architect= AIMOD=architect "
 alias "Haiku= AIMOD=haiku "
 alias "Sonnet= AIMOD=sonnet "
 alias "Opus= AIMOD=opus "
+alias "Main= AIMOD= "
 
 # Debugging alias.
 alias "WTF= AIWTF=x "
