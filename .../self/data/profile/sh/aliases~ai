@@ -37,16 +37,13 @@ ai::sig::tag () {
 ai::env () { env | grep -E '^AI[A-Z]{3,}=' | sort; }
 
 # Directory for current session data.
-ai::dir () { echo ~/".aigen/$AIGEN/$AITID"; }
-
-# File prefix for current session data.
-ai::pre () { echo "$(ai::dir)/$AITID"; }
+ai::dir::1 () { echo ~/".aigen/sessions/$AITID/$AIGEN"; }
+ai::dir::2 () { echo "$(ai::dir::1)${AIMOD:+/$AIMOD}"; }
 
 # Log files for current session data.
-ai::log::0 () { echo "$(ai::pre).jsonl"; }
-ai::log::1 () { echo "$(ai::pre).jsonl.$(ai::tag::1).jsonl"; }
-ai::log::2 () { echo "$(ai::pre).jsonl.$(ai::tag::2).jsonl"; }
-ai::log::3 () { echo "$(ai::pre).jsonl.$(ai::tag::3).jsonl"; }
+ai::log::1 () { echo "$(ai::dir::1)/log.jsonl"; }
+ai::log::2 () { echo "$(ai::dir::1)/${AIMOD:--}/log.jsonl"; }
+ai::log::3 () { echo "$(ai::dir::2)/log.jsonl"; }
 
 # Full concatenated system prompt.
 ai::sys () {
@@ -138,44 +135,19 @@ ai::sid () {
     ai::sys::error "no '$AIGEN' model session identifier command found"
     return 1
   fi
-  mkdir -p "$(ai::dir)"
-  "ai:${AIGEN}:sid"
-  # Automatically deleted on next call if still empty.
+  mkdir -p "$(ai::dir::1)" "$(ai::dir::2)"
   touch "$(ai::log::3)"
+  "ai:${AIGEN}:sid"
 }
 
 # Determine current session ID for Codex.
 ai:codex:sid () {
-  if ! test -s "$(ai::log::3)"; then
-    if ! test -s "$(ai::log::0)"; then
-      if test -s "$(ai::pre).txt"; then
-        jq -Rc '{session_id:"0",id:"0",msg:{type:"agent_message",message:.}}' \
-          "$(ai::pre).txt" > "$(ai::log::0)"
-      fi
-    fi
-    if test -s "$(ai::log::0)"; then
-      find "$(ai::log::0)"* -empty -delete
-      find "$(ai::log::0)" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
-      find "$(ai::log::0)" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
-    elif test -e "$(ai::log::0)"; then
-      find "$(ai::log::0)"* -delete
-    fi
-  fi
   # TODO: Not yet implemented.
   echo '--last'
 }
 
 # Determine current session ID for Claude.
 ai:claude:sid () {
-  if ! test -s "$(ai::log::3)"; then
-    if test -s "$(ai::log::0)"; then
-      find "$(ai::log::0)"* -empty -delete
-      find "$(ai::log::0)" -exec cp -an "{}" "{}.$(ai::tag::1).jsonl" \; 2>/dev/null || :
-      find "$(ai::log::0)" -exec cp -an "{}.$(ai::tag::1).jsonl" "{}.$(ai::tag::3).jsonl" \; 2>/dev/null || :
-    elif test -e "$(ai::log::0)"; then
-      find "$(ai::log::0)"* -delete
-    fi
-  fi
   if test -s "$(ai::log::2)"; then
     # Differentiated role resuming existing session.
     tail -n1 "$(ai::log::2)" | jq -er '.session_id//.sessionId//empty'
@@ -209,8 +181,6 @@ ai:codex:gen () {
   esac
   if test -s "$(ai::log::3)"; then
     set -- "$@" resume "$AISID"
-  else
-    set -- "$@" --output-last-message "$(ai::pre).txt"
   fi
   # System prompt MUST be generated before tag changes.
   (
