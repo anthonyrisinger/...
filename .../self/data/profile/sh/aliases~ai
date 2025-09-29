@@ -202,7 +202,7 @@ ai:claude:gen () {
   if test -s "$(ai::log::2)"; then
     # Differentiated role with established session.
     set -- --resume "$AISID" "$@"
-  elif test -s "$(ai::log::3)"; then
+  elif test -s "$(ai::log::1)"; then
     # Undifferentiated role with established session or fresh fork of the same with still-empty session.
     if test -e "$(ai::log::2)"; then
       # Fork on differentiated calls to the established session.
