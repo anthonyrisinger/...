@@ -332,7 +332,9 @@ AIEOF=$(test "$AILVL" = 0 || echo "${AISID:-}")
 
 # Direct alias to underlying AI model command.
 # Workaround to case-insensitive file/command/function name lookup.
+# shellcheck disable=SC2097,SC2098
 claude () { AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command claude "$@"; }
+# shellcheck disable=SC2097,SC2098
 codex  () { AILVL=$((AILVL+1)) AITOP=$AITAG AITAG=$(ai::tag::3) command codex  "$@"; }
 
 # Primary entry points for Claude.
