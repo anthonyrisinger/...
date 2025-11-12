@@ -970,7 +970,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>948</real>
+				<real>1080</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -979,6 +979,14 @@
 				<dict/>
 				<key>Is Hotkey Window</key>
 				<false/>
+				<key>Old Height</key>
+				<real>428</real>
+				<key>Old Width</key>
+				<real>400</real>
+				<key>Old X Origin</key>
+				<real>127</real>
+				<key>Old Y Origin</key>
+				<real>1248</real>
 				<key>Saved Window Type</key>
 				<integer>0</integer>
 				<key>Screen</key>
@@ -998,7 +1006,7 @@
 							<array>
 								<dict>
 									<key>Is Active</key>
-									<integer>1</integer>
+									<integer>0</integer>
 									<key>Session</key>
 									<dict>
 										<key>Bookmark</key>
@@ -1019,6 +1027,8 @@
 											<string>~/devel</string>
 											<key>AWDS Window Option</key>
 											<string>Yes</string>
+											<key>Allow Title Setting</key>
+											<true/>
 											<key>Ambiguous Double Width</key>
 											<false/>
 											<key>Ansi 0 Color</key>
@@ -1331,6 +1341,8 @@
 											<string>Default</string>
 											<key>Disable Window Resizing</key>
 											<true/>
+											<key>Draw Powerline Glyphs</key>
+											<true/>
 											<key>Flashing Bell</key>
 											<false/>
 											<key>Foreground Color</key>
@@ -1350,6 +1362,8 @@
 											<string>B0113973-A316-4635-8F8C-AAF7E05C2A23</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
+											<key>Icon</key>
+											<integer>1</integer>
 											<key>Idle Code</key>
 											<integer>0</integer>
 											<key>Initial Text</key>
@@ -1701,6 +1715,8 @@
 											<string>Menlo-Regular 12</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<true/>
+											<key>Open Password Manager Automatically</key>
+											<true/>
 											<key>Option Key Sends</key>
 											<integer>2</integer>
 											<key>Original Guid</key>
@@ -1716,7 +1732,7 @@
 											<key>Screen</key>
 											<integer>-1</integer>
 											<key>Scrollback Lines</key>
-											<integer>1000000</integer>
+											<integer>262144</integer>
 											<key>Scrollback With Status Bar</key>
 											<false/>
 											<key>Scrollback in Alternate Screen</key>
@@ -1763,6 +1779,12 @@
 											<string>iterm2-direct-compat</string>
 											<key>Thin Strokes</key>
 											<integer>4</integer>
+											<key>Timestamps Style</key>
+											<integer>1</integer>
+											<key>Timestamps Visible</key>
+											<true/>
+											<key>Title Components</key>
+											<integer>3</integer>
 											<key>Transparency</key>
 											<real>0.0</real>
 											<key>Unlimited Scrollback</key>
@@ -1789,11 +1811,83 @@
 											<string></string>
 										</dict>
 										<key>Columns</key>
-										<integer>65</integer>
+										<integer>73</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
 										<array>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
+											<string>/Users/anthony.risinger/devel/flow</string>
 											<string>/Users/anthony.risinger/devel/flow</string>
 											<string>/Users/anthony.risinger/devel/flow</string>
 											<string>/Users/anthony.risinger/devel/flow</string>
@@ -1845,11 +1939,13 @@
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
-											<string>Normal Font</string>
-											<string>Browser Zoom</string>
+											<string>Title Components</string>
 											<string>Original Guid</string>
-											<string>Guid</string>
 											<string>Non Ascii Font</string>
+											<string>Browser Zoom</string>
+											<string>Normal Font</string>
+											<string>Guid</string>
+											<string>Allow Title Setting</string>
 										</array>
 										<key>Program</key>
 										<dict>
@@ -1857,7 +1953,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>63</integer>
+										<integer>75</integer>
 										<key>Session GUID</key>
 										<string>CAA369D2-93B7-4BDC-980A-4491873C9F84</string>
 										<key>Short Lived Single Use</key>
@@ -1881,9 +1977,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>919</real>
+										<real>1080</real>
 										<key>width</key>
-										<real>467</real>
+										<real>519</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -1902,7 +1998,7 @@
 											<array>
 												<dict>
 													<key>Is Active</key>
-													<integer>0</integer>
+													<integer>1</integer>
 													<key>Session</key>
 													<dict>
 														<key>Bookmark</key>
@@ -2235,6 +2331,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -2251,9 +2349,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>B67D5C89-064E-4D1A-A4EE-FCFB3A01D692</string>
+															<string>7F576E46-A3E0-46D1-914A-E5729CD44E51</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -2605,6 +2705,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -2620,7 +2722,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -2667,6 +2769,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -2693,11 +2799,77 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>70</integer>
+														<integer>78</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -2767,9 +2939,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>30</integer>
 														<key>Session GUID</key>
-														<string>26999200-4870-4A04-973E-E7CB3E8496FC</string>
+														<string>922881FE-A862-4C62-B31D-D3569A4CE18A</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -2791,9 +2963,9 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>305</real>
+														<real>360</real>
 														<key>width</key>
-														<real>361</real>
+														<real>401</real>
 														<key>x</key>
 														<real>0.0</real>
 														<key>y</key>
@@ -3135,6 +3307,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -3151,9 +3325,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>147D17AF-4970-4200-9BBD-46A3540744AF</string>
+															<string>2EEC1F06-D908-430D-9A5E-F6F7A22C7A6A</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -3505,6 +3681,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -3520,7 +3698,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -3567,6 +3745,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -3593,11 +3775,95 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>72</integer>
+														<integer>80</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -3649,9 +3915,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>30</integer>
 														<key>Session GUID</key>
-														<string>16DD0520-2792-4AB3-9A30-C609C9732F6A</string>
+														<string>E19CD65F-AF3D-49C8-8BC7-3228679A5A2A</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -3673,11 +3939,11 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>305</real>
+														<real>360</real>
 														<key>width</key>
-														<real>368</real>
+														<real>408</real>
 														<key>x</key>
-														<real>362</real>
+														<real>402</real>
 														<key>y</key>
 														<real>0.0</real>
 													</dict>
@@ -4017,6 +4283,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -4033,9 +4301,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>E578D564-9851-43B1-940D-D24204861496</string>
+															<string>A2F5E8D6-E5D1-4AE9-B4B9-E8F817F3295F</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -4387,6 +4657,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -4402,7 +4674,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -4449,6 +4721,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -4475,11 +4751,96 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>69</integer>
+														<integer>77</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -4530,9 +4891,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>30</integer>
 														<key>Session GUID</key>
-														<string>88333B16-0982-4208-8D70-39348384142C</string>
+														<string>4BDFF2C5-67A6-4236-BBB7-9F738A4D4DDE</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -4554,11 +4915,11 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>305</real>
+														<real>360</real>
 														<key>width</key>
-														<real>356</real>
+														<real>397</real>
 														<key>x</key>
-														<real>731</real>
+														<real>811</real>
 														<key>y</key>
 														<real>0.0</real>
 													</dict>
@@ -4569,9 +4930,9 @@
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>305</real>
+												<real>360</real>
 												<key>width</key>
-												<real>1087</real>
+												<real>1208</real>
 												<key>x</key>
 												<real>0.0</real>
 												<key>y</key>
@@ -4920,6 +5281,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -4936,9 +5299,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>7C9CD593-0473-4346-9A19-1761E97981DD</string>
+															<string>B67D5C89-064E-4D1A-A4EE-FCFB3A01D692</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -5290,6 +5655,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -5305,7 +5672,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -5352,6 +5719,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -5378,11 +5749,80 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>70</integer>
+														<integer>78</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -5428,9 +5868,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>29</integer>
 														<key>Session GUID</key>
-														<string>17D4398B-0284-4040-A8B7-E685B182A8CB</string>
+														<string>26999200-4870-4A04-973E-E7CB3E8496FC</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -5452,9 +5892,9 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>306</real>
+														<real>359</real>
 														<key>width</key>
-														<real>361</real>
+														<real>401</real>
 														<key>x</key>
 														<real>0.0</real>
 														<key>y</key>
@@ -5796,6 +6236,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -5812,9 +6254,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>09393DDB-9AAD-4C80-A46E-F208C4EC7A59</string>
+															<string>147D17AF-4970-4200-9BBD-46A3540744AF</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -6166,6 +6610,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -6181,7 +6627,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -6228,6 +6674,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -6254,11 +6704,92 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>72</integer>
+														<integer>80</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -6305,9 +6836,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>29</integer>
 														<key>Session GUID</key>
-														<string>2DF09BEC-DC7F-4C3F-8C0D-892325FB74F6</string>
+														<string>16DD0520-2792-4AB3-9A30-C609C9732F6A</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -6329,11 +6860,11 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>306</real>
+														<real>359</real>
 														<key>width</key>
-														<real>368</real>
+														<real>408</real>
 														<key>x</key>
-														<real>362</real>
+														<real>402</real>
 														<key>y</key>
 														<real>0.0</real>
 													</dict>
@@ -6673,6 +7204,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -6689,9 +7222,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>EB58E863-A6A8-4E3E-8DA7-E61CE23F7B02</string>
+															<string>E578D564-9851-43B1-940D-D24204861496</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -7043,6 +7578,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -7058,7 +7595,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -7105,6 +7642,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -7131,11 +7672,85 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>69</integer>
+														<integer>77</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -7181,9 +7796,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>29</integer>
 														<key>Session GUID</key>
-														<string>95636A72-CEAD-498A-8BEE-C17500C77D18</string>
+														<string>88333B16-0982-4208-8D70-39348384142C</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -7205,11 +7820,11 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>306</real>
+														<real>359</real>
 														<key>width</key>
-														<real>356</real>
+														<real>397</real>
 														<key>x</key>
-														<real>731</real>
+														<real>811</real>
 														<key>y</key>
 														<real>0.0</real>
 													</dict>
@@ -7220,13 +7835,13 @@
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>306</real>
+												<real>359</real>
 												<key>width</key>
-												<real>1087</real>
+												<real>1208</real>
 												<key>x</key>
 												<real>0.0</real>
 												<key>y</key>
-												<real>306</real>
+												<real>361</real>
 											</dict>
 											<key>isVertical</key>
 											<true/>
@@ -7571,6 +8186,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -7587,9 +8204,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>7F576E46-A3E0-46D1-914A-E5729CD44E51</string>
+															<string>7C9CD593-0473-4346-9A19-1761E97981DD</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -7941,6 +8560,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -7956,7 +8577,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -8003,6 +8624,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -8029,11 +8654,68 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>70</integer>
+														<integer>78</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -8073,11 +8755,11 @@
 														</dict>
 														<key>Overridden Fields</key>
 														<array>
-															<string>Normal Font</string>
-															<string>Browser Zoom</string>
 															<string>Original Guid</string>
-															<string>Guid</string>
 															<string>Non Ascii Font</string>
+															<string>Browser Zoom</string>
+															<string>Normal Font</string>
+															<string>Guid</string>
 														</array>
 														<key>Program</key>
 														<dict>
@@ -8085,9 +8767,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>29</integer>
 														<key>Session GUID</key>
-														<string>922881FE-A862-4C62-B31D-D3569A4CE18A</string>
+														<string>17D4398B-0284-4040-A8B7-E685B182A8CB</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -8109,9 +8791,9 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>306</real>
+														<real>359</real>
 														<key>width</key>
-														<real>361</real>
+														<real>402</real>
 														<key>x</key>
 														<real>0.0</real>
 														<key>y</key>
@@ -8453,6 +9135,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -8469,9 +9153,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>2EEC1F06-D908-430D-9A5E-F6F7A22C7A6A</string>
+															<string>09393DDB-9AAD-4C80-A46E-F208C4EC7A59</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -8823,6 +9509,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -8838,7 +9526,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -8885,6 +9573,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -8911,11 +9603,95 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>72</integer>
+														<integer>79</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -8967,9 +9743,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>29</integer>
 														<key>Session GUID</key>
-														<string>E19CD65F-AF3D-49C8-8BC7-3228679A5A2A</string>
+														<string>2DF09BEC-DC7F-4C3F-8C0D-892325FB74F6</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -8991,11 +9767,11 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>306</real>
+														<real>359</real>
 														<key>width</key>
-														<real>368</real>
+														<real>407</real>
 														<key>x</key>
-														<real>362</real>
+														<real>403</real>
 														<key>y</key>
 														<real>0.0</real>
 													</dict>
@@ -9277,7 +10053,7 @@
 															<key>Bound Hosts</key>
 															<array/>
 															<key>Browser Zoom</key>
-															<real>5</real>
+															<real>5.0499999999999998</real>
 															<key>Character Encoding</key>
 															<integer>4</integer>
 															<key>Close Sessions On End</key>
@@ -9335,6 +10111,8 @@
 															<string>Default</string>
 															<key>Disable Window Resizing</key>
 															<true/>
+															<key>Draw Powerline Glyphs</key>
+															<true/>
 															<key>Flashing Bell</key>
 															<false/>
 															<key>Foreground Color</key>
@@ -9351,9 +10129,11 @@
 																<real>0.57647058823529407</real>
 															</dict>
 															<key>Guid</key>
-															<string>A2F5E8D6-E5D1-4AE9-B4B9-E8F817F3295F</string>
+															<string>EB58E863-A6A8-4E3E-8DA7-E61CE23F7B02</string>
 															<key>Horizontal Spacing</key>
 															<real>1</real>
+															<key>Icon</key>
+															<integer>1</integer>
 															<key>Idle Code</key>
 															<integer>0</integer>
 															<key>Initial Text</key>
@@ -9705,6 +10485,8 @@
 															<string>Menlo-Regular 9</string>
 															<key>Only The Default BG Color Uses Transparency</key>
 															<true/>
+															<key>Open Password Manager Automatically</key>
+															<true/>
 															<key>Option Key Sends</key>
 															<integer>2</integer>
 															<key>Original Guid</key>
@@ -9720,7 +10502,7 @@
 															<key>Screen</key>
 															<integer>-1</integer>
 															<key>Scrollback Lines</key>
-															<integer>1000000</integer>
+															<integer>262144</integer>
 															<key>Scrollback With Status Bar</key>
 															<false/>
 															<key>Scrollback in Alternate Screen</key>
@@ -9767,6 +10549,10 @@
 															<string>iterm2-direct-compat</string>
 															<key>Thin Strokes</key>
 															<integer>4</integer>
+															<key>Timestamps Style</key>
+															<integer>1</integer>
+															<key>Timestamps Visible</key>
+															<true/>
 															<key>Transparency</key>
 															<real>0.0</real>
 															<key>Unlimited Scrollback</key>
@@ -9793,11 +10579,34 @@
 															<string></string>
 														</dict>
 														<key>Columns</key>
-														<integer>69</integer>
+														<integer>77</integer>
 														<key>Commands</key>
 														<array/>
 														<key>Directories</key>
 														<array>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
+															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
 															<string>/Users/anthony.risinger/devel/flow</string>
@@ -9848,9 +10657,9 @@
 															<string>Shell Launcher</string>
 														</dict>
 														<key>Rows</key>
-														<integer>25</integer>
+														<integer>29</integer>
 														<key>Session GUID</key>
-														<string>4BDFF2C5-67A6-4236-BBB7-9F738A4D4DDE</string>
+														<string>95636A72-CEAD-498A-8BEE-C17500C77D18</string>
 														<key>Short Lived Single Use</key>
 														<false/>
 														<key>Should Expect Current Dir Updates</key>
@@ -9872,11 +10681,11 @@
 													<key>frame</key>
 													<dict>
 														<key>height</key>
-														<real>306</real>
+														<real>359</real>
 														<key>width</key>
-														<real>356</real>
+														<real>397</real>
 														<key>x</key>
-														<real>731</real>
+														<real>811</real>
 														<key>y</key>
 														<real>0.0</real>
 													</dict>
@@ -9887,13 +10696,13 @@
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>306</real>
+												<real>359</real>
 												<key>width</key>
-												<real>1087</real>
+												<real>1208</real>
 												<key>x</key>
 												<real>0.0</real>
 												<key>y</key>
-												<real>613</real>
+												<real>721</real>
 											</dict>
 											<key>isVertical</key>
 											<true/>
@@ -9904,11 +10713,11 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>919</real>
+										<real>1080</real>
 										<key>width</key>
-										<real>1087</real>
+										<real>1208</real>
 										<key>x</key>
-										<real>468</real>
+										<real>520</real>
 										<key>y</key>
 										<real>0.0</real>
 									</dict>
@@ -9921,9 +10730,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>919</real>
+								<real>1080</real>
 								<key>width</key>
-								<real>1555</real>
+								<real>1728</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -9966,13 +10775,13 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1555</real>
+				<real>1728</real>
 				<key>Window Type</key>
-				<integer>0</integer>
+				<integer>4</integer>
 				<key>X Origin</key>
-				<real>87</real>
+				<real>0.0</real>
 				<key>Y Origin</key>
-				<real>77</real>
+				<real>0.0</real>
 			</dict>
 		</array>
 	</dict>
