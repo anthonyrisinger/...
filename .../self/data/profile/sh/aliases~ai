@@ -235,7 +235,7 @@ ai::cat () {
   cat -u \
   | "ai:${AIGEN}:cat" "$@" \
   | tee -a "$(ai::log::3)" \
-  | jq --unbuffered --join-output '"\(.message.content[]?.text//.msg.message//empty)\n"//"\u0007"' \
+  | jq --unbuffered --join-output '"\(.message.content[]?.text//.msg.message//.item.text//empty)\n"//"\u0007"' \
   | sed -ur $'1s,^\u0007*,,;$s,\u0007*$,,;s,\u0007+,\\n,g'
 }
 
