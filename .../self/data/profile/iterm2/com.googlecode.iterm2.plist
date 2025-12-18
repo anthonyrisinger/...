@@ -35,7 +35,7 @@
 	<key>Default Bookmark Guid</key>
 	<string>FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</string>
 	<key>Default Browser Profile Guid</key>
-	<string>FA7C7831-5F6A-4C79-A1B7-20E82AD731B9</string>
+	<string>C3AD4EF6-88AA-4A94-9C34-58D7112625F6</string>
 	<key>DefaultTabStopWidth</key>
 	<integer>8</integer>
 	<key>DimBackgroundWindows</key>
@@ -852,7 +852,7 @@
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Timestamps Style</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Timestamps Visible</key>
 			<true/>
 			<key>Transparency</key>
