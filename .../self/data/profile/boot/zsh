@@ -104,6 +104,10 @@ case $? in
     ;;
 esac
 
+if type -p direnv >/dev/null ; then
+  eval "$(direnv export zsh 2>/dev/null)"
+fi
+
 case $- in
   (*i*)
     # Interactive.

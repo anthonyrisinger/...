@@ -3,6 +3,15 @@
 [[ -r ${ELLIPSIS}data/profile/sh/interactive ]] &&
     . ${ELLIPSIS}data/profile/sh/interactive
 
+if type -P direnv >/dev/null ; then
+  eval "$(direnv hook bash)"
+  eval "$(direnv export bash 2>/dev/null)"
+  cd() {
+    builtin cd "$@" || return
+    eval "$(direnv export bash 2>/dev/null)"
+  }
+fi
+
 [[ ${TERM} == dumb ]] &&
     return 0
 

@@ -3,6 +3,11 @@
 [[ -r ${ELLIPSIS}data/profile/sh/interactive ]] &&
     . ${ELLIPSIS}data/profile/sh/interactive
 
+if type -p direnv >/dev/null ; then
+  eval "$(direnv hook zsh)"
+  eval "$(direnv export zsh 2>/dev/null)"
+fi
+
 [[ ${TERM} == dumb ]] &&
     return 0
 
