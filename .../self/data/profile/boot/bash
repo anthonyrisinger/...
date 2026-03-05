@@ -105,8 +105,11 @@ case $? in
 esac
 
 if type -P direnv >/dev/null ; then
+  [[ -n ${BASH_ENV-} ]] || export BASH_ENV=~/.../self/boot/bashenv
   unset DIRENV_DIFF DIRENV_DIR DIRENV_FILE DIRENV_WATCHES
-  eval "$(direnv export bash)"
+  direnv_export="$(direnv export bash 2>/dev/null)" || direnv_export=""
+  [[ -z ${direnv_export} ]] || eval "${direnv_export}"
+  unset direnv_export
 fi
 
 case $- in
