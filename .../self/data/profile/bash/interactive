@@ -5,10 +5,10 @@
 
 if type -P direnv >/dev/null ; then
   eval "$(direnv hook bash)"
-  eval "$(direnv export bash 2>/dev/null)"
+  eval "$(direnv export bash)"
   cd() {
     builtin cd "$@" || return
-    eval "$(direnv export bash 2>/dev/null)"
+    eval "$(direnv export bash)"
   }
 fi
 
