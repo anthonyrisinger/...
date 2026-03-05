@@ -105,6 +105,7 @@ case $? in
 esac
 
 if type -p direnv >/dev/null ; then
+  unset DIRENV_DIFF DIRENV_DIR DIRENV_FILE DIRENV_WATCHES
   eval "$(direnv export zsh)"
 fi
 
