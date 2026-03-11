@@ -1,0 +1,525 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  workstream.sh [--repo PATH] [--dir PATH] [--scope GLOB] [--mission TEXT] \
+                [MODEL_A] [MODEL_B]
+
+Defaults:
+  repo     = git rev-parse --show-toplevel from current directory
+  dir      = new /tmp/<repo>-workstream.XXXXXX directory
+  scope    = omitted
+  mission  = omitted
+  MODEL_A  = claude-opus-4.6
+  MODEL_B  = gpt-5.3-codex
+
+Behavior:
+  - creates or resumes a workstream operating directory
+  - seeds TODO.md / WORKSTREAM.md / REVIEWS.md / PROMPT.md / commands.sh
+  - persists reviewer UUIDs and metadata in state.env
+  - prints a paste-ready takeover block for a primary agent
+EOF
+}
+
+die() {
+  printf 'error: %s\n' "$*" >&2
+  exit 1
+}
+
+find_upward_file() {
+  local start="$1"
+  local name="$2"
+  local dir
+
+  dir="$(cd "$start" && pwd)"
+  while :; do
+    if [[ -f "$dir/$name" ]]; then
+      printf '%s\n' "$dir/$name"
+      return 0
+    fi
+    if [[ "$dir" == "/" ]]; then
+      break
+    fi
+    dir="$(dirname "$dir")"
+  done
+
+  return 1
+}
+
+quote_sh() {
+  printf "%q" "$1"
+}
+
+model_a="${WORKSTREAM_MODEL_A:-claude-opus-4.6}"
+model_b="${WORKSTREAM_MODEL_B:-gpt-5.3-codex}"
+scope=""
+repo=""
+work_dir=""
+mission=""
+repo_arg_set=0
+scope_arg_set=0
+mission_arg_set=0
+
+positionals=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --repo)
+      [[ $# -ge 2 ]] || die "--repo requires a path"
+      repo="$2"
+      repo_arg_set=1
+      shift 2
+      ;;
+    --dir)
+      [[ $# -ge 2 ]] || die "--dir requires a path"
+      work_dir="$2"
+      shift 2
+      ;;
+    --scope)
+      [[ $# -ge 2 ]] || die "--scope requires a glob"
+      scope="$2"
+      scope_arg_set=1
+      shift 2
+      ;;
+    --mission)
+      [[ $# -ge 2 ]] || die "--mission requires text"
+      mission="$2"
+      mission_arg_set=1
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      while [[ $# -gt 0 ]]; do
+        positionals+=("$1")
+        shift
+      done
+      ;;
+    -*)
+      die "unknown flag: $1"
+      ;;
+    *)
+      positionals+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#positionals[@]} -ge 1 ]]; then
+  model_a="${positionals[0]}"
+fi
+if [[ ${#positionals[@]} -ge 2 ]]; then
+  model_b="${positionals[1]}"
+fi
+if [[ ${#positionals[@]} -gt 2 ]]; then
+  die "too many positional arguments"
+fi
+
+if [[ -n "$work_dir" ]]; then
+  mkdir -p "$work_dir"
+else
+  repo_seed="$repo"
+  if [[ -z "$repo_seed" ]]; then
+    repo_seed="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+  fi
+  [[ -n "$repo_seed" ]] || die "could not determine repo; use --repo"
+  repo_seed="$(cd "$repo_seed" && pwd)"
+  repo_name="$(basename "$repo_seed")"
+  work_dir="$(mktemp -d "${TMPDIR:-/tmp}/${repo_name}-workstream.XXXXXX")"
+fi
+work_dir="$(cd "$work_dir" && pwd)"
+
+state_file="$work_dir/state.env"
+todo_file="$work_dir/TODO.md"
+workstream_file="$work_dir/WORKSTREAM.md"
+reviews_file="$work_dir/REVIEWS.md"
+legacy_reviews_file="$work_dir/REVIEW_LOG.md"
+prompt_file="$work_dir/PROMPT.md"
+commands_file="$work_dir/commands.sh"
+agents_copy_file="$work_dir/AGENTS.md"
+voice_copy_file="$work_dir/VOICE.md"
+
+if [[ -f "$state_file" ]]; then
+  # shellcheck disable=SC1090
+  source "$state_file"
+fi
+
+if [[ $repo_arg_set -eq 0 && -n "${WORKSTREAM_REPO:-}" ]]; then
+  repo="$WORKSTREAM_REPO"
+fi
+if [[ $scope_arg_set -eq 0 && -n "${WORKSTREAM_SCOPE:-}" ]]; then
+  scope="$WORKSTREAM_SCOPE"
+fi
+if [[ $mission_arg_set -eq 0 && -n "${WORKSTREAM_MISSION:-}" ]]; then
+  mission="$WORKSTREAM_MISSION"
+fi
+
+if [[ -z "$repo" ]]; then
+  repo="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+fi
+[[ -n "$repo" ]] || die "could not determine repo; use --repo"
+[[ -d "$repo" ]] || die "repo path does not exist: $repo"
+git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "not a git repository: $repo"
+
+repo="$(cd "$repo" && pwd)"
+repo_name="$(basename "$repo")"
+
+agents_src="$(find_upward_file "$repo" "AGENTS.md" || true)"
+voice_src="$(find_upward_file "$repo" "VOICE.md" || true)"
+if [[ -z "$agents_src" && -f ~/AGENTS.md ]]; then
+  agents_src=~/AGENTS.md
+fi
+if [[ -z "$voice_src" && -f ~/VOICE.md ]]; then
+  voice_src=~/VOICE.md
+fi
+if [[ -n "$agents_src" ]]; then
+  cp "$agents_src" "$agents_copy_file"
+fi
+if [[ -n "$voice_src" ]]; then
+  cp "$voice_src" "$voice_copy_file"
+fi
+
+uuid_a="${WORKSTREAM_UUID_A:-$(uuidgen | tr '[:upper:]' '[:lower:]')}"
+uuid_b="${WORKSTREAM_UUID_B:-$(uuidgen | tr '[:upper:]' '[:lower:]')}"
+head_commit="$(git -C "$repo" rev-parse HEAD)"
+created_at="${WORKSTREAM_CREATED:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}"
+
+mapfile -t scope_files < <(
+  if [[ -n "$scope" ]]; then
+    cd "$repo"
+    shopt -s nullglob
+    files=( $scope )
+    printf '%s\n' "${files[@]}"
+  fi
+)
+if [[ -n "$scope" && ${#scope_files[@]} -eq 0 ]]; then
+  die "scope resolved to zero files: $scope"
+fi
+
+{
+  printf 'WORKSTREAM_REPO=%q\n' "$repo"
+  printf 'WORKSTREAM_DIR=%q\n' "$work_dir"
+  printf 'WORKSTREAM_SCOPE=%q\n' "$scope"
+  printf 'WORKSTREAM_HEAD=%q\n' "$head_commit"
+  printf 'WORKSTREAM_CREATED=%q\n' "$created_at"
+  printf 'WORKSTREAM_MODEL_A=%q\n' "$model_a"
+  printf 'WORKSTREAM_MODEL_B=%q\n' "$model_b"
+  printf 'WORKSTREAM_UUID_A=%q\n' "$uuid_a"
+  printf 'WORKSTREAM_UUID_B=%q\n' "$uuid_b"
+  printf 'WORKSTREAM_MISSION=%q\n' "$mission"
+  printf 'WORKSTREAM_AGENTS_SOURCE=%q\n' "$agents_src"
+  printf 'WORKSTREAM_VOICE_SOURCE=%q\n' "$voice_src"
+} >"$state_file"
+
+if [[ ! -f "$reviews_file" && -f "$legacy_reviews_file" ]]; then
+  cp "$legacy_reviews_file" "$reviews_file"
+fi
+
+if [[ ! -f "$todo_file" ]]; then
+  {
+    cat <<EOF
+# ${repo_name^} Workstream TODO
+
+This file is the coordination point and the definition of done for this
+workstream.
+
+## Definition Of Done
+
+This workstream is done only when all of the following are true:
+
+- The active target set has been reviewed against current local truth.
+- Conflicting claims have been corrected, removed, or explicitly parked with rationale.
+- Reviewer findings have been incorporated or explicitly dispositioned.
+- Links, anchors, and internal references are coherent where they matter.
+- Dangerous guidance has been reduced to the narrowest safe form.
+- Final team sign-off has been collected after edits and verification.
+- Final verification has been run against the active target set.
+
+## Status
+
+- [x] Operating directory established at \`$work_dir\`
+- [ ] PROMPT.md rewritten by the active agent from live context
+- [ ] Initial reviewer pass collected from reviewer A
+- [ ] Initial reviewer pass collected from reviewer B
+- [ ] Final team sign-off collected after edits
+EOF
+    if [[ -n "$scope" ]]; then
+      cat <<EOF
+- [x] Scope locked to \`$scope\`
+EOF
+    fi
+    printf '\n'
+    if [[ -n "$scope" ]]; then
+      cat <<'EOF'
+## File Battery
+
+EOF
+      for path in "${scope_files[@]}"; do
+        printf -- '- [ ] `%s`\n' "$path"
+      done
+      printf '\n'
+    fi
+    cat <<'EOF'
+## Drift / Truth Battery
+
+- [ ] Record implementation-truth mismatches here with explicit disposition
+
+## Mechanical / Safety Battery
+
+- [ ] Record anchor, link, and dangerous-guidance checks here
+
+## Reviewer Disposition Notes
+
+- Reviewer A:
+  - [ ] Report collected
+  - [ ] Findings dispositioned
+- Reviewer B:
+  - [ ] Report collected
+  - [ ] Findings dispositioned
+
+## Final Sign-off Notes
+
+- [ ] Capture final reviewer sign-off artifact paths here
+EOF
+  } >"$todo_file"
+fi
+
+if [[ ! -f "$workstream_file" ]]; then
+  {
+    cat <<EOF
+# ${repo_name^} Workstream
+
+## Scope
+
+- Repository: \`$repo\`
+- Operating directory: \`$work_dir\`
+EOF
+    if [[ -n "$scope" ]]; then
+      printf -- '- Target glob: `%s`\n' "$scope"
+      printf -- '- Frozen target set:\n'
+      for path in "${scope_files[@]}"; do
+        printf '  - `%s`\n' "$path"
+      done
+    fi
+    cat <<'EOF'
+
+## Hard Constraints
+
+- Treat `TODO.md` as the canonical definition of done.
+- User interjections are additive steering: add them to the stack or the
+  workstream, do not treat them as stopping signals, and do not silently
+  rewrite the definition of done because of them.
+- Do not interrupt reviewers once they are running; let them finish or fail.
+- Secure team sign-off before edits and again before declaring completion.
+- Review closely, down to small line-level defects.
+- Prefer timeless, intentional, idiomatic, prototypical outcomes.
+- Use durable files in this operating directory instead of transcript memory.
+
+## Team Status
+
+- Reviewer A: pending
+- Reviewer B: pending
+
+## Current Findings
+
+### Mechanical
+
+- Populate during survey.
+
+### Navigation / Information Architecture
+
+- Populate during survey.
+
+### Deployment Truth
+
+- Populate from live code / config / infra reads.
+
+## Candidate Edit Set
+
+- Populate after the initial survey.
+EOF
+  } >"$workstream_file"
+fi
+
+if [[ ! -f "$reviews_file" ]]; then
+  {
+    cat <<EOF
+# Reviews
+
+## $(date +"%Y-%m-%d") / Bootstrap
+
+- Bootstrapped by \`$(basename "$0")\`
+- Repository: \`$repo\`
+- Operating directory: \`$work_dir\`
+- Models: reviewer A = \`$model_a\`, reviewer B = \`$model_b\`
+- Resume UUIDs:
+  - reviewer A: \`$uuid_a\`
+  - reviewer B: \`$uuid_b\`
+EOF
+    if [[ -n "$scope" ]]; then
+      printf -- '- Scope: `%s`\n' "$scope"
+    fi
+    if [[ -n "$agents_src" ]]; then
+      printf -- '- Imported `AGENTS.md`\n'
+    fi
+    if [[ -n "$voice_src" ]]; then
+      printf -- '- Imported `VOICE.md`\n'
+    fi
+  } >"$reviews_file"
+fi
+
+if [[ ! -f "$prompt_file" ]]; then
+  {
+    cat <<EOF
+# Seed Prompt Placeholder
+
+This file was bootstrapped by \`$(basename "$0")\`.
+
+It is intentionally **not** the final prompt. The receiving agent should
+rewrite PROMPT.md from its own live understanding of the repo, the current
+user intent, the active target set, the reviewer state, and whatever changed
+since bootstrap.
+
+Bootstrap facts:
+
+- Repository: \`$repo\`
+- Operating directory: \`$work_dir\`
+- Canonical coordination file: \`TODO.md\`
+- Supporting artifacts: \`WORKSTREAM.md\`, \`REVIEWS.md\`, \`state.env\`
+EOF
+    if [[ -n "$scope" ]]; then
+      printf -- '- Scope seed: `%s`\n' "$scope"
+    fi
+    if [[ -n "$mission" ]]; then
+      printf -- '- Mission seed: %s\n' "$mission"
+    fi
+    if [[ -n "$agents_src" ]]; then
+      printf -- '- AGENTS.md present in this directory\n'
+    fi
+    if [[ -n "$voice_src" ]]; then
+      printf -- '- VOICE.md present in this directory\n'
+    fi
+    cat <<'EOF'
+
+PROMPT.md rule:
+
+- Read `TODO.md`, `WORKSTREAM.md`, and `REVIEWS.md`.
+- Rewrite `PROMPT.md` in place so it reflects the current moment.
+- Keep `PROMPT.md` durable for reviewer launches and reruns.
+EOF
+  } >"$prompt_file"
+fi
+
+cat >"$commands_file" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+
+ws=$(quote_sh "$work_dir")
+repo=$(quote_sh "$repo")
+
+cd "\$repo"
+copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_a") --resume=$(quote_sh "$uuid_a") --prompt="\$(<"\$ws/PROMPT.md")"
+copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_b") --resume=$(quote_sh "$uuid_b") --prompt="\$(<"\$ws/PROMPT.md")"
+EOF
+chmod +x "$commands_file"
+
+cat <<EOF
+Take over this workstream from live context, not from stale assumptions.
+
+Let \`REPO=$repo\`.
+Let \`WS=$work_dir\`.
+
+Use \`\$REPO\` as the repo root.
+Use \`\$WS\` as the durable coordination surface.
+
+Start by reading:
+
+- \`\$WS/state.env\`
+- \`\$WS/TODO.md\`
+- \`\$WS/WORKSTREAM.md\`
+- \`\$WS/REVIEWS.md\`
+EOF
+if [[ -n "$agents_src" ]]; then
+  cat <<EOF
+- \`\$WS/AGENTS.md\`
+EOF
+fi
+if [[ -n "$voice_src" ]]; then
+  cat <<EOF
+- \`\$WS/VOICE.md\`
+EOF
+fi
+cat <<EOF
+
+Then rewrite \`\$WS/PROMPT.md\` from your own current understanding and this
+exact moment. Do not trust the seeded placeholder as final truth.
+
+Treat \`\$WS/TODO.md\` as the canonical definition of done.
+If the user interjects, add what they said to the stack or the workstream.
+Do not treat interjections as stopping signals, and do not silently mutate the
+definition of done because the user injected more steering.
+Work with your reviewer team using the persisted UUIDs below. Ask for
+continuous narration, do not interrupt running reviewers, and secure sign-off
+before edits and before declaring completion.
+
+EOF
+if [[ -n "$scope" ]]; then
+  cat <<EOF
+Scope seed:
+
+- \`$scope\`
+
+EOF
+fi
+if [[ -n "$mission" ]]; then
+  cat <<EOF
+Mission seed:
+
+$mission
+
+EOF
+fi
+cat <<EOF
+Reviewer continuity:
+
+- Reviewer A model: \`$model_a\`
+- Reviewer A UUID: \`$uuid_a\`
+- Reviewer B model: \`$model_b\`
+- Reviewer B UUID: \`$uuid_b\`
+
+Useful artifacts already present in \`\$WS\`:
+
+- \`\$WS/PROMPT.md\`
+- \`\$WS/TODO.md\`
+- \`\$WS/WORKSTREAM.md\`
+- \`\$WS/REVIEWS.md\`
+- \`\$WS/commands.sh\`
+EOF
+if [[ -n "$agents_src" ]]; then
+  cat <<EOF
+- \`\$WS/AGENTS.md\`
+EOF
+fi
+if [[ -n "$voice_src" ]]; then
+  cat <<EOF
+- \`\$WS/VOICE.md\`
+EOF
+fi
+cat <<EOF
+
+Reviewer launch commands are in \`\$WS/commands.sh\`.
+
+Go ahead and start implementing with your team; ask for their continuous
+narration, and secure full sign-off from your team before starting and prior
+to declaring completion. Never interrupt a running team member for any reason
+whatsoever once started; allow them to finish or fail on their own. Voraciously
+devour the available guidance until you're confident you've internalized its
+axioms and are committed to exhausting all edge cases from its perspective.
+Seek timeless, intentional, idiomatic, prototypical outcomes.
+This message is not a stopping signal; continue until there is nothing left to
+run inside the workstream.
+EOF
