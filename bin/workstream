@@ -4,7 +4,7 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  workstream.sh [--repo PATH] [--dir PATH] [--scope GLOB] [--mission TEXT] \
+  workstream [--repo PATH] [--dir PATH] [--scope GLOB] [--mission TEXT] \
                 [MODEL_A] [MODEL_B]
 
 Defaults:
@@ -16,9 +16,10 @@ Defaults:
   MODEL_B  = gpt-5.3-codex
 
 Behavior:
-  - creates or resumes a workstream operating directory
-  - seeds TODO.md / WORKSTREAM.md / REVIEWS.md / PROMPT.md / commands.sh
-  - persists reviewer UUIDs and metadata in state.env
+  - creates or re-enters a workstream operating directory
+  - seeds TODO.md / WORKSTREAM.md / WORKLOG.md / GOAL.md /
+    peer-a.sh / peer-b.sh
+  - persists peer UUIDs and metadata in state.env
   - prints a paste-ready takeover block for a primary agent
 EOF
 }
@@ -136,10 +137,10 @@ work_dir="$(cd "$work_dir" && pwd)"
 state_file="$work_dir/state.env"
 todo_file="$work_dir/TODO.md"
 workstream_file="$work_dir/WORKSTREAM.md"
-reviews_file="$work_dir/REVIEWS.md"
-legacy_reviews_file="$work_dir/REVIEW_LOG.md"
-prompt_file="$work_dir/PROMPT.md"
-commands_file="$work_dir/commands.sh"
+worklog_file="$work_dir/WORKLOG.md"
+goal_file="$work_dir/GOAL.md"
+peer_a_file="$work_dir/peer-a.sh"
+peer_b_file="$work_dir/peer-b.sh"
 agents_copy_file="$work_dir/AGENTS.md"
 voice_copy_file="$work_dir/VOICE.md"
 
@@ -213,10 +214,6 @@ fi
   printf 'WORKSTREAM_VOICE_SOURCE=%q\n' "$voice_src"
 } >"$state_file"
 
-if [[ ! -f "$reviews_file" && -f "$legacy_reviews_file" ]]; then
-  cp "$legacy_reviews_file" "$reviews_file"
-fi
-
 if [[ ! -f "$todo_file" ]]; then
   {
     cat <<EOF
@@ -226,7 +223,7 @@ This file is the coordination point and the definition of done for this
 workstream.
 
 It is a bootstrap scaffold, not a finished plan. Expand it aggressively as the
-real work reveals itself. Add missing batteries, checkpoints, reviewer
+real work reveals itself. Add missing batteries, checkpoints, peer
 artifacts, and any other concrete work needed to make the definition of done
 true in reality rather than only on paper.
 
@@ -234,12 +231,12 @@ true in reality rather than only on paper.
 
 This workstream is done only when all of the following are true:
 
-- The active target set has been reviewed against current local truth.
+- The active target set has been examined against current local truth.
 - Conflicting claims have been corrected, removed, or explicitly parked with rationale.
-- Reviewer findings have been incorporated or explicitly dispositioned.
+- Peer findings have been incorporated or explicitly dispositioned.
 - Links, anchors, and internal references are coherent where they matter.
 - Dangerous guidance has been reduced to the narrowest safe form.
-- Final team sign-off has been collected after edits and verification.
+- Final peer sign-off has been collected after edits and verification.
 - Final verification has been run against the active target set.
 
 ## Status
@@ -248,11 +245,11 @@ This workstream is done only when all of the following are true:
 - If important work is missing, add it explicitly rather than treating it as
   implied.
 - [x] Operating directory established at \`$work_dir\`
-- [ ] PROMPT.md rewritten by the active agent from live context
+- [ ] GOAL.md rewritten by the active agent from live context
 - [ ] TODO.md expanded by the active agent into a real working checklist
-- [ ] Initial reviewer pass collected from reviewer A
-- [ ] Initial reviewer pass collected from reviewer B
-- [ ] Final team sign-off collected after edits
+- [ ] Initial peer pass collected from peer A
+- [ ] Initial peer pass collected from peer B
+- [ ] Final peer sign-off collected after edits
 EOF
     if [[ -n "$scope" ]]; then
       cat <<EOF
@@ -281,14 +278,14 @@ EOF
 - Seed placeholder. Replace with concrete mechanical, anchor, link, and
   dangerous-guidance work as soon as it is discovered.
 
-## Reviewer Disposition Notes
+## Peer Notes
 
-- Seed placeholder. Add reviewer artifacts, findings, and dispositions as they
+- Seed placeholder. Add peer artifacts, findings, and dispositions as they
   actually happen.
-- Reviewer A:
+- Peer A:
   - [ ] Report collected
   - [ ] Findings dispositioned
-- Reviewer B:
+- Peer B:
   - [ ] Report collected
   - [ ] Findings dispositioned
 
@@ -319,22 +316,32 @@ EOF
     fi
     cat <<'EOF'
 
+## Operating Files
+
+- `TODO.md`: canonical definition of done and execution checklist
+- `WORKSTREAM.md`: standing frame for scope, constraints, findings, and edit
+  shape
+- `WORKLOG.md`: running log of bootstrap facts, peer artifacts, findings,
+  dispositions, and sign-off trail
+- `GOAL.md`: current live briefing to rewrite from the present moment and use
+  for peer launches
+
 ## Hard Constraints
 
 - Treat `TODO.md` as the canonical definition of done.
 - User interjections are additive steering: add them to the stack or the
   workstream, do not treat them as stopping signals, and do not silently
   rewrite the definition of done because of them.
-- Do not interrupt reviewers once they are running; let them finish or fail.
-- Secure team sign-off before edits and again before declaring completion.
-- Review closely, down to small line-level defects.
+- Do not interrupt peers once they are running; let them finish or fail.
+- Secure peer sign-off before edits and again before declaring completion.
+- Inspect closely, down to small line-level defects.
 - Prefer timeless, intentional, idiomatic, prototypical outcomes.
 - Use durable files in this operating directory instead of transcript memory.
 
-## Team Status
+## Peer Status
 
-- Reviewer A: pending
-- Reviewer B: pending
+- Peer A: pending
+- Peer B: pending
 
 ## Current Findings
 
@@ -357,20 +364,20 @@ EOF
   } >"$workstream_file"
 fi
 
-if [[ ! -f "$reviews_file" ]]; then
+if [[ ! -f "$worklog_file" ]]; then
   {
     cat <<EOF
-# Reviews
+# Worklog
 
 ## $(date +"%Y-%m-%d") / Bootstrap
 
 - Bootstrapped by \`$(basename "$0")\`
 - Repository: \`$repo\`
 - Operating directory: \`$work_dir\`
-- Models: reviewer A = \`$model_a\`, reviewer B = \`$model_b\`
+- Models: peer A = \`$model_a\`, peer B = \`$model_b\`
 - Resume UUIDs:
-  - reviewer A: \`$uuid_a\`
-  - reviewer B: \`$uuid_b\`
+  - peer A: \`$uuid_a\`
+  - peer B: \`$uuid_b\`
 EOF
     if [[ -n "$scope" ]]; then
       printf -- '- Scope: `%s`\n' "$scope"
@@ -381,27 +388,28 @@ EOF
     if [[ -n "$voice_src" ]]; then
       printf -- '- Imported `VOICE.md`\n'
     fi
-  } >"$reviews_file"
+    printf -- '- Seeded as the durable operating log for this workstream\n'
+  } >"$worklog_file"
 fi
 
-if [[ ! -f "$prompt_file" ]]; then
+if [[ ! -f "$goal_file" ]]; then
   {
     cat <<EOF
-# Seed Prompt Placeholder
+# Seed Goal Placeholder
 
 This file was bootstrapped by \`$(basename "$0")\`.
 
-It is intentionally **not** the final prompt. The receiving agent should
-rewrite PROMPT.md from its own live understanding of the repo, the current
-user intent, the active target set, the reviewer state, and whatever changed
-since bootstrap.
+It is intentionally **not** the final goal briefing. The receiving agent
+should rewrite GOAL.md from its own live understanding of the repo, the
+current user intent, the active target set, the peer state, and whatever
+changed since bootstrap.
 
 Bootstrap facts:
 
 - Repository: \`$repo\`
 - Operating directory: \`$work_dir\`
 - Canonical coordination file: \`TODO.md\`
-- Supporting artifacts: \`WORKSTREAM.md\`, \`REVIEWS.md\`, \`state.env\`
+- Supporting artifacts: \`WORKSTREAM.md\`, \`WORKLOG.md\`, \`state.env\`
 EOF
     if [[ -n "$scope" ]]; then
       printf -- '- Scope seed: `%s`\n' "$scope"
@@ -417,27 +425,62 @@ EOF
     fi
     cat <<'EOF'
 
-PROMPT.md rule:
+GOAL.md rule:
 
-- Read `TODO.md`, `WORKSTREAM.md`, and `REVIEWS.md`.
-- Rewrite `PROMPT.md` in place so it reflects the current moment.
-- Keep `PROMPT.md` durable for reviewer launches and reruns.
+- Read `TODO.md`, `WORKSTREAM.md`, and `WORKLOG.md`.
+- Rewrite `GOAL.md` in place so it reflects the current moment.
+- Keep `GOAL.md` durable for peer launches and reruns.
 EOF
-  } >"$prompt_file"
+  } >"$goal_file"
 fi
 
-cat >"$commands_file" <<EOF
+cat >"$peer_a_file" <<EOF
 #!/usr/bin/env bash
 set -euo pipefail
 
 ws=$(quote_sh "$work_dir")
 repo=$(quote_sh "$repo")
+goal_file="\$ws/GOAL.md"
+
+if [[ \$# -gt 1 ]]; then
+  printf 'usage: %s [goal-file]\n' "\$(basename "\$0")" >&2
+  exit 1
+fi
+
+goal_input_file="\${1:-\$goal_file}"
+[[ -f "\$goal_input_file" ]] || {
+  printf 'error: goal file does not exist: %s\n' "\$goal_input_file" >&2
+  exit 1
+}
 
 cd "\$repo"
-copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_a") --resume=$(quote_sh "$uuid_a") --prompt="\$(<"\$ws/PROMPT.md")"
-copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_b") --resume=$(quote_sh "$uuid_b") --prompt="\$(<"\$ws/PROMPT.md")"
+copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_a") --resume=$(quote_sh "$uuid_a") --prompt="\$(<"\$goal_input_file")"
 EOF
-chmod +x "$commands_file"
+chmod +x "$peer_a_file"
+
+cat >"$peer_b_file" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+
+ws=$(quote_sh "$work_dir")
+repo=$(quote_sh "$repo")
+goal_file="\$ws/GOAL.md"
+
+if [[ \$# -gt 1 ]]; then
+  printf 'usage: %s [goal-file]\n' "\$(basename "\$0")" >&2
+  exit 1
+fi
+
+goal_input_file="\${1:-\$goal_file}"
+[[ -f "\$goal_input_file" ]] || {
+  printf 'error: goal file does not exist: %s\n' "\$goal_input_file" >&2
+  exit 1
+}
+
+cd "\$repo"
+copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_b") --resume=$(quote_sh "$uuid_b") --prompt="\$(<"\$goal_input_file")"
+EOF
+chmod +x "$peer_b_file"
 
 cat <<EOF
 Take over this workstream from live context, not from stale assumptions.
@@ -448,12 +491,22 @@ Let \`WS=$work_dir\`.
 Use \`\$REPO\` as the repo root.
 Use \`\$WS\` as the durable coordination surface.
 
+File roles:
+
+- \`\$WS/TODO.md\`: canonical definition of done and checklist
+- \`\$WS/WORKSTREAM.md\`: standing frame for scope, constraints, and findings
+- \`\$WS/WORKLOG.md\`: running log for bootstrap facts, peer artifacts,
+  dispositions, and sign-off
+- \`\$WS/GOAL.md\`: live briefing to rewrite from the current moment and use
+  for peer launches
+
 Start by reading:
 
 - \`\$WS/state.env\`
 - \`\$WS/TODO.md\`
 - \`\$WS/WORKSTREAM.md\`
-- \`\$WS/REVIEWS.md\`
+- \`\$WS/WORKLOG.md\`
+- \`\$WS/GOAL.md\`
 EOF
 if [[ -n "$agents_src" ]]; then
   cat <<EOF
@@ -467,15 +520,15 @@ EOF
 fi
 cat <<EOF
 
-Then rewrite \`\$WS/PROMPT.md\` from your own current understanding and this
+Then rewrite \`\$WS/GOAL.md\` from your own current understanding and this
 exact moment. Do not trust the seeded placeholder as final truth.
 
 Treat \`\$WS/TODO.md\` as the canonical definition of done.
 If the user interjects, add what they said to the stack or the workstream.
 Do not treat interjections as stopping signals, and do not silently mutate the
 definition of done because the user injected more steering.
-Work with your reviewer team using the persisted UUIDs below. Ask for
-continuous narration, do not interrupt running reviewers, and secure sign-off
+Work with your peers using the persisted UUIDs below. Ask for
+continuous narration, do not interrupt running peers, and secure sign-off
 before edits and before declaring completion.
 
 EOF
@@ -496,20 +549,21 @@ $mission
 EOF
 fi
 cat <<EOF
-Reviewer continuity:
+Peer continuity:
 
-- Reviewer A model: \`$model_a\`
-- Reviewer A UUID: \`$uuid_a\`
-- Reviewer B model: \`$model_b\`
-- Reviewer B UUID: \`$uuid_b\`
+- Peer A model: \`$model_a\`
+- Peer A UUID: \`$uuid_a\`
+- Peer B model: \`$model_b\`
+- Peer B UUID: \`$uuid_b\`
 
 Useful artifacts already present in \`\$WS\`:
 
-- \`\$WS/PROMPT.md\`
+- \`\$WS/GOAL.md\`
 - \`\$WS/TODO.md\`
 - \`\$WS/WORKSTREAM.md\`
-- \`\$WS/REVIEWS.md\`
-- \`\$WS/commands.sh\`
+- \`\$WS/WORKLOG.md\`
+- \`\$WS/peer-a.sh\`
+- \`\$WS/peer-b.sh\`
 EOF
 if [[ -n "$agents_src" ]]; then
   cat <<EOF
@@ -523,11 +577,12 @@ EOF
 fi
 cat <<EOF
 
-Reviewer launch commands are in \`\$WS/commands.sh\`.
+Peer launch scripts are \`\$WS/peer-a.sh\` and
+\`\$WS/peer-b.sh\`.
 
-Go ahead and start implementing with your team; ask for their continuous
-narration, and secure full sign-off from your team before starting and prior
-to declaring completion. Never interrupt a running team member for any reason
+Go ahead and start implementing with your peers; ask for their continuous
+narration, and secure full peer sign-off before starting and prior
+to declaring completion. Never interrupt a running peer for any reason
 whatsoever once started; allow them to finish or fail on their own. Voraciously
 devour the available guidance until you're confident you've internalized its
 axioms and are committed to exhausting all edge cases from its perspective.
