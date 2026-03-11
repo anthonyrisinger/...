@@ -225,6 +225,11 @@ if [[ ! -f "$todo_file" ]]; then
 This file is the coordination point and the definition of done for this
 workstream.
 
+It is a bootstrap scaffold, not a finished plan. Expand it aggressively as the
+real work reveals itself. Add missing batteries, checkpoints, reviewer
+artifacts, and any other concrete work needed to make the definition of done
+true in reality rather than only on paper.
+
 ## Definition Of Done
 
 This workstream is done only when all of the following are true:
@@ -239,8 +244,12 @@ This workstream is done only when all of the following are true:
 
 ## Status
 
+- This block is only the bootstrap floor. It should grow.
+- If important work is missing, add it explicitly rather than treating it as
+  implied.
 - [x] Operating directory established at \`$work_dir\`
 - [ ] PROMPT.md rewritten by the active agent from live context
+- [ ] TODO.md expanded by the active agent into a real working checklist
 - [ ] Initial reviewer pass collected from reviewer A
 - [ ] Initial reviewer pass collected from reviewer B
 - [ ] Final team sign-off collected after edits
@@ -264,14 +273,18 @@ EOF
     cat <<'EOF'
 ## Drift / Truth Battery
 
-- [ ] Record implementation-truth mismatches here with explicit disposition
+- Seed placeholder. Replace with concrete truth-mismatch work as soon as it is
+  discovered.
 
 ## Mechanical / Safety Battery
 
-- [ ] Record anchor, link, and dangerous-guidance checks here
+- Seed placeholder. Replace with concrete mechanical, anchor, link, and
+  dangerous-guidance work as soon as it is discovered.
 
 ## Reviewer Disposition Notes
 
+- Seed placeholder. Add reviewer artifacts, findings, and dispositions as they
+  actually happen.
 - Reviewer A:
   - [ ] Report collected
   - [ ] Findings dispositioned
@@ -281,7 +294,8 @@ EOF
 
 ## Final Sign-off Notes
 
-- [ ] Capture final reviewer sign-off artifact paths here
+- Seed placeholder. Replace with final sign-off artifacts and any remaining
+  closing checks.
 EOF
   } >"$todo_file"
 fi
