@@ -185,7 +185,6 @@ fi
 
 uuid_a="${WORKSTREAM_UUID_A:-$(uuidgen | tr '[:upper:]' '[:lower:]')}"
 uuid_b="${WORKSTREAM_UUID_B:-$(uuidgen | tr '[:upper:]' '[:lower:]')}"
-head_commit="$(git -C "$repo" rev-parse HEAD)"
 created_at="${WORKSTREAM_CREATED:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}"
 
 mapfile -t scope_files < <(
@@ -204,7 +203,6 @@ fi
   printf 'WORKSTREAM_REPO=%q\n' "$repo"
   printf 'WORKSTREAM_DIR=%q\n' "$work_dir"
   printf 'WORKSTREAM_SCOPE=%q\n' "$scope"
-  printf 'WORKSTREAM_HEAD=%q\n' "$head_commit"
   printf 'WORKSTREAM_CREATED=%q\n' "$created_at"
   printf 'WORKSTREAM_MODEL_A=%q\n' "$model_a"
   printf 'WORKSTREAM_MODEL_B=%q\n' "$model_b"
