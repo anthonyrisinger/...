@@ -143,6 +143,17 @@ peer_a_file="$work_dir/peer-a.sh"
 peer_b_file="$work_dir/peer-b.sh"
 agents_copy_file="$work_dir/AGENTS.md"
 voice_copy_file="$work_dir/VOICE.md"
+peer_root_dir="$work_dir/peers"
+peer_a_dir="$peer_root_dir/peer-a"
+peer_b_dir="$peer_root_dir/peer-b"
+peer_a_readme_file="$peer_a_dir/README.md"
+peer_b_readme_file="$peer_b_dir/README.md"
+peer_a_report_file="$peer_a_dir/REPORT.md"
+peer_b_report_file="$peer_b_dir/REPORT.md"
+peer_a_notes_file="$peer_a_dir/NOTES.md"
+peer_b_notes_file="$peer_b_dir/NOTES.md"
+
+mkdir -p "$peer_a_dir/artifacts" "$peer_b_dir/artifacts"
 
 if [[ -f "$state_file" ]]; then
   # shellcheck disable=SC1090
@@ -212,7 +223,80 @@ fi
   printf 'WORKSTREAM_MISSION=%q\n' "$mission"
   printf 'WORKSTREAM_AGENTS_SOURCE=%q\n' "$agents_src"
   printf 'WORKSTREAM_VOICE_SOURCE=%q\n' "$voice_src"
+  printf 'WORKSTREAM_PEER_ROOT=%q\n' "$peer_root_dir"
+  printf 'WORKSTREAM_PEER_A_DIR=%q\n' "$peer_a_dir"
+  printf 'WORKSTREAM_PEER_B_DIR=%q\n' "$peer_b_dir"
 } >"$state_file"
+
+if [[ ! -f "$peer_a_readme_file" ]]; then
+  cat >"$peer_a_readme_file" <<EOF
+# Peer A Workspace
+
+This directory is the isolated write surface for peer A.
+
+Expected outputs:
+
+- \`REPORT.md\`: main peer report and sign-off
+- \`NOTES.md\`: running notes and proposed shared-file updates
+- \`artifacts/\`: peer-local captures, snapshots, and scratch outputs
+
+Guardrail:
+
+- Avoid editing shared top-level workstream files unless the primary agent
+  explicitly asks after review.
+EOF
+fi
+
+if [[ ! -f "$peer_a_report_file" ]]; then
+  cat >"$peer_a_report_file" <<'EOF'
+# Peer A Report
+
+Write the main peer report and sign-off here.
+EOF
+fi
+
+if [[ ! -f "$peer_a_notes_file" ]]; then
+  cat >"$peer_a_notes_file" <<'EOF'
+# Peer A Notes
+
+Use this file for running notes and proposed shared-file updates.
+EOF
+fi
+
+if [[ ! -f "$peer_b_readme_file" ]]; then
+  cat >"$peer_b_readme_file" <<EOF
+# Peer B Workspace
+
+This directory is the isolated write surface for peer B.
+
+Expected outputs:
+
+- \`REPORT.md\`: main peer report and sign-off
+- \`NOTES.md\`: running notes and proposed shared-file updates
+- \`artifacts/\`: peer-local captures, snapshots, and scratch outputs
+
+Guardrail:
+
+- Avoid editing shared top-level workstream files unless the primary agent
+  explicitly asks after review.
+EOF
+fi
+
+if [[ ! -f "$peer_b_report_file" ]]; then
+  cat >"$peer_b_report_file" <<'EOF'
+# Peer B Report
+
+Write the main peer report and sign-off here.
+EOF
+fi
+
+if [[ ! -f "$peer_b_notes_file" ]]; then
+  cat >"$peer_b_notes_file" <<'EOF'
+# Peer B Notes
+
+Use this file for running notes and proposed shared-file updates.
+EOF
+fi
 
 if [[ ! -f "$todo_file" ]]; then
   {
@@ -440,6 +524,7 @@ set -euo pipefail
 
 ws=$(quote_sh "$work_dir")
 repo=$(quote_sh "$repo")
+peer_dir=$(quote_sh "$peer_a_dir")
 goal_file="\$ws/GOAL.md"
 
 if [[ \$# -gt 1 ]]; then
@@ -453,8 +538,37 @@ goal_input_file="\${1:-\$goal_file}"
   exit 1
 }
 
+tmp_prompt="\$(mktemp)"
+cleanup() {
+  rm -f "\$tmp_prompt"
+}
+trap cleanup EXIT
+
+cat >"\$tmp_prompt" <<'PROMPT'
+You are peer A inside a shared workstream.
+
+Read shared files freely, but treat the shared top-level workstream files as
+read-only by default:
+
+- TODO.md
+- WORKSTREAM.md
+- WORKLOG.md
+- GOAL.md
+- top-level graph or summary artifacts
+
+Your write surface is confined to the peer directory named below.
+
+If you want the primary agent to change a shared file, record that under a
+"Proposed shared-file updates" section in REPORT.md instead of editing the
+shared file directly.
+
+Keep continuous narration. Do not trample sibling peer files.
+PROMPT
+printf '\nPeer identity:\n- label: peer A\n- write surface: %s\n- report file: %s/REPORT.md\n- notes file: %s/NOTES.md\n- artifact dir: %s/artifacts/\n\nShared goal follows:\n\n' "\$peer_dir" "\$peer_dir" "\$peer_dir" "\$peer_dir" >>"\$tmp_prompt"
+cat "\$goal_input_file" >>"\$tmp_prompt"
+
 cd "\$repo"
-copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_a") --resume=$(quote_sh "$uuid_a") --prompt="\$(<"\$goal_input_file")"
+copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_a") --resume=$(quote_sh "$uuid_a") --prompt="\$(<"\$tmp_prompt")"
 EOF
 chmod +x "$peer_a_file"
 
@@ -464,6 +578,7 @@ set -euo pipefail
 
 ws=$(quote_sh "$work_dir")
 repo=$(quote_sh "$repo")
+peer_dir=$(quote_sh "$peer_b_dir")
 goal_file="\$ws/GOAL.md"
 
 if [[ \$# -gt 1 ]]; then
@@ -477,8 +592,37 @@ goal_input_file="\${1:-\$goal_file}"
   exit 1
 }
 
+tmp_prompt="\$(mktemp)"
+cleanup() {
+  rm -f "\$tmp_prompt"
+}
+trap cleanup EXIT
+
+cat >"\$tmp_prompt" <<'PROMPT'
+You are peer B inside a shared workstream.
+
+Read shared files freely, but treat the shared top-level workstream files as
+read-only by default:
+
+- TODO.md
+- WORKSTREAM.md
+- WORKLOG.md
+- GOAL.md
+- top-level graph or summary artifacts
+
+Your write surface is confined to the peer directory named below.
+
+If you want the primary agent to change a shared file, record that under a
+"Proposed shared-file updates" section in REPORT.md instead of editing the
+shared file directly.
+
+Keep continuous narration. Do not trample sibling peer files.
+PROMPT
+printf '\nPeer identity:\n- label: peer B\n- write surface: %s\n- report file: %s/REPORT.md\n- notes file: %s/NOTES.md\n- artifact dir: %s/artifacts/\n\nShared goal follows:\n\n' "\$peer_dir" "\$peer_dir" "\$peer_dir" "\$peer_dir" >>"\$tmp_prompt"
+cat "\$goal_input_file" >>"\$tmp_prompt"
+
 cd "\$repo"
-copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_b") --resume=$(quote_sh "$uuid_b") --prompt="\$(<"\$goal_input_file")"
+copilot --yolo --experimental --no-ask-user --no-alt-screen --stream=on --model=$(quote_sh "$model_b") --resume=$(quote_sh "$uuid_b") --prompt="\$(<"\$tmp_prompt")"
 EOF
 chmod +x "$peer_b_file"
 
@@ -499,6 +643,14 @@ File roles:
   dispositions, and sign-off
 - \`\$WS/GOAL.md\`: live briefing to rewrite from the current moment and use
   for peer launches
+- \`\$WS/peers/peer-a/\`: isolated peer A write surface
+- \`\$WS/peers/peer-b/\`: isolated peer B write surface
+
+Ownership rule:
+
+- The primary agent owns shared top-level files under \`\$WS/\`.
+- Peers should write under their own isolated peer directories first.
+- Integrate peer findings back into shared files one at a time after review.
 
 Start by reading:
 
