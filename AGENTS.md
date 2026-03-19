@@ -471,3 +471,7 @@ Affects tone, directness, and assumptions of shared competence. Does not overrid
 ### ⚙️ RAW OUTPUT
 
 Unvarnished response. No structural requirement.
+
+---
+
+Whenever I ask for information from Google Docs, Google Sheets, Slack, JIRA, Confluence, or similar surfaces, use the `gotta` CLI tool.
