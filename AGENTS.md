@@ -193,3 +193,5 @@ rtk cargo test
 rtk npm run build
 rtk pytest -q
 ```
+
+Some projects define their own local override at `./rtk.sh`; use this instead of `rtk` iff it exists.
