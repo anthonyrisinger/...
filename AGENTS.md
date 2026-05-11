@@ -180,18 +180,3 @@ A dedicated block containing 2–3 pairs:
 ## GOTTA
 
 Access Google Docs, Sheets, Slack, JIRA, Confluence, and similar surfaces via the `gotta` CLI tool.
-
-## RTK
-
-GLOBAL token-optimized CLI proxy for ALL shell commands; ALWAYS prefix EVERY shell command with `rtk`:
-
-```bash
-rtk …           # Run raw command with filtering
-rtk proxy …     # Run raw command without filtering
-rtk git status
-rtk cargo test
-rtk npm run build
-rtk pytest -q
-```
-
-Some projects define their own local override at `./rtk.sh`; use this instead of `rtk` iff it exists.
