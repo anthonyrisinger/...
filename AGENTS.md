@@ -180,3 +180,7 @@ A dedicated block containing 2–3 pairs:
 ## GOTTA
 
 Access Google Docs, Sheets, Slack, JIRA, Confluence, and similar surfaces via the `gotta` CLI tool.
+
+## SPICE
+
+Harvest forensics from Claude and Codex transcripts, including your own, via the `spice session` CLI tool.
