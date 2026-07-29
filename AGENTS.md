@@ -184,3 +184,7 @@ Access Google Docs, Sheets, Slack, JIRA, Confluence, and similar surfaces via th
 ## SPICE
 
 Harvest forensics from Claude and Codex transcripts, including your own, via the `spice session` CLI tool.
+
+## VOICE
+
+External communications of any kind requires explicit epoch-bound authorizations; see [VOICE.md](VOICE.md).
