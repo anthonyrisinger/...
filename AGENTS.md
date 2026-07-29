@@ -187,4 +187,4 @@ Harvest forensics from Claude and Codex transcripts, including your own, via the
 
 ## VOICE
 
-External communications of any kind requires explicit epoch-bound authorizations; see [VOICE.md](VOICE.md).
+External communications of any kind requires explicit epoch-bound authorizations; see [VOICE.md](~/VOICE.md).
